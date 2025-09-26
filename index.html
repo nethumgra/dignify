@@ -12,7 +12,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
@@ -20,7 +19,6 @@
             font-family: 'Poppins', sans-serif; 
         }
 
-        /* DIV 1: The Background Layer - Updated for a single, large image */
         #page-background {
             position: fixed;
             top: 0;
@@ -31,15 +29,13 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            opacity: 0.05; /* Slightly increased opacity */
-            z-index: 1; /* Layer 1 */
+            opacity: 0.05;
+            z-index: -1;
         }
 
-        /* DIV 2: The Content Layer */
         #content-wrapper {
             position: relative;
             z-index: 1;
-           
         }
         
         .font-brand {
@@ -56,12 +52,19 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        .no-scroll {
-            overflow: hidden;
+        .swiper-pagination-bullet-active {
+            background-color: #16a34a;
         }
         
-        .swiper-pagination-bullet-active {
-            background-color: #16a34a; /* green-600 */
+        .goals-swiper .swiper-pagination-bullet {
+            background-color: rgba(255, 255, 255, 0.6);
+            opacity: 1;
+        }
+        .goals-swiper .swiper-pagination-bullet-active {
+            background-color: #ffffff;
+        }
+        .goals-swiper .swiper-pagination {
+            bottom: 16px !important;
         }
     </style>
 </head>
@@ -123,23 +126,33 @@
         </div>
     </nav>
     
-    <header class="relative bg-gray-800">
-        <div class="swiper hero-slider h-[60vh]">
+   <header>
+    <div class="relative">
+        <div class="swiper heroSwiper w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/8] lg:aspect-[16/6]">
             <div class="swiper-wrapper">
-                
-              
 
                 <div class="swiper-slide">
-                    <a href="/organic-products">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1920&auto=format&fit=crop" alt="Fresh organic products from local sources">
-                    </a>
+                    <picture>
+                        <source media="(min-width: 1024px)" srcset="https://i.ibb.co/Psh7srJv/LINEN-SHIRTS-28.png">
+                        <source media="(min-width: 768px)" srcset="https://i.ibb.co/G4KC1F7Q/LINEN-SHIRTS-30.png">
+                        <img src="https://i.ibb.co/tw4YTtC5/LINEN-SHIRTS-32.pngvv" class="w-full h-full object-cover" alt="Super Fins Hero Image 1" />
+                    </picture>
                 </div>
 
+                <div class="swiper-slide">
+                    <picture>
+                        <source media="(min-width: 1024px)" srcset="https://i.ibb.co/7J0NrSx6/LINEN-SHIRTS-29.png">
+                        <source media="(min-width: 768px)" srcset="https://i.ibb.co/hxLVVywD/LINEN-SHIRTS-19.png">
+                        <img src="https://i.ibb.co/LdH3495K/LINEN-SHIRTS-20.png" class="w-full h-full object-cover" alt="Watersports Action" />
+                    </picture>
+                </div>
+
+            
             </div>
             <div class="swiper-pagination"></div>
         </div>
-    </header>
-
+    </div>
+</header>
 
     <section class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -225,33 +238,31 @@
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8">
             <aside id="desktop-filter-panel" class="hidden lg:block lg:col-span-1">
                 <div class="space-y-8 sticky top-28">
-                    <div class="border-b pb-6">
-                        <h3 class="font-semibold mb-4 text-lg">Brand</h3>
-                        <input type="text" id="desktop-brand-search" placeholder="Search Brand" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm mb-3">
-                        <div id="desktop-brand-filter-list" class="space-y-2">
-                            <p class="text-xs text-gray-400">Loading brands...</p>
+                    <div class="border rounded-lg p-4 bg-blue-50 border-blue-200">
+                        <h3 class="font-semibold mb-4 text-lg text-gray-800">Wholesale Rules & Regulations</h3>
+                        <div class="space-y-3 text-sm text-gray-700">
+                            <p>To partner with us for wholesale purchases, please adhere to the following guidelines:</p>
+                            <ul class="list-disc list-inside space-y-2 pl-1">
+                                <li><strong>Minimum Order (MOQ):</strong> A minimum of 20 units per order is required.</li>
+                                <li><strong>Pricing:</strong> Special wholesale pricing is available. Please contact us via WhatsApp for a detailed quote.</li>
+                                <li><strong>Ordering:</strong> All wholesale orders must be placed directly through our WhatsApp business line for efficient processing.</li>
+                                <li><strong>Payment:</strong> A 50% advance payment is required to confirm your order, with the remaining balance due before dispatch.</li>
+                                <li><strong>Delivery:</strong> We offer island-wide delivery. Delivery charges may apply based on order size and location.</li>
+                            </ul>
+                            <p class="pt-2 font-semibold text-blue-800">Contact us today to get started!</p>
                         </div>
                     </div>
-                    <div class="border-b pb-6">
-                        <h3 class="font-semibold mb-4 text-lg">Category</h3>
-                        <div id="desktop-category-filter-list" class="space-y-2"><p class="text-xs text-gray-400">Loading categories...</p></div>
-                    </div>
-                    <div class="border-t pt-6">
-                         <h3 class="font-semibold mb-2 text-lg">Price Range</h3>
-                         <div class="flex items-center space-x-2">
-                              <input type="number" id="desktop-min-price" placeholder="Min" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                              <span class="text-gray-500">-</span>
-                              <input type="number" id="desktop-max-price" placeholder="Max" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                         </div>
-                    </div>
-                    <div class="pt-4 flex flex-col space-y-2">
-                         <button id="desktop-apply-filters-btn" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Apply</button>
-                         <button id="desktop-clear-filters-btn" class="w-full bg-gray-200 text-gray-800 font-bold py-2.5 rounded-md hover:bg-gray-300 transition">Clear All</button>
-                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold mb-4 text-gray-800">Category</h3>
+                            <div id="desktop-category-filter-list" class="space-y-2">
+                                </div>
+                        </div>
+                        </div>
                 </div>
             </aside>
-
-            <main class="lg:col-span-3 h-[calc(100vh-15rem)] lg:h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar">
+            <main class="lg:col-span-3">
                 <div id="main-content-area">
                     <p class="col-span-full text-center text-gray-500 text-lg">Loading...</p>
                 </div>
@@ -259,80 +270,91 @@
         </div>
     </div>
     
-    <div id="mobile-filter-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
-        <div id="mobile-filter-panel" class="sidebar-panel absolute top-0 left-0 h-full w-full max-w-sm bg-white shadow-xl transform -translate-x-full flex flex-col">
-            <div class="flex items-center justify-between p-4 border-b">
-                <h2 class="text-lg font-semibold">Filters</h2>
-                <button id="close-filter-btn" class="p-2 rounded-full hover:bg-gray-100"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+   <div id="mobile-filter-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
+    <div id="mobile-filter-panel" class="sidebar-panel absolute top-0 left-0 h-full w-full max-w-sm bg-white shadow-xl transform -translate-x-full flex flex-col">
+        <div class="flex items-center justify-between p-4 border-b">
+            <h2 class="text-lg font-semibold">Filter & Sort</h2>
+            <button id="close-filter-btn" class="p-2 rounded-full hover:bg-gray-100"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+
+        <div class="p-4 overflow-y-auto flex-grow custom-scrollbar">
+            <div class="bg-blue-50 border border-blue-200 p-3 rounded-md mb-6">
+               <h3 class="font-semibold mb-3 text-base text-gray-800">Wholesale Rules & Regulations</h3>
+               <div class="space-y-3 text-sm text-gray-700">
+                    <p>To partner with us for wholesale purchases, please adhere to the following guidelines:</p>
+                    <ul class="list-disc list-inside space-y-2 pl-1">
+                        <li><strong>Minimum Order (MOQ):</strong> A minimum of 20 units per order is required.</li>
+                        <li><strong>Pricing:</strong> Special wholesale pricing is available. Please contact us via WhatsApp for a detailed quote.</li>
+                        <li><strong>Ordering:</strong> All wholesale orders must be placed directly through our WhatsApp business line for efficient processing.</li>
+                        <li><strong>Payment:</strong> A 50% advance payment is required to confirm your order, with the remaining balance due before dispatch.</li>
+                        <li><strong>Delivery:</strong> We offer island-wide delivery. Delivery charges may apply based on order size and location.</li>
+                    </ul>
+                    <p class="pt-2 font-semibold text-blue-800">Contact us today to get started!</p>
+               </div>
             </div>
-            <div class="p-4 space-y-6 overflow-y-auto flex-grow custom-scrollbar">
+            
+            <div class="space-y-6">
                 <div>
-                    <h3 class="font-semibold mb-2">Brand</h3>
-                    <input type="text" id="mobile-brand-search" placeholder="Search Brand" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm mb-3">
-                    <div id="mobile-brand-filter-list" class="space-y-2 max-h-40 overflow-y-auto"></div>
+                    <h3 class="font-semibold mb-4 text-gray-800">Category</h3>
+                    <div id="mobile-category-filter-list" class="space-y-2">
+                        </div>
                 </div>
                 <div>
-                    <h3 class="font-semibold mb-1">Category</h3>
-                    <div id="mobile-category-filter-list" class="space-y-2"></div>
+                    <h3 class="font-semibold mb-4 text-gray-800">Sort By</h3>
+                    <select id="mobile-sort-select" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                        <option value="createdAt-desc">Newest</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                    </select>
                 </div>
-                <div>
-                    <h3 class="font-semibold mb-2">Price Range</h3>
-                    <div class="flex items-center space-x-2">
-                        <input type="number" id="mobile-min-price" placeholder="Min" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                        <span class="text-gray-500">-</span>
-                        <input type="number" id="mobile-max-price" placeholder="Max" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 border-t bg-white flex space-x-2">
-                <button id="mobile-clear-filters-btn" class="w-1/2 bg-gray-200 text-gray-800 font-bold py-2.5 rounded-md hover:bg-gray-300 transition">Clear All</button>
-                <button id="mobile-apply-filters-btn" class="w-1/2 bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Apply</button>
             </div>
         </div>
+        
     </div>
+</div>
 
     <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
          <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
-              <div class="flex border-b">
-                   <button id="login-tab" class="flex-1 py-3 font-semibold text-center bg-gray-100 text-gray-800 rounded-tl-lg">Login</button>
-                   <button id="signup-tab" class="flex-1 py-3 font-semibold text-center bg-white text-gray-500">Sign Up</button>
-              </div>
-              <div class="p-8">
-                   <form id="login-form" class="space-y-4">
-                        <div>
-                             <label for="login-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                             <input type="email" id="login-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                        </div>
-                        <div>
-                             <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
-                             <input type="password" id="login-password" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                        </div>
-                        <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Login</button>
-                   </form>
-                   <form id="signup-form" class="space-y-4 hidden">
-                        <div>
-                             <label for="signup-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                             <input type="email" id="signup-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                        </div>
-                        <div>
-                             <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
-                             <input type="password" id="signup-password" minlength="6" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                             <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long.</p>
-                        </div>
-                        <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Create Account</button>
-                   </form>
-                   <div class="relative flex py-5 items-center">
-                        <div class="flex-grow border-t border-gray-200"></div>
-                        <span class="flex-shrink mx-4 text-xs text-gray-400 uppercase">Or</span>
-                        <div class="flex-grow border-t border-gray-200"></div>
-                   </div>
-                   <button id="google-signin-btn" class="w-full flex items-center justify-center py-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
-                        <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.223 0-9.641-3.657-11.297-8.591l-6.522 5.025C9.505 39.556 16.227 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.574l6.19 5.238C42.012 35.245 44 30.024 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
-                        Sign in with Google
-                   </button>
-                   <p id="auth-error" class="text-red-500 text-sm mt-4 text-center"></p>
-              </div>
-         </div>
+             <div class="flex border-b">
+                 <button id="login-tab" class="flex-1 py-3 font-semibold text-center bg-gray-100 text-gray-800 rounded-tl-lg">Login</button>
+                 <button id="signup-tab" class="flex-1 py-3 font-semibold text-center bg-white text-gray-500">Sign Up</button>
+             </div>
+             <div class="p-8">
+                 <form id="login-form" class="space-y-4">
+                      <div>
+                          <label for="login-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                          <input type="email" id="login-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <div>
+                          <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+                          <input type="password" id="login-password" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Login</button>
+                 </form>
+                 <form id="signup-form" class="space-y-4 hidden">
+                      <div>
+                          <label for="signup-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                          <input type="email" id="signup-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <div>
+                          <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                          <input type="password" id="signup-password" minlength="6" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                          <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long.</p>
+                      </div>
+                      <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Create Account</button>
+                 </form>
+                 <div class="relative flex py-5 items-center">
+                      <div class="flex-grow border-t border-gray-200"></div>
+                      <span class="flex-shrink mx-4 text-xs text-gray-400 uppercase">Or</span>
+                      <div class="flex-grow border-t border-gray-200"></div>
+                 </div>
+                 <button id="google-signin-btn" class="w-full flex items-center justify-center py-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                      <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.223 0-9.641-3.657-11.297-8.591l-6.522 5.025C9.505 39.556 16.227 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.574l6.19 5.238C42.012 35.245 44 30.024 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
+                      Sign in with Google
+                 </button>
+                 <p id="auth-error" class="text-red-500 text-sm mt-4 text-center"></p>
+             </div>
+        </div>
     </div>
     
     <div id="user-info-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
@@ -363,6 +385,135 @@
     </section>
 
     
+   <section id="achievements-section" class="bg-white py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col-reverse md:flex-row gap-12 items-center">
+            
+            <div class="space-y-5 w-full md:w-1/2">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 tracking-tight">Our Achievements</h2>
+                <span class="text-green-700 font-bold uppercase tracking-wider">A MARK OF EXCELLENCE</span>
+                <h3 class="text-2xl font-bold text-gray-800">Delivering Certified Quality & Authentic Taste</h3>
+                <p id="dynamic-achievement-description" class="text-gray-600 leading-relaxed min-h-[100px] transition-opacity duration-300">
+                </p>
+                <div class="pt-4">
+                    <h4 class="font-semibold text-gray-700 mb-3">Our Credentials:</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start text-gray-600">
+                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span><strong>Certified for Quality:</strong> Our production facilities are ISO 22000 and HACCP certified, ensuring the highest standards of food safety and quality management.</span>
+                        </li>
+                        <li class="flex items-start text-gray-600">
+                           <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span><strong>Award-Winning Taste:</strong> Recognized with the 'National Food Exporter of the Year 2024' award for our commitment to authentic flavour.</span>
+                        </li>
+                        <li class="flex items-start text-gray-600">
+                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <span><strong>Trusted by Thousands:</strong> Proudly serving over 50,000 satisfied customers in Sri Lanka and across the globe who trust us for purity and taste.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="relative rounded-lg shadow-xl overflow-hidden w-full md:w-1/2">
+                <div class="swiper goals-swiper h-full">
+                    <div class="swiper-wrapper">
+                        
+                        <div class="swiper-slide youtube-slide" data-description="Watch our official company video to see our dedication to quality and the authentic process behind our products, from the heart of Sri Lanka to your table.">
+                            <div class="aspect-video">
+                                <iframe id="youtube-player" class="w-full h-full" 
+                                    src="https://www.youtube.com/embed/kX5yDwbTwik?enablejsapi=1&autoplay=0&mute=1&loop=1&playlist=kX5yDwbTwik&controls=0&modestbranding=1" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide" data-description="This is the official registration certificate for the business named 'Dignify Ceylon Food Products', issued by the Department of Business Names Registration of the Western Province, confirming our legal operation in Sri Lanka.">
+                            <img src="https://i.ibb.co/SDCgJrsy/Untitled-design-3.png" alt="Official Business Registration Certificate" class="w-full h-auto object-contain">
+                        </div>
+                        
+                        <div class="swiper-slide" data-description="This certificate confirms the successful completion of a course in Thailand Food Dehydration Technology by our leadership, covering advanced dehydration methods, packaging, and zero-waste management.">
+                            <img src="https://i.ibb.co/vK0WwQX/Untitled-design-2.png" alt="Certificate for Thailand Food Dehydration Technology" class="w-full h-auto object-contain">
+                        </div>
+
+                        <div class="swiper-slide" data-description="A professional endorsement from High Tags Holding (Pvt) Ltd, vouching for the high standard of our 100% natural, preservative-free coconut products and excellent service for international logistics.">
+                            <img src="https://i.ibb.co/b52GDR0r/Untitled-design-1.png" alt="Recommendation Letter from High Tags Holding" class="w-full h-auto object-contain">
+                        </div>
+
+                    </div>
+                    <div class="swiper-button-next text-white after:text-2xl"></div>
+                    <div class="swiper-button-prev text-white after:text-2xl"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact-us" class="bg-white py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 tracking-tight">Get In Touch</h2>
+            <p class="mt-4 text-lg text-gray-600">Have questions? We'd love to hear from you.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800">Contact Information</h3>
+                    <p class="text-gray-600 mt-2">Fill up the form and our team will get back to you within 24 hours.</p>
+                </div>
+                <div class="flex items-center space-x-4 text-gray-700">
+                    <svg class="w-6 h-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 6.75z" />
+                    </svg>
+                    <span>+94 77 900 4063</span>
+                </div>
+                <div class="flex items-center space-x-4 text-gray-700">
+                    <svg class="w-6 h-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                    <span>contact@dignifyceylon.com</span>
+                </div>
+                <div class="flex items-start space-x-4 text-gray-700">
+                    <svg class="w-6 h-6 text-green-700 mt-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                    <span>Main Street, Colombo, Sri Lanka</span>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                <form id="contact-form" novalidate>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="contact-name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="contact-email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="contact-message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-green-700 text-white font-bold py-3 px-6 rounded-md hover:bg-green-800 transition-colors flex items-center justify-center space-x-2">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.94631 9.42398C1.83325 8.94193 2.23558 8.48421 2.71074 8.52936L21.4988 10.0526C21.933 10.0941 22.1465 10.6183 21.8485 10.9419L19.0195 14.004C18.8211 14.2183 18.5143 14.2479 18.2868 14.0729L13.1678 10.3755C13.0617 10.2941 12.9056 10.3635 12.8943 10.4907L12.0125 19.8631C11.9961 20.0416 11.8021 20.1424 11.6375 20.0461L8.14693 17.9317C7.94273 17.8142 7.78137 17.6118 7.72295 17.3809L5.80858 9.8732C5.74837 9.63583 5.86476 9.39294 6.08865 9.27419L11.5312 6.18235C11.6601 6.10729 11.8153 6.20853 11.7877 6.36106L10.3123 15.1118L13.7844 17.6536L16.2737 15.0116L12.4208 11.5173C12.1154 11.2366 12.158 10.7485 12.4938 10.5126L17.337 7.21808L3.89666 8.46825L6.20171 16.082L7.30933 16.595L8.94827 10.0231C9.02058 9.73693 8.8475 9.44497 8.56069 9.38012L2.09115 8.08328C2.01358 8.06797 1.93895 8.03157 1.87974 7.97962C1.7259 7.84478 1.63855 7.63281 1.6845 7.4299L2.50284 3.78417C2.59019 3.39572 2.1462 3.09033 1.77681 3.28454L0.424299 3.96081C0.0549045 4.15501 -0.118081 4.64307 0.052824 5.01898L1.94631 9.42398Z"/></svg>
+                                <span>Send Message on WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
     
     <footer class="bg-green-900 text-white">
         <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
@@ -413,6 +564,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -421,7 +573,7 @@
 
     // --- Firebase Config ---
       const firebaseConfig = {
-            apiKey: "AIzaSyCpLC89l1EV_o399HEH_qppqecedVAhmdE",
+            apiKey: "AIzaSyCpLC8en-GBODf7Xk-uSpZg_HB37J5a-4I",
             authDomain: "dignify-69351.firebaseapp.com",
             projectId: "dignify-69351",
             storageBucket: "dignify-69351.appspot.com",
@@ -443,6 +595,7 @@
     const authModal = document.getElementById('auth-modal');
     const userInfoModal = document.getElementById('user-info-modal');
     const userText = document.getElementById('user-text');
+    const currencyModal = document.getElementById('currency-modal');
     
     // --- Global State ---
     let currentFilters = {};
@@ -450,6 +603,10 @@
     let wishlistedProductIds = new Set();
     let cartListener = null;
     let wishlistListener = null;
+    
+    // --- New Currency State ---
+    let selectedCurrency = 'LKR'; 
+    const LKR_TO_USD_RATE = 300; // IMPORTANT: Set your exchange rate here. 1 USD = 300 LKR
 
     // --- Icons ---
     const heartIconEmpty = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"></path></svg>`;
@@ -458,9 +615,48 @@
     const starEmptyIcon = `<svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
 
     const isMobileView = () => window.innerWidth < 1024;
+    
+    // --- New Function to Format Price ---
+    function formatPrice(lkrPrice) {
+        if (selectedCurrency === 'USD') {
+            const usdPrice = lkrPrice / LKR_TO_USD_RATE;
+            return `$${usdPrice.toFixed(2)}`;
+        }
+        // Default to LKR
+        return `Rs. ${lkrPrice.toLocaleString()}`;
+    }
+
+    // --- New Function to handle Currency Selection ---
+    function setupCurrencyModal() {
+        if (!currencyModal) return;
+        const currencyPreferenceSet = sessionStorage.getItem('currencyPreferenceSet');
+
+        if (!currencyPreferenceSet) {
+            currencyModal.classList.remove('hidden');
+        } else {
+            selectedCurrency = sessionStorage.getItem('userCurrency') || 'LKR';
+            loadProducts(); // Load products with saved preference
+        }
+
+        document.getElementById('select-lkr-btn').addEventListener('click', () => {
+            selectedCurrency = 'LKR';
+            sessionStorage.setItem('userCurrency', 'LKR');
+            sessionStorage.setItem('currencyPreferenceSet', 'true');
+            currencyModal.classList.add('hidden');
+            loadProducts(); // Reload products with new currency
+        });
+
+        document.getElementById('select-usd-btn').addEventListener('click', () => {
+            selectedCurrency = 'USD';
+            sessionStorage.setItem('userCurrency', 'USD');
+            sessionStorage.setItem('currencyPreferenceSet', 'true');
+            currencyModal.classList.add('hidden');
+            loadProducts(); // Reload products with new currency
+        });
+    }
 
     function setupHeroSlider() {
-        const swiper = new Swiper('.hero-slider', {
+        const swiper = new Swiper('.heroSwiper', {
             loop: true,
             effect: 'fade',
             autoplay: {
@@ -498,14 +694,6 @@
 
     async function populateFilterOptions() {
         try {
-            const productsSnapshot = await getDocs(collection(db, "products"));
-            const allProducts = productsSnapshot.docs.map(doc => doc.data());
-            
-            const brands = [...new Set(allProducts.map(p => p.brand).filter(Boolean))].sort();
-            const brandHTML = brands.map(brand => `<label class="flex items-center space-x-2 text-sm cursor-pointer"><input type="checkbox" value="${brand}" class="rounded text-green-600 focus:ring-green-500"><span>${brand}</span></label>`).join('');
-            document.getElementById('desktop-brand-filter-list').innerHTML = brandHTML || '<p class="text-xs text-gray-400">No brands found.</p>';
-            document.getElementById('mobile-brand-filter-list').innerHTML = brandHTML || '<p class="text-xs text-gray-400">No brands found.</p>';
-
             const staticCategories = [
                 "Spices & Herbs",
                 "Snacks & Sweets",
@@ -535,7 +723,7 @@
             titleRow.className = 'flex items-center justify-between mb-6';
             
             let title = 'Filtered Results';
-            const hasOnlyCategoryFilter = currentFilters.categories?.length > 0 && !currentFilters.brands?.length && currentFilters.minPrice == null && currentFilters.maxPrice == null;
+            const hasOnlyCategoryFilter = currentFilters.categories?.length > 0 && !currentFilters.brands?.length;
             if (hasOnlyCategoryFilter) {
                 title = currentFilters.categories.join(' & ');
             }
@@ -564,7 +752,7 @@
         
         const filterButton = document.createElement('button');
         filterButton.className = 'w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-md font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors';
-        filterButton.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg><span>Filter & Sort</span>`;
+        filterButton.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg><span>Filter & Sort</span>`;
         filterButton.onclick = () => toggleMobileFilterSidebar(true);
         
         headerContainer.appendChild(filterButton);
@@ -574,46 +762,35 @@
     function toggleMobileFilterSidebar(show) {
         if (show) {
             mobileFilterSidebar.classList.remove('hidden');
-            setTimeout(() => mobileFilterPanel.classList.remove('-translate-x-full'), 10);
+            setTimeout(() => {
+                mobileFilterPanel.classList.remove('-translate-x-full')
+                mobileFilterSidebar.addEventListener('click', closeOnOutsideClick, { once: true });
+            }, 10);
         } else {
             mobileFilterPanel.classList.add('-translate-x-full');
             setTimeout(() => mobileFilterSidebar.classList.add('hidden'), 300);
         }
     }
+
+    function closeOnOutsideClick(e) {
+        if (e.target === mobileFilterSidebar) {
+            toggleMobileFilterSidebar(false);
+        }
+    }
         
     function applyFilters() {
         const sourcePrefix = isMobileView() ? 'mobile' : 'desktop';
-        const panel = document.getElementById(`${sourcePrefix}-filter-panel`);
+        const panel = document.getElementById(`${sourcePrefix}-filter-panel`) || document.getElementById('mobile-filter-panel');
         currentFilters = {};
-        currentFilters.brands = [...panel.querySelectorAll(`#${sourcePrefix}-brand-filter-list input:checked`)].map(cb => cb.value);
         currentFilters.categories = [...panel.querySelectorAll(`#${sourcePrefix}-category-filter-list input:checked`)].map(cb => cb.value);
-        const minPrice = parseFloat(panel.querySelector(`#${sourcePrefix}-min-price`).value);
-        if (!isNaN(minPrice)) currentFilters.minPrice = minPrice; else delete currentFilters.minPrice;
-        const maxPrice = parseFloat(panel.querySelector(`#${sourcePrefix}-max-price`).value);
-        if (!isNaN(maxPrice)) currentFilters.maxPrice = maxPrice; else delete currentFilters.maxPrice;
-        if (isMobileView()) toggleMobileFilterSidebar(false);
+        
+        if (isMobileView()) {
+            const sortSelect = panel.querySelector('#mobile-sort-select');
+            const [field, direction] = sortSelect.value.split('-');
+            currentSort = { field, direction };
+        }
+        
         loadProducts();
-    }
-
-    function clearFilters() {
-        currentFilters = {};
-        loadProducts();
-    }
-    
-    function updateFilterUIs() {
-        ['mobile', 'desktop'].forEach(view => {
-            const panel = document.getElementById(`${view}-filter-panel`);
-            if (!panel) return;
-            panel.querySelector(`#${view}-min-price`).value = currentFilters.minPrice || '';
-            panel.querySelector(`#${view}-max-price`).value = currentFilters.maxPrice || '';
-            panel.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; });
-            if (currentFilters.brands) currentFilters.brands.forEach(b => {
-                const el = panel.querySelector(`input[value="${b}"]`); if(el) el.checked = true;
-            });
-            if (currentFilters.categories) currentFilters.categories.forEach(c => {
-                 const el = panel.querySelector(`input[value="${c}"]`); if(el) el.checked = true;
-            });
-        });
     }
 
     async function loadAndGroupAllProductsDesktop() {
@@ -653,57 +830,58 @@
     }
     
     async function loadProducts() {
+        // Prevent loading products if the currency is not yet selected
+        if (!sessionStorage.getItem('currencyPreferenceSet')) {
+            mainContentArea.innerHTML = ''; // Keep it empty until choice is made
+            return;
+        }
+
         const hasFilters = Object.values(currentFilters).some(val => Array.isArray(val) ? val.length > 0 : val != null);
         mainContentArea.innerHTML = `<p class="text-center text-gray-500">Loading...</p>`;
 
-        if (isMobileView()) {
-            mainContentArea.innerHTML = '';
-            mainContentArea.appendChild(renderMobileHeader());
-            const productGrid = document.createElement('div');
-            productGrid.className = 'grid grid-cols-2 gap-x-4 gap-y-8 pt-4';
-            mainContentArea.appendChild(productGrid);
+        try {
             let constraints = [];
             if (hasFilters) {
-                if (currentFilters.brands?.length) constraints.push(where("brand", "in", currentFilters.brands));
                 if (currentFilters.categories?.length) constraints.push(where("category", "in", currentFilters.categories));
-                if (currentFilters.minPrice != null) constraints.push(where("price", ">=", currentFilters.minPrice));
-                if (currentFilters.maxPrice != null) constraints.push(where("price", "<=", currentFilters.maxPrice));
             }
             constraints.push(orderBy(currentSort.field, currentSort.direction));
+
             const finalQuery = query(collection(db, "products"), ...constraints);
             const querySnapshot = await getDocs(finalQuery);
-            productGrid.innerHTML = '';
-            if (querySnapshot.empty) {
-                productGrid.innerHTML = `<p class="col-span-full text-center text-gray-500">${hasFilters ? 'No products match.' : 'No products found.'}</p>`;
-            } else {
-                querySnapshot.forEach((doc) => productGrid.appendChild(createProductCardElement(doc.id, doc.data())));
-            }
-        } else {
-            if (!hasFilters) {
-                await loadAndGroupAllProductsDesktop();
-            } else {
+
+            if (isMobileView()) {
                 mainContentArea.innerHTML = '';
-                mainContentArea.appendChild(renderDesktopHeaderAndFilters(true));
+                mainContentArea.appendChild(renderMobileHeader());
                 const productGrid = document.createElement('div');
-                productGrid.className = 'grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10';
+                productGrid.className = 'grid grid-cols-2 gap-x-4 gap-y-8 pt-4';
                 mainContentArea.appendChild(productGrid);
-                let constraints = [];
-                if (currentFilters.brands?.length) constraints.push(where("brand", "in", currentFilters.brands));
-                if (currentFilters.categories?.length) constraints.push(where("category", "in", currentFilters.categories));
-                if (currentFilters.minPrice != null) constraints.push(where("price", ">=", currentFilters.minPrice));
-                if (currentFilters.maxPrice != null) constraints.push(where("price", "<=", currentFilters.maxPrice));
-                constraints.push(orderBy(currentSort.field, currentSort.direction));
-                const finalQuery = query(collection(db, "products"), ...constraints);
-                const querySnapshot = await getDocs(finalQuery);
-                productGrid.innerHTML = '';
+                productGrid.innerHTML = ''; // Clear previous results
                 if (querySnapshot.empty) {
-                    productGrid.innerHTML = '<p class="col-span-full text-center text-gray-500">No products match your criteria.</p>';
+                    productGrid.innerHTML = `<p class="col-span-full text-center text-gray-500">${hasFilters ? 'No products match.' : 'No products found.'}</p>`;
                 } else {
                     querySnapshot.forEach((doc) => productGrid.appendChild(createProductCardElement(doc.id, doc.data())));
                 }
+            } else { // Desktop view
+                if (!hasFilters) {
+                    await loadAndGroupAllProductsDesktop();
+                } else {
+                    mainContentArea.innerHTML = '';
+                    mainContentArea.appendChild(renderDesktopHeaderAndFilters(true));
+                    const productGrid = document.createElement('div');
+                    productGrid.className = 'grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10';
+                    mainContentArea.appendChild(productGrid);
+                    productGrid.innerHTML = ''; // Clear previous results
+                    if (querySnapshot.empty) {
+                        productGrid.innerHTML = '<p class="col-span-full text-center text-gray-500">No products match your criteria.</p>';
+                    } else {
+                        querySnapshot.forEach((doc) => productGrid.appendChild(createProductCardElement(doc.id, doc.data())));
+                    }
+                }
             }
+        } catch (error) {
+            console.error("Error loading products:", error);
+            mainContentArea.innerHTML = '<p class="col-span-full text-center text-red-500">Could not load products. Please check console.</p>';
         }
-        updateFilterUIs();
     }
     
     function generateStars(rating = 0) {
@@ -726,6 +904,9 @@
         const rating = product.rating || (Math.random() * 2 + 3).toFixed(1);
         const reviewCount = product.reviewCount || Math.floor(Math.random() * 50) + 1;
         const oldPrice = product.oldPrice || product.price * 1.25;
+        
+        const displayPrice = formatPrice(product.price);
+        const displayOldPrice = formatPrice(oldPrice);
 
         cardWrapper.innerHTML = `
             <div class="group relative overflow-hidden rounded-lg bg-white border border-gray-200 hover:shadow-xl transition-shadow duration-300">
@@ -737,15 +918,15 @@
                 </button>
             </div>
             <div class="mt-3 px-1">
-                 <a href="product-detail.html?id=${productId}" class="text-sm text-blue-700 hover:text-blue-900 transition-colors">${product.name}</a>
-                 <div class="flex items-center mt-1">
-                      ${generateStars(rating)}
-                      <span class="text-xs text-gray-500 ml-2">(${reviewCount})</span>
-                 </div>
-                 <div class="mt-2 flex items-center gap-2">
-                      <p class="text-md font-bold text-gray-900">Rs. ${product.price.toLocaleString()}</p>
-                      <p class="text-sm text-gray-500 line-through">Rs. ${oldPrice.toLocaleString()}</p>
-                 </div>
+                <a href="product-detail.html?id=${productId}" class="text-sm font-semibold text-gray-800 hover:text-green-700 transition-colors">${product.name}</a>
+                <div class="flex items-center mt-1">
+                    ${generateStars(rating)}
+                    <span class="text-xs text-gray-500 ml-2">(${reviewCount})</span>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <p class="text-lg font-bold text-gray-900">${displayPrice}</p>
+                    <p class="text-sm text-gray-500 line-through">${displayOldPrice}</p>
+                </div>
             </div>`;
         return cardWrapper;
     }
@@ -784,7 +965,9 @@
             if (cartListener) cartListener();
             wishlistedProductIds.clear();
             updateAllWishlistIcons();
-            document.getElementById('cart-count').classList.add('hidden');
+            const cartCountEl = document.getElementById('cart-count');
+            cartCountEl.textContent = '0';
+            cartCountEl.classList.add('hidden');
             userText.textContent = "Log in / Register";
         }
     });
@@ -867,48 +1050,12 @@
         });
     }
 
-    function setupStickyScroll() {
-        if (isMobileView()) return; 
-
-        const productContainer = document.querySelector('#product-grid-container');
-        const mainContent = document.querySelector('main');
-
-        if (!productContainer || !mainContent) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    document.body.classList.remove('no-scroll');
-                } else if (entry.boundingClientRect.top < 0) {
-                    document.body.classList.add('no-scroll');
-                }
-            },
-            { threshold: [0] }
-        );
-
-        observer.observe(productContainer);
-
-        mainContent.addEventListener('scroll', () => {
-            const isAtTop = mainContent.scrollTop === 0;
-            const isAtBottom = mainContent.scrollHeight - mainContent.scrollTop <= mainContent.clientHeight + 1;
-
-            if (document.body.classList.contains('no-scroll')) {
-                if (isAtTop || isAtBottom) {
-                    document.body.classList.remove('no-scroll');
-                }
-            }
-        });
-    }
-
     document.addEventListener('DOMContentLoaded', async () => {
         setupAuthModal();
+        setupCurrencyModal();
+        
         await populateFilterOptions();
         
-        if(!isMobileView()) {
-            setupStickyScroll();
-        }
-        
-        loadProducts();
         setupHeroSlider();
         setupCategoryAutoSlide();
         
@@ -924,20 +1071,134 @@
         document.getElementById('desktop-search-form').addEventListener('submit', searchHandler);
         document.getElementById('mobile-search-form').addEventListener('submit', searchHandler);
 
-        ['desktop', 'mobile'].forEach(view => {
-            const panel = document.getElementById(`${view}-filter-panel`);
-            if (!panel) return;
-            panel.querySelector(`#${view}-apply-filters-btn`)?.addEventListener('click', applyFilters);
-            panel.querySelector(`#${view}-clear-filters-btn`)?.addEventListener('click', clearFilters);
+        document.getElementById('desktop-filter-panel').addEventListener('change', applyFilters);
+        mobileFilterPanel.addEventListener('change', (e) => {
+            if (e.target.matches('input[type="checkbox"]') || e.target.matches('select')) {
+                applyFilters();
+            }
         });
 
         closeFilterBtn.addEventListener('click', () => toggleMobileFilterSidebar(false));
-        mobileFilterSidebar.addEventListener('click', (e) => { if (e.target === mobileFilterSidebar) toggleMobileFilterSidebar(false); });
         mainContentArea.addEventListener('click', e => {
             const wishlistBtn = e.target.closest('.wishlist-btn');
             if (wishlistBtn) toggleWishlistItem(wishlistBtn.dataset.productId);
         });
+
+        // --- WhatsApp Contact Form ---
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+
+            if (name && email && message) {
+                const whatsappNumber = "94779004063"; // Your WhatsApp number with country code, without '+'
+                const fullMessage = `Hello, I'm ${name} (${email}).\n\nMessage:\n${message}`;
+                const encodedMessage = encodeURIComponent(fullMessage);
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
+            } else {
+                alert('Please fill out all fields before sending a message.');
+            }
+        });
+
+        
+        // --- Achievements/Goals Swiper with YouTube Player ---
+        let youtubePlayer;
+        let goalsSwiperInstance;
+
+        window.onYouTubeIframeAPIReady = function() {
+            youtubePlayer = new YT.Player('youtube-player', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange 
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.mute(); 
+            if (goalsSwiperInstance && goalsSwiperInstance.slides[goalsSwiperInstance.activeIndex].classList.contains('youtube-slide')) {
+                event.target.playVideo();
+                goalsSwiperInstance.autoplay.stop();
+            }
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                if(goalsSwiperInstance) {
+                    goalsSwiperInstance.slideNext();
+                }
+            }
+        }
+
+        goalsSwiperInstance = new Swiper('.goals-swiper', {
+            loop: true,
+            effect: 'fade',
+            autoHeight: true,
+            fadeEffect: {
+                crossFade: true
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.goals-swiper .swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.goals-swiper .swiper-button-next',
+                prevEl: '.goals-swiper .swiper-button-prev',
+            },
+            on: {
+                init: function() {
+                    const descriptionEl = document.getElementById('dynamic-achievement-description');
+                    const initialSlide = this.slides[this.activeIndex];
+                    const description = initialSlide.getAttribute('data-description');
+                    if (description && descriptionEl) {
+                        descriptionEl.innerText = description;
+                    }
+                },
+                slideChange: function() {
+                    const descriptionEl = document.getElementById('dynamic-achievement-description');
+                    const activeSlide = this.slides[this.activeIndex];
+                    const description = activeSlide.getAttribute('data-description');
+                    if (description && descriptionEl) {
+                        descriptionEl.innerText = description;
+                    }
+
+                    if (youtubePlayer && typeof youtubePlayer.pauseVideo === 'function') {
+                         if (activeSlide.classList.contains('youtube-slide')) {
+                             this.autoplay.stop();
+                             youtubePlayer.seekTo(0);
+                             youtubePlayer.playVideo();
+                         } else {
+                             this.autoplay.start();
+                             youtubePlayer.pauseVideo();
+                         }
+                    }
+                }
+            }
+        });
     });
 </script>
+
+<div id="currency-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-sm p-6 text-center">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">Welcome!</h2>
+        <p class="text-gray-600 mb-6">Please select your location to continue.</p>
+        <div class="space-y-3">
+            <button id="select-lkr-btn" class="w-full bg-green-700 text-white font-bold py-3 rounded-md hover:bg-green-800 transition">
+                Sri Lanka (LKR)
+            </button>
+            <button id="select-usd-btn" class="w-full bg-gray-700 text-white font-bold py-3 rounded-md hover:bg-gray-800 transition">
+                Other Country (USD)
+            </button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
