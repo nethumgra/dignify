@@ -66,6 +66,27 @@
         .goals-swiper .swiper-pagination {
             bottom: 16px !important;
         }
+
+        /* Animation માટે CSS Classes */
+.mind-map-item {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.mind-map-item.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Delay for each item to appear one by one */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+
     </style>
 </head>
 <body class="text-gray-800">
@@ -367,22 +388,109 @@
         </div>
     </div>
 
-     <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-                <img src="https://i.ibb.co/k2cvwnfQ/DIGNIFY-CEYLON.jpg" alt="Hands holding authentic Sri Lankan spices" class="rounded-lg shadow-2xl w-full h-full object-cover">
-            </div>
-            <div class="space-y-4">
-                <h2 class="text-3xl font-bold text-gray-800 tracking-tight">Our Story: The Essence of Ceylon</h2>
-                <p class="text-gray-600 leading-relaxed">
-                    Born from a passion for authentic Sri Lankan flavors, Dignify Ceylon is more than just a brand; it's a promise of quality and tradition. We began our journey to bring the true taste of our island's rich culinary heritage to every home, ensuring that every meal is a celebration.
+<section id="dehydration-section" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        
+        <h2 class="text-3xl font-bold text-gray-800 tracking-tight sm:text-4xl mind-map-item delay-1">
+            What is Dehydration?
+        </h2>
+        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto mind-map-item delay-2">
+            The ancient art of preserving food by gently removing its moisture. This natural process locks in flavour, nutrients, and goodness.
+        </p>
+
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <div class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-3">
+                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mx-auto">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="mt-5 text-xl font-semibold text-gray-800">Natural Preservation</h3>
+                <p class="mt-2 text-gray-600">
+                    Removes water that bacteria and mold need to grow, keeping food safe for months without chemicals.
                 </p>
-                <p class="text-gray-600 leading-relaxed">
-                    We work directly with local farmers to source the freshest, highest-quality ingredients. Each product is prepared with care, following age-old recipes to preserve the natural goodness and authentic taste that you love. From our spices to our ready-to-eat meals, we bring you the heart of Ceylon's cuisine.
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-4">
+                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-600 mx-auto">
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0112 2c1.398 0 2.743.57 3.714 1.543C18.5 5.543 19 8 19 10c2 1 2.657 1.657 2.657 1.657a8 8 0 01-4.001 7z"></path></svg>
+                </div>
+                <h3 class="mt-5 text-xl font-semibold text-gray-800">Concentrated Flavour</h3>
+                <p class="mt-2 text-gray-600">
+                    As water leaves, the food's natural flavours, sugars, and spices become richer and more intense.
                 </p>
             </div>
+
+            <div class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-5">
+                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mx-auto">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                </div>
+                <h3 class="mt-5 text-xl font-semibold text-gray-800">Nutrient Retention</h3>
+                <p class="mt-2 text-gray-600">
+                    Low-heat dehydration is gentle, preserving essential vitamins and minerals that high-heat cooking can destroy.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-5">
+                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 mx-auto">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="mt-5 text-xl font-semibold text-gray-800">Longer Shelf Life</h3>
+                <p class="mt-2 text-gray-600">
+                    Reduces food waste by extending the life of seasonal produce, making flavours available all year round.
+                </p>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all elements that should be animated
+        const items = document.querySelectorAll('.mind-map-item');
+
+        // Create an observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                // If the element is visible in the viewport
+                if (entry.isIntersecting) {
+                    // Add the 'is-visible' class to trigger the animation
+                    entry.target.classList.add('is-visible');
+                    // Stop observing the element after it has become visible
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger the animation when 10% of the item is visible
+        });
+
+        // Tell the observer to watch each of the items
+        items.forEach(item => {
+            observer.observe(item);
+        });
+    });
+</script>
+
+
+     <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+            <img src="https://i.ibb.co/k2cvwnfQ/DIGNIFY-CEYLON.jpg" alt="Hands holding authentic Sri Lankan spices" class="rounded-lg shadow-2xl w-full h-full object-cover">
+        </div>
+        <div class="space-y-4">
+            <h2 class="text-3xl font-bold text-gray-800 tracking-tight">Our Story: The Essence of Ceylon</h2>
+            <p class="text-gray-600 leading-relaxed">
+                Born from a passion for authentic Sri Lankan natural food colours and flavours. Our journey is rooted in bringing the true essence of our island's rich culinary heritage to your home.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+                Each product is prepared with care, following age-old recipes and our own new methods to preserve the natural goodness and authentic taste you love.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+                <strong>Award Winning & Trusted:</strong> We are proudly registered with the Ceylon Chamber of Commerce and featured on recognized e-commerce platforms like <a href="http://www.fromsrilanka.com" class="text-blue-600 hover:underline">fromsrilanka.com</a> and <a href="http://www.dharanimart.com" class="text-blue-600 hover:underline">dharanimart.com</a>, trusted by thousands.
+            </p>
+        </div>
+    </div>
+</section>
 
     
    <section id="achievements-section" class="bg-white py-24">
@@ -395,23 +503,23 @@
                 <h3 class="text-2xl font-bold text-gray-800">Delivering Certified Quality & Authentic Taste</h3>
                 <p id="dynamic-achievement-description" class="text-gray-600 leading-relaxed min-h-[100px] transition-opacity duration-300">
                 </p>
-                <div class="pt-4">
-                    <h4 class="font-semibold text-gray-700 mb-3">Our Credentials:</h4>
-                    <ul class="space-y-4">
-                        <li class="flex items-start text-gray-600">
-                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span><strong>Certified for Quality:</strong> Our production facilities are ISO 22000 and HACCP certified, ensuring the highest standards of food safety and quality management.</span>
-                        </li>
-                        <li class="flex items-start text-gray-600">
-                           <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span><strong>Award-Winning Taste:</strong> Recognized with the 'National Food Exporter of the Year 2024' award for our commitment to authentic flavour.</span>
-                        </li>
-                        <li class="flex items-start text-gray-600">
-                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                                <span><strong>Trusted by Thousands:</strong> Proudly serving over 50,000 satisfied customers in Sri Lanka and across the globe who trust us for purity and taste.</span>
-                        </li>
-                    </ul>
-                </div>
+              <div class="pt-4">
+    <h4 class="font-semibold text-gray-700 mb-3">Our Credentials:</h4>
+    <ul class="space-y-4">
+        <li class="flex items-start text-gray-600">
+            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span><strong>Official Registration:</strong> We are proudly registered with the Ceylon Chamber of Commerce, adhering to the highest standards of business ethics and quality.</span>
+        </li>
+        <li class="flex items-start text-gray-600">
+            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span><strong>Advanced Training:</strong> Our team has completed specialized training at a leading food technology academy in Thailand, mastering advanced techniques in natural food processing and preservation.</span>
+        </li>
+        <li class="flex items-start text-gray-600">
+            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span><strong>Trusted by Thousands:</strong> Proudly serving over 50,000 satisfied customers in Sri Lanka and across the globe who trust us for purity and taste.</span>
+        </li>
+    </ul>
+</div>
             </div>
 
             <div class="relative rounded-lg shadow-xl overflow-hidden w-full md:w-1/2">
