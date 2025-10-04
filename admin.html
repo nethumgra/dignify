@@ -44,7 +44,7 @@
         </aside>
 
         <main id="main-content" class="flex-1 p-8">
-            </main>
+        </main>
     </div>
 
     <div id="order-details-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden modal">
@@ -66,7 +66,7 @@
                  <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit Product</h2>
                  <form id="editProductForm" class="space-y-6">
                      <input type="hidden" id="editProductId">
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                          <div>
                              <label for="editProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
                              <input type="text" id="editProductName" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
@@ -74,6 +74,16 @@
                          <div>
                              <label for="editProductPrice" class="block text-sm font-medium text-gray-700">Price (Rs.)</label>
                              <input type="number" id="editProductPrice" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                         </div>
+                         <div>
+                            <label for="editProductWeight" class="block text-sm font-medium text-gray-700">Weight</label>
+                            <div class="flex mt-1">
+                                <input type="number" id="editProductWeight" step="any" placeholder="e.g., 500" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-l-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                                <select id="editProductWeightUnit" class="px-3 border-t border-b border-r border-gray-300 bg-gray-50 rounded-r-md focus:ring-green-500 focus:border-green-500">
+                                    <option value="g">g</option>
+                                    <option value="kg">kg</option>
+                                </select>
+                            </div>
                          </div>
                      </div>
                      <div>
@@ -95,8 +105,8 @@
                      <div>
                          <label for="editStockStatus" class="block text-sm font-medium text-gray-700">Stock Status</label>
                          <select id="editStockStatus" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                            <option>In Stock</option>
-                            <option>Sold Out</option>
+                             <option>In Stock</option>
+                             <option>Sold Out</option>
                          </select>
                      </div>
                      <div class="text-right pt-4 space-x-3">
@@ -114,7 +124,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, addDoc, serverTimestamp, query, orderBy, doc, deleteDoc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         
-        // --- UPDATED FIREBASE CONFIG ---
         const firebaseConfig = {
             apiKey: "AIzaSyCpLC89l1EV_o399HEH_qppqecedVAhmdE",
             authDomain: "dignify-69351.firebaseapp.com",
@@ -127,11 +136,8 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-// --- IMAGE UPLOAD FUNCTION WITH YOUR API KEY ---
         async function uploadImageToImgBB(file, onProgress) {
-            // Your API Key is now correctly placed here.
             const apiKey = '5077a838542f8a8e230a651f7c3a07ae'; 
-
             const formData = new FormData();
             formData.append('image', file);
             onProgress('Uploading image...');
@@ -156,7 +162,7 @@
                 }
             } catch (error) {
                 console.error('ImgBB Upload Error:', error);
-                onProgress(`Error: ${error.message}`); // Show error to the user on the page
+                onProgress(`Error: ${error.message}`);
                 throw error;
             }
         }
@@ -229,7 +235,7 @@
         }
         
         async function renderProductsPage(container) {
-            container.innerHTML = `<div class="flex justify-between items-center mb-6"><h1 class="text-3xl font-bold text-gray-800">Manage Products</h1><button id="show-add-product-form-btn" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">+ Add New Product</button></div><div id="add-product-container" class="w-full bg-white p-8 rounded-xl shadow-lg mb-8 hidden"><h2 class="text-2xl font-bold mb-6 text-gray-800">Add a New Product</h2><form id="addProductForm" class="space-y-6"><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><label for="productName" class="block text-sm">Product Name</label><input type="text" id="productName" required class="w-full mt-1 px-4 py-2 border rounded-md"></div><div><label for="productPrice" class="block text-sm">Price (Rs.)</label><input type="number" id="productPrice" required class="w-full mt-1 px-4 py-2 border rounded-md"></div></div><div><label for="productDescription" class="block text-sm">Description</label><textarea id="productDescription" rows="4" class="w-full mt-1 px-4 py-2 border rounded-md"></textarea></div><div><label for="productImageFile" class="block text-sm">Product Image</label><input type="file" id="productImageFile" required accept="image/*" class="w-full mt-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"></div><div><label for="productStock" class="block text-sm">Stock Status</label><select id="productStock" class="w-full mt-1 px-4 py-2 border rounded-md"><option>In Stock</option><option>Sold Out</option></select></div><div class="text-right pt-4"><button type="button" id="cancel-add-product-btn" class="border font-bold py-2 px-4 rounded-md mr-2">Cancel</button><button type="submit" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md">Add Product</button></div><div id="statusMessage" class="mt-4 text-center font-medium"></div></form></div><div class="bg-white p-6 rounded-lg shadow-md"><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b bg-gray-50"><th class="p-4 font-semibold">Image</th><th class="p-4 font-semibold">Name</th><th class="p-4 font-semibold">Price</th><th class="p-4 font-semibold">Stock Status</th><th class="p-4 font-semibold">Actions</th></tr></thead><tbody id="products-table-body"></tbody></table></div></div>`;
+            container.innerHTML = `<div class="flex justify-between items-center mb-6"><h1 class="text-3xl font-bold text-gray-800">Manage Products</h1><button id="show-add-product-form-btn" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">+ Add New Product</button></div><div id="add-product-container" class="w-full bg-white p-8 rounded-xl shadow-lg mb-8 hidden"><h2 class="text-2xl font-bold mb-6 text-gray-800">Add a New Product</h2><form id="addProductForm" class="space-y-6"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div><label for="productName" class="block text-sm">Product Name</label><input type="text" id="productName" required class="w-full mt-1 px-4 py-2 border rounded-md"></div><div><label for="productPrice" class="block text-sm">Price (Rs.)</label><input type="number" id="productPrice" required class="w-full mt-1 px-4 py-2 border rounded-md"></div><div><label for="productWeight" class="block text-sm">Weight</label><div class="flex mt-1"><input type="number" id="productWeight" step="any" placeholder="e.g., 500" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-l-md"><select id="productWeightUnit" class="px-3 border-t border-b border-r border-gray-300 bg-gray-50 rounded-r-md"><option value="g">g</option><option value="kg">kg</option></select></div></div></div><div><label for="productDescription" class="block text-sm">Description</label><textarea id="productDescription" rows="4" class="w-full mt-1 px-4 py-2 border rounded-md"></textarea></div><div><label for="productImageFile" class="block text-sm">Product Image</label><input type="file" id="productImageFile" required accept="image/*" class="w-full mt-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"></div><div><label for="productStock" class="block text-sm">Stock Status</label><select id="productStock" class="w-full mt-1 px-4 py-2 border rounded-md"><option>In Stock</option><option>Sold Out</option></select></div><div class="text-right pt-4"><button type="button" id="cancel-add-product-btn" class="border font-bold py-2 px-4 rounded-md mr-2">Cancel</button><button type="submit" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md">Add Product</button></div><div id="statusMessage" class="mt-4 text-center font-medium"></div></form></div><div class="bg-white p-6 rounded-lg shadow-md"><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b bg-gray-50"><th class="p-4 font-semibold">Image</th><th class="p-4 font-semibold">Name</th><th class="p-4 font-semibold">Price</th><th class="p-4 font-semibold">Weight</th><th class="p-4 font-semibold">Stock Status</th><th class="p-4 font-semibold">Actions</th></tr></thead><tbody id="products-table-body"></tbody></table></div></div>`;
             
             await populateProductsTable();
         }
@@ -242,14 +248,15 @@
             const productDocs = (await fetchProducts()).docs;
             const tableBody = document.getElementById('products-table-body');
             if (!tableBody) return;
-            if (productDocs.length === 0) { tableBody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No products found.</td></tr>'; return; }
+            if (productDocs.length === 0) { tableBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No products found.</td></tr>'; return; }
             tableBody.innerHTML = productDocs.map(doc => {
                 const p = doc.data(); 
                 const imageUrl = p.imageUrl || 'https://placehold.co/100x100?text=No+Image';
                 const stockStatus = p.stock || 'In Stock';
                 const stockStatusHtml = stockStatus === 'In Stock' ? `<span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">${stockStatus}</span>` : `<span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">${stockStatus}</span>`;
+                const weightText = p.weight ? `${p.weight} ${p.weightUnit || ''}`.trim() : 'N/A';
 
-                return `<tr class="border-b hover:bg-gray-50"><td class="p-2"><img src="${imageUrl}" alt="${p.name || ''}" class="w-16 h-16 object-cover rounded-md bg-gray-100"></td><td class="p-4 font-medium">${p.name || 'N/A'}</td><td class="p-4">Rs. ${(p.price || 0).toLocaleString()}</td><td class="p-4 text-sm">${stockStatusHtml}</td><td class="p-4"><button data-id="${doc.id}" class="edit-btn text-blue-600 hover:underline text-sm">Edit</button><button data-id="${doc.id}" class="delete-btn text-red-600 hover:underline text-sm ml-2">Delete</button></td></tr>`;
+                return `<tr class="border-b hover:bg-gray-50"><td class="p-2"><img src="${imageUrl}" alt="${p.name || ''}" class="w-16 h-16 object-cover rounded-md bg-gray-100"></td><td class="p-4 font-medium">${p.name || 'N/A'}</td><td class="p-4">Rs. ${(p.price || 0).toLocaleString()}</td><td class="p-4">${weightText}</td><td class="p-4 text-sm">${stockStatusHtml}</td><td class="p-4"><button data-id="${doc.id}" class="edit-btn text-blue-600 hover:underline text-sm">Edit</button><button data-id="${doc.id}" class="delete-btn text-red-600 hover:underline text-sm ml-2">Delete</button></td></tr>`;
             }).join('');
         }
 
@@ -275,6 +282,8 @@
                 document.getElementById('editProductId').value = productId;
                 document.getElementById('editProductName').value = data.name || '';
                 document.getElementById('editProductPrice').value = data.price || 0;
+                document.getElementById('editProductWeight').value = data.weight || '';
+                document.getElementById('editProductWeightUnit').value = data.weightUnit || 'g'; // Set unit
                 document.getElementById('editProductDescription').value = data.description || '';
                 document.getElementById('editProductImagePreview').src = data.imageUrl || 'https://placehold.co/100x100?text=No+Image';
                 document.getElementById('currentImageUrl').value = data.imageUrl || '';
@@ -307,6 +316,8 @@
                 const updatedData = {
                     name: document.getElementById('editProductName').value,
                     price: parseFloat(document.getElementById('editProductPrice').value),
+                    weight: parseFloat(document.getElementById('editProductWeight').value) || null,
+                    weightUnit: document.getElementById('editProductWeightUnit').value,
                     description: document.getElementById('editProductDescription').value,
                     imageUrl: imageUrl,
                     stock: document.getElementById('editStockStatus').value
@@ -340,7 +351,16 @@
                     const imageUrl = await uploadImageToImgBB(imageFile, (msg) => { statusMsg.textContent = msg; });
                     statusMsg.textContent = 'Processing data...';
 
-                    await addDoc(collection(db, "products"), { name: form.productName.value, price: parseFloat(form.productPrice.value), description: form.productDescription.value, imageUrl: imageUrl, stock: form.productStock.value, createdAt: serverTimestamp() });
+                    await addDoc(collection(db, "products"), { 
+                        name: form.productName.value, 
+                        price: parseFloat(form.productPrice.value), 
+                        weight: parseFloat(form.productWeight.value) || null,
+                        weightUnit: form.productWeightUnit.value,
+                        description: form.productDescription.value, 
+                        imageUrl: imageUrl, 
+                        stock: form.productStock.value, 
+                        createdAt: serverTimestamp() 
+                    });
                     statusMsg.textContent = 'Success!'; statusMsg.style.color = 'green'; form.reset(); document.getElementById('add-product-container').classList.add('hidden'); await populateProductsTable();
                 } catch (error) { statusMsg.textContent = `Error: ${error.message}`; statusMsg.style.color = 'red'; }
             }

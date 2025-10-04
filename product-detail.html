@@ -122,17 +122,18 @@
             <div id="product-details" class="lg:sticky top-28 self-start">
                  <div class="flex flex-col gap-y-2 mb-6">
                       <p id="product-brand" class="text-lg text-gray-500 w-1/3 bg-gray-200 rounded animate-pulse"></p>
-                      <h1 id="product-name" class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 w-full bg-gray-200 rounded animate-pulse"></h1>
-                      <p id="product-price" class="text-3xl font-bold text-gray-800 w-1/2 bg-gray-200 rounded animate-pulse"></p>
+                      <h1 id="product-name" class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 w-full h-12 bg-gray-200 rounded animate-pulse"></h1>
+                      <p id="product-price" class="text-3xl font-bold text-gray-800 w-1/2 h-10 bg-gray-200 rounded animate-pulse"></p>
+                      <p id="product-weight" class="text-lg text-gray-600 mt-1 w-1/4 h-6 bg-gray-200 rounded animate-pulse"></p>
                  </div>
 
                  <div class="mb-8">
-                     <label for="quantity-input" class="text-sm font-medium text-gray-800 mb-2 block">Quantity:</label>
-                     <div class="flex items-center border border-gray-300 rounded-md w-32">
-                         <button id="quantity-decrease" class="px-3 py-2 text-lg text-gray-600 hover:bg-gray-100 rounded-l-md">-</button>
-                         <input type="number" id="quantity-input" value="1" min="1" class="w-full text-center border-none focus:ring-0 font-semibold" readonly>
-                         <button id="quantity-increase" class="px-3 py-2 text-lg text-gray-600 hover:bg-gray-100 rounded-r-md">+</button>
-                     </div>
+                      <label for="quantity-input" class="text-sm font-medium text-gray-800 mb-2 block">Quantity:</label>
+                      <div class="flex items-center border border-gray-300 rounded-md w-32">
+                          <button id="quantity-decrease" class="px-3 py-2 text-lg text-gray-600 hover:bg-gray-100 rounded-l-md">-</button>
+                          <input type="number" id="quantity-input" value="1" min="1" class="w-full text-center border-none focus:ring-0 font-semibold" readonly>
+                          <button id="quantity-increase" class="px-3 py-2 text-lg text-gray-600 hover:bg-gray-100 rounded-r-md">+</button>
+                      </div>
                  </div>
 
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
@@ -143,20 +144,20 @@
                  <div class="border-t border-gray-200">
                       <div class="border-b border-gray-200 py-4">
                           <button class="accordion-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
-                              <span>Product Information</span>
-                              <svg class="accordion-icon w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                               <span>Product Information</span>
+                               <svg class="accordion-icon w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                           </button>
                           <div class="accordion-content hidden mt-3">
-                              <p id="product-description" class="text-gray-600 text-sm leading-relaxed">Loading description...</p>
+                               <p id="product-description" class="text-gray-600 text-sm leading-relaxed">Loading description...</p>
                           </div>
                       </div>
                        <div class="border-b border-gray-200 py-4">
                           <button class="accordion-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
-                              <span>Delivery & Returns</span>
-                              <svg class="accordion-icon w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                               <span>Delivery & Returns</span>
+                               <svg class="accordion-icon w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                           </button>
                           <div class="accordion-content hidden mt-3">
-                              <p class="text-gray-600 text-sm leading-relaxed">We ensure secure packaging for all our food products. Due to the nature of our items, returns are only accepted for damaged or incorrect products reported within 24 hours of delivery.</p>
+                               <p class="text-gray-600 text-sm leading-relaxed">We ensure secure packaging for all our food products. Due to the nature of our items, returns are only accepted for damaged or incorrect products reported within 24 hours of delivery.</p>
                           </div>
                       </div>
                  </div>
@@ -176,35 +177,35 @@
 
     <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
          <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
-               <div class="flex border-b">
-                   <button id="login-tab" class="flex-1 py-3 font-semibold text-center bg-gray-100 text-gray-800 rounded-tl-lg">Login</button>
-                   <button id="signup-tab" class="flex-1 py-3 font-semibold text-center bg-white text-gray-500">Sign Up</button>
-               </div>
-               <div class="p-8">
-                   <form id="login-form" class="space-y-4">
-                       <div>
-                           <label for="login-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                           <input type="email" id="login-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                       </div>
-                       <div>
-                           <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
-                           <input type="password" id="login-password" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                       </div>
-                       <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Login</button>
-                   </form>
-                   <form id="signup-form" class="space-y-4 hidden">
-                       <div>
-                           <label for="signup-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                           <input type="email" id="signup-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                       </div>
-                       <div>
-                           <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
-                           <input type="password" id="signup-password" minlength="6" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                           <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long.</p>
-                       </div>
-                       <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Create Account</button>
-                   </form>
-               </div>
+              <div class="flex border-b">
+                  <button id="login-tab" class="flex-1 py-3 font-semibold text-center bg-gray-100 text-gray-800 rounded-tl-lg">Login</button>
+                  <button id="signup-tab" class="flex-1 py-3 font-semibold text-center bg-white text-gray-500">Sign Up</button>
+              </div>
+              <div class="p-8">
+                  <form id="login-form" class="space-y-4">
+                      <div>
+                          <label for="login-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                          <input type="email" id="login-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <div>
+                          <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+                          <input type="password" id="login-password" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Login</button>
+                  </form>
+                  <form id="signup-form" class="space-y-4 hidden">
+                      <div>
+                          <label for="signup-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                          <input type="email" id="signup-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <div>
+                          <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                          <input type="password" id="signup-password" minlength="6" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                          <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long.</p>
+                      </div>
+                      <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Create Account</button>
+                  </form>
+              </div>
          </div>
     </div>
     <div id="user-info-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
@@ -402,6 +403,7 @@
             
             document.querySelectorAll('.animate-pulse').forEach(el => {
                 el.classList.remove('animate-pulse', 'bg-gray-200');
+                el.style.height = ''; 
             });
 
             document.title = `${product.name} - Dignify Ceylon`;
@@ -420,6 +422,14 @@
             document.getElementById('product-price').textContent = `Rs. ${product.price.toLocaleString()}`;
             document.getElementById('product-description').textContent = product.description || 'No description available.';
             
+            const weightEl = document.getElementById('product-weight');
+            if (product.weight && product.weight > 0) {
+                weightEl.textContent = `Weight: ${product.weight} ${product.weightUnit || ''}`.trim();
+                weightEl.classList.remove('hidden');
+            } else {
+                weightEl.classList.add('hidden');
+            }
+
             const addToCartBtn = document.getElementById('add-to-cart-btn');
             const buyNowBtn = document.getElementById('buy-now-btn');
             
