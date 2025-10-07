@@ -120,13 +120,12 @@
             </div>
 
             <div id="product-details" class="lg:sticky top-28 self-start">
-                 <div class="flex flex-col gap-y-2 mb-6">
+                 <div class="space-y-2 mb-6">
                       <p id="product-brand" class="text-lg text-gray-500 w-1/3 bg-gray-200 rounded animate-pulse"></p>
-                      <h1 id="product-name" class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 w-full h-12 bg-gray-200 rounded animate-pulse"></h1>
-                      <p id="product-price" class="text-3xl font-bold text-gray-800 w-1/2 h-10 bg-gray-200 rounded animate-pulse"></p>
-                      <p id="product-weight" class="text-lg text-gray-600 mt-1 w-1/4 h-6 bg-gray-200 rounded animate-pulse"></p>
+                      <h1 id="product-name" class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 w-full lg:leading-tight bg-gray-200 rounded animate-pulse"></h1>
+                      <p id="product-price" class="text-3xl font-bold text-gray-800 w-1/2 bg-gray-200 rounded animate-pulse"></p>
+                      <p id="product-weight" class="text-lg text-gray-600 pt-1 w-1/4 bg-gray-200 rounded animate-pulse"></p>
                  </div>
-
                  <div class="mb-8">
                       <label for="quantity-input" class="text-sm font-medium text-gray-800 mb-2 block">Quantity:</label>
                       <div class="flex items-center border border-gray-300 rounded-md w-32">
@@ -147,9 +146,9 @@
                                <span>Product Information</span>
                                <svg class="accordion-icon w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                           </button>
-                          <div class="accordion-content hidden mt-3">
-                               <p id="product-description" class="text-gray-600 text-sm leading-relaxed">Loading description...</p>
-                          </div>
+                          <div id="product-description-container" class="accordion-content hidden mt-3 text-gray-600 text-sm leading-relaxed">
+    <p>Loading description...</p>
+</div>
                       </div>
                        <div class="border-b border-gray-200 py-4">
                           <button class="accordion-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
@@ -420,11 +419,50 @@
             document.getElementById('product-brand').textContent = product.brand || 'Dignify Ceylon';
             document.getElementById('product-name').textContent = product.name;
             document.getElementById('product-price').textContent = `Rs. ${product.price.toLocaleString()}`;
-            document.getElementById('product-description').textContent = product.description || 'No description available.';
+            
+// === START: NEW DATABASE-DRIVEN DESCRIPTION LOGIC ===
+            const descriptionContainer = document.getElementById('product-description-container');
+            
+            // Get data from the new fields
+            const mainDesc = product.mainDescription;
+            const bullets = product.bulletPoints; // This is an array
+
+            let formattedHTML = '';
+
+            // If there's a main description, add it as a paragraph
+            if (mainDesc) {
+                formattedHTML += `<p class="mb-4">${mainDesc}</p>`;
+            }
+
+            // If there's a 'bulletPoints' array and it's not empty, create a list
+            if (bullets && Array.isArray(bullets) && bullets.length > 0) {
+                
+                // Start the list
+                formattedHTML += `<ul class="list-disc list-inside space-y-2">`;
+                
+                // Loop through each item in the array and create an <li> for it
+                bullets.forEach(point => {
+                    formattedHTML += `<li>${point}</li>`;
+                });
+                
+                // End the list
+                formattedHTML += `</ul>`;
+            }
+
+            // If no description data is found at all, show a default message
+            if (!mainDesc && !bullets) {
+                descriptionContainer.innerHTML = '<p>No description available.</p>';
+            } else {
+                descriptionContainer.innerHTML = formattedHTML;
+            }
+            // === END: NEW DATABASE-DRIVEN DESCRIPTION LOGIC ===
             
             const weightEl = document.getElementById('product-weight');
-            if (product.weight && product.weight > 0) {
-                weightEl.textContent = `Weight: ${product.weight} ${product.weightUnit || ''}`.trim();
+            if (product.weightType === 'weight' && product.weightValue) {
+                weightEl.textContent = `Weight: ${product.weightValue} ${product.weightUnit || ''}`.trim();
+                weightEl.classList.remove('hidden');
+            } else if (product.weightType === 'netContent' && product.weightDescription) {
+                weightEl.textContent = `Net Content: ${product.weightDescription}`;
                 weightEl.classList.remove('hidden');
             } else {
                 weightEl.classList.add('hidden');

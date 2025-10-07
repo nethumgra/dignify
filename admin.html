@@ -65,70 +65,83 @@
             <div class="p-8">
                  <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit Product</h2>
                  <form id="editProductForm" class="space-y-6">
-                     <input type="hidden" id="editProductId">
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                         <div>
-                             <label for="editProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
-                             <input type="text" id="editProductName" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                         </div>
-                         <div>
-                             <label for="editProductPrice" class="block text-sm font-medium text-gray-700">Price (Rs.)</label>
-                             <input type="number" id="editProductPrice" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                         </div>
-                     </div>
+                      <input type="hidden" id="editProductId">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                           <div>
+                                <label for="editProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
+                                <input type="text" id="editProductName" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                           </div>
+                           <div>
+                                <label for="editProductPrice" class="block text-sm font-medium text-gray-700">Price (Rs.)</label>
+                                <input type="number" id="editProductPrice" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                           </div>
+                      </div>
 
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="editWeightType" class="block text-sm font-medium text-gray-700">Type</label>
-                            <select id="editWeightType" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                                <option value="weight">Weight</option>
-                                <option value="netContent">Net Content</option>
-                            </select>
+                             <label for="editWeightType" class="block text-sm font-medium text-gray-700">Type</label>
+                             <select id="editWeightType" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                                 <option value="weight">Weight</option>
+                                 <option value="netContent">Net Content</option>
+                             </select>
                         </div>
                         <div id="edit-weight-inputs">
                            <label for="editProductWeightValue" class="block text-sm font-medium text-gray-700">Weight</label>
                            <div class="flex mt-1">
-                               <input type="number" id="editProductWeightValue" step="any" placeholder="e.g., 500" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-l-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                               <select id="editProductWeightUnit" class="px-3 border-t border-b border-r border-gray-300 bg-gray-50 rounded-r-md focus:ring-green-500 focus:border-green-500">
-                                   <option value="g">g</option>
-                                   <option value="kg">kg</option>
-                               </select>
+                                <input type="number" id="editProductWeightValue" step="any" placeholder="e.g., 500" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-l-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                                <select id="editProductWeightUnit" class="px-3 border-t border-b border-r border-gray-300 bg-gray-50 rounded-r-md focus:ring-green-500 focus:border-green-500">
+                                    <option value="g">g</option>
+                                    <option value="kg">kg</option>
+                                </select>
                            </div>
                         </div>
                         <div id="edit-net-content-input" class="hidden">
                            <label for="editProductWeightDesc" class="block text-sm font-medium text-gray-700">Net Content Description</label>
                            <input type="text" id="editProductWeightDesc" placeholder="e.g., 50g - 25 x 2g Tea Bags" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
                         </div>
-                     </div>
+                   </div>
 
-                     <div>
-                         <label for="editProductDescription" class="block text-sm font-medium text-gray-700">Description</label>
-                         <textarea id="editProductDescription" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"></textarea>
-                     </div>
+                    <div>
+                        <label for="editMainDescription" class="block text-sm font-medium text-gray-700">Main Description</label>
+                        <textarea id="editMainDescription" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Bullet Points</label>
+                        <div id="editBulletPointsContainer" class="space-y-2 mt-1">
+                            </div>
+                        <div class="mt-2">
+                            <button type="button" class="add-bullet-point-btn inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700" data-container="editBulletPointsContainer">
+                                + Add Point
+                            </button>
+                            <button type="button" class="remove-bullet-point-btn inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50" data-container="editBulletPointsContainer">
+                                - Remove Point
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                           <label class="block text-sm font-medium text-gray-700">Product Image</label>
+                           <div class="mt-2 flex items-center gap-4">
+                                <img id="editProductImagePreview" src="https://placehold.co/100x100?text=Image" class="w-24 h-24 object-cover rounded-md bg-gray-100">
+                                <input type="hidden" id="currentImageUrl">
+                                <div>
+                                     <label for="editProductImageFile" class="cursor-pointer bg-white py-2 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">Change Image</label>
+                                     <input type="file" id="editProductImageFile" class="sr-only">
+                                     <p id="editFileStatus" class="text-xs text-gray-500 mt-1">Select a new file to replace the current image.</p>
+                                </div>
+                           </div>
+                      </div>
                       <div>
-                         <label class="block text-sm font-medium text-gray-700">Product Image</label>
-                         <div class="mt-2 flex items-center gap-4">
-                             <img id="editProductImagePreview" src="https://placehold.co/100x100?text=Image" class="w-24 h-24 object-cover rounded-md bg-gray-100">
-                             <input type="hidden" id="currentImageUrl">
-                             <div>
-                                 <label for="editProductImageFile" class="cursor-pointer bg-white py-2 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">Change Image</label>
-                                 <input type="file" id="editProductImageFile" class="sr-only">
-                                 <p id="editFileStatus" class="text-xs text-gray-500 mt-1">Select a new file to replace the current image.</p>
-                             </div>
-                         </div>
-                     </div>
-                     <div>
-                         <label for="editStockStatus" class="block text-sm font-medium text-gray-700">Stock Status</label>
-                         <select id="editStockStatus" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                             <option>In Stock</option>
-                             <option>Sold Out</option>
-                         </select>
-                     </div>
-                     <div class="text-right pt-4 space-x-3">
-                         <button type="button" id="cancel-edit-product-btn" class="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Cancel</button>
-                         <button type="submit" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700">Update Product</button>
-                     </div>
-                     <div id="editStatusMessage" class="mt-4 text-center font-medium"></div>
+                           <label for="editStockStatus" class="block text-sm font-medium text-gray-700">Stock Status</label>
+                           <select id="editStockStatus" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                                <option>In Stock</option>
+                                <option>Sold Out</option>
+                           </select>
+                      </div>
+                      <div class="text-right pt-4 space-x-3">
+                           <button type="button" id="cancel-edit-product-btn" class="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Cancel</button>
+                           <button type="submit" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700">Update Product</button>
+                      </div>
+                      <div id="editStatusMessage" class="mt-4 text-center font-medium"></div>
                  </form>
             </div>
         </div>
@@ -136,345 +149,474 @@
 
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc, serverTimestamp, query, orderBy, doc, deleteDoc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyCpLC89l1EV_o399HEH_qppqecedVAhmdE",
-            authDomain: "dignify-69351.firebaseapp.com",
-            projectId: "dignify-69351",
-            storageBucket: "dignify-69351.appspot.com",
-            messagingSenderId: "141142153545",
-            appId: "1:141142153545:web:c464f04b452206d1456298",
-            measurementId: "G-FV52NPV5Q4"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, serverTimestamp, query, orderBy, doc, deleteDoc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyCpLC89l1EV_o399HEH_qppqecedVAhmdE",
+        authDomain: "dignify-69351.firebaseapp.com",
+        projectId: "dignify-69351",
+        storageBucket: "dignify-69351.appspot.com",
+        messagingSenderId: "141142153545",
+        appId: "1:141142153545:web:c464f04b452206d1456298",
+        measurementId: "G-FV52NPV5Q4"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        async function uploadImageToImgBB(file, onProgress) {
-            const apiKey = '5077a838542f8a8e230a651f7c3a07ae'; 
-            const formData = new FormData();
-            formData.append('image', file);
-            onProgress('Uploading image...');
+    async function uploadImageToImgBB(file, onProgress) {
+        const apiKey = '5077a838542f8a8e230a651f7c3a07ae'; 
+        const formData = new FormData();
+        formData.append('image', file);
+        onProgress('Uploading image...');
 
-            try {
-                const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-                    method: 'POST',
-                    body: formData,
-                });
+        try {
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                method: 'POST',
+                body: formData,
+            });
 
-                if (!response.ok) {
-                    const errorResult = await response.json();
-                    throw new Error(`Upload failed: ${errorResult.error.message}`);
-                }
-
-                const result = await response.json();
-                if (result.success) {
-                    onProgress('Image uploaded successfully!');
-                    return result.data.url;
-                } else {
-                    throw new Error(result.error.message || 'Unknown error from ImgBB');
-                }
-            } catch (error) {
-                console.error('ImgBB Upload Error:', error);
-                onProgress(`Error: ${error.message}`);
-                throw error;
+            if (!response.ok) {
+                const errorResult = await response.json();
+                throw new Error(`Upload failed: ${errorResult.error.message}`);
             }
+
+            const result = await response.json();
+            if (result.success) {
+                onProgress('Image uploaded successfully!');
+                return result.data.url;
+            } else {
+                throw new Error(result.error.message || 'Unknown error from ImgBB');
+            }
+        } catch (error) {
+            console.error('ImgBB Upload Error:', error);
+            onProgress(`Error: ${error.message}`);
+            throw error;
         }
+    }
 
-        let salesChartInstance;
-        let orderStatusChartInstance;
+    let salesChartInstance;
+    let orderStatusChartInstance;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('main-content').addEventListener('click', handleMainContentClick);
-            
-            ['order-details-modal', 'edit-product-modal'].forEach(modalId => {
-                document.getElementById(modalId)?.addEventListener('click', (e) => {
-                    if (e.target.id === modalId || e.target.closest('#close-modal-btn, #cancel-edit-product-btn')) {
-                        document.getElementById(modalId).classList.add('hidden');
-                    }
-                });
+    document.addEventListener('DOMContentLoaded', () => {
+        // === FIX START: Attach the main click listener to the whole document ===
+        // This ensures clicks are captured inside the main content AND inside modals.
+        document.addEventListener('click', handleGlobalClick);
+        // === FIX END ===
+        
+        ['order-details-modal', 'edit-product-modal'].forEach(modalId => {
+            document.getElementById(modalId)?.addEventListener('click', (e) => {
+                // We only close if the click is on the background overlay itself
+                if (e.target.id === modalId) {
+                    document.getElementById(modalId).classList.add('hidden');
+                }
             });
-            
-            document.getElementById('editProductForm').addEventListener('submit', handleEditProductSubmit);
-            document.getElementById('editProductImageFile').addEventListener('change', (e) => {
-                document.getElementById('editFileStatus').textContent = e.target.files[0] ? e.target.files[0].name : 'Select a new file...';
-            });
-            
-            document.getElementById('editWeightType').addEventListener('change', (e) => {
-                toggleWeightInputs('edit', e.target.value);
-            });
-
-            const sidebarLinks = document.querySelectorAll('.sidebar-link');
-            const navigate = () => {
-                const hash = window.location.hash || '#dashboard';
-                sidebarLinks.forEach(link => link.classList.toggle('sidebar-link-active', link.getAttribute('href') === hash));
-                renderContent(hash);
-            };
-            window.addEventListener('hashchange', navigate);
-            navigate();
         });
         
-        function toggleWeightInputs(prefix, type) {
-            const weightInputs = document.getElementById(`${prefix}-weight-inputs`);
-            const netContentInput = document.getElementById(`${prefix}-net-content-input`);
-
-            if (type === 'weight') {
-                weightInputs.classList.remove('hidden');
-                netContentInput.classList.add('hidden');
-            } else { // netContent
-                weightInputs.classList.add('hidden');
-                netContentInput.classList.remove('hidden');
-            }
-        }
-
-        async function renderContent(hash) {
-            const mainContainer = document.getElementById('main-content');
-            mainContainer.innerHTML = `<div class="text-center p-8 text-gray-500">Loading Content...</div>`;
-            try {
-                switch (hash) {
-                    case '#orders': await renderOrdersPage(mainContainer); break;
-                    case '#products': await renderProductsPage(mainContainer); break;
-                    case '#dashboard': default: await renderDashboardPage(mainContainer); break;
-                }
-            } catch (error) {
-                console.error("Failed to render content:", error);
-                mainContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4"><p class="font-bold">Could not load page content.</p><p>Check the console (F12) for details.</p></div>`;
-            }
-        }
-
-        async function fetchOrders() { return await getDocs(query(collection(db, 'orders'), orderBy('timestamp', 'desc'))); }
-        async function fetchProducts() { return await getDocs(query(collection(db, 'products'), orderBy('createdAt', 'desc'))); }
-
-        async function renderDashboardPage(container) { 
-            container.innerHTML = `<h1 class="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">Total Revenue</h3><p id="total-revenue" class="text-3xl font-bold">...</p></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">Total Orders</h3><p id="total-orders" class="text-3xl font-bold">...</p></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">New Orders</h3><p id="new-orders" class="text-3xl font-bold">...</p></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">Total Products</h3><p id="total-products" class="text-3xl font-bold">...</p></div></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="font-bold mb-4">Sales (Last 7 Days)</h3><canvas id="salesChart"></canvas></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="font-bold mb-4">Order Status</h3><canvas id="orderStatusChart"></canvas></div></div>`;
-            const [orderDocs, productDocs] = await Promise.all([fetchOrders(), fetchProducts()]);
-            const ordersData = orderDocs.docs.map(d => d.data());
-            document.getElementById('total-revenue').textContent = `Rs. ${ordersData.reduce((sum, order) => sum + (order.payment?.total || 0), 0).toLocaleString()}`;
-            document.getElementById('total-orders').textContent = orderDocs.size;
-            document.getElementById('new-orders').textContent = ordersData.filter(o => o.status === 'New').length;
-            document.getElementById('total-products').textContent = productDocs.size;
-            renderSalesChart(ordersData);
-            renderOrderStatusChart(ordersData);
-        }
-
-        async function renderOrdersPage(container) {
-            container.innerHTML = `<h1 class="text-3xl font-bold text-gray-800 mb-6">Manage Orders</h1><div id="orders-container" class="space-y-6"></div>`;
-            const orderDocs = (await fetchOrders()).docs;
-            const ordersContainer = document.getElementById('orders-container');
-            if (orderDocs.length === 0) { ordersContainer.innerHTML = '<p class="text-gray-600 bg-white p-6 rounded-lg shadow-md">No orders found.</p>'; return; }
-            ordersContainer.innerHTML = orderDocs.map(createOrderCardHTML).join('');
-        }
+        document.getElementById('editProductForm').addEventListener('submit', handleEditProductSubmit);
+        document.getElementById('editProductImageFile').addEventListener('change', (e) => {
+            document.getElementById('editFileStatus').textContent = e.target.files[0] ? e.target.files[0].name : 'Select a new file...';
+        });
         
-        async function renderProductsPage(container) {
-            container.innerHTML = `<div class="flex justify-between items-center mb-6"><h1 class="text-3xl font-bold text-gray-800">Manage Products</h1><button id="show-add-product-form-btn" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">+ Add New Product</button></div><div id="add-product-container" class="w-full bg-white p-8 rounded-xl shadow-lg mb-8 hidden"><h2 class="text-2xl font-bold mb-6 text-gray-800">Add a New Product</h2><form id="addProductForm" class="space-y-6"><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><label for="productName" class="block text-sm">Product Name</label><input type="text" id="productName" required class="w-full mt-1 px-4 py-2 border rounded-md"></div><div><label for="productPrice" class="block text-sm">Price (Rs.)</label><input type="number" id="productPrice" required class="w-full mt-1 px-4 py-2 border rounded-md"></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end"><div><label for="addWeightType" class="block text-sm">Type</label><select id="addWeightType" class="w-full mt-1 px-4 py-2 border rounded-md"><option value="weight">Weight</option><option value="netContent">Net Content</option></select></div><div id="add-weight-inputs"><label for="productWeightValue" class="block text-sm">Weight</label><div class="flex mt-1"><input type="number" id="productWeightValue" step="any" placeholder="e.g., 500" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-l-md"><select id="productWeightUnit" class="px-3 border-t border-b border-r border-gray-300 bg-gray-50 rounded-r-md"><option value="g">g</option><option value="kg">kg</option></select></div></div><div id="add-net-content-input" class="hidden"><label for="productWeightDesc" class="block text-sm">Net Content Description</label><input type="text" id="productWeightDesc" placeholder="e.g., 50g or 25 x 2g" class="w-full mt-1 px-4 py-2 border rounded-md"></div></div><div><label for="productDescription" class="block text-sm">Description</label><textarea id="productDescription" rows="4" class="w-full mt-1 px-4 py-2 border rounded-md"></textarea></div><div><label for="productImageFile" class="block text-sm">Product Image</label><input type="file" id="productImageFile" required accept="image/*" class="w-full mt-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"></div><div><label for="productStock" class="block text-sm">Stock Status</label><select id="productStock" class="w-full mt-1 px-4 py-2 border rounded-md"><option>In Stock</option><option>Sold Out</option></select></div><div class="text-right pt-4"><button type="button" id="cancel-add-product-btn" class="border font-bold py-2 px-4 rounded-md mr-2">Cancel</button><button type="submit" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md">Add Product</button></div><div id="statusMessage" class="mt-4 text-center font-medium"></div></form></div><div class="bg-white p-6 rounded-lg shadow-md"><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b bg-gray-50"><th class="p-4 font-semibold">Image</th><th class="p-4 font-semibold">Name</th><th class="p-4 font-semibold">Price</th><th class="p-4 font-semibold">Weight</th><th class="p-4 font-semibold">Stock Status</th><th class="p-4 font-semibold">Actions</th></tr></thead><tbody id="products-table-body"></tbody></table></div></div>`;
+        document.getElementById('editWeightType').addEventListener('change', (e) => {
+            toggleWeightInputs('edit', e.target.value);
+        });
+
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const navigate = () => {
+            const hash = window.location.hash || '#dashboard';
+            sidebarLinks.forEach(link => link.classList.toggle('sidebar-link-active', link.getAttribute('href') === hash));
+            renderContent(hash);
+        };
+        window.addEventListener('hashchange', navigate);
+        navigate();
+    });
+    
+    function toggleWeightInputs(prefix, type) {
+        const weightInputs = document.getElementById(`${prefix}-weight-inputs`);
+        const netContentInput = document.getElementById(`${prefix}-net-content-input`);
+
+        if (type === 'weight') {
+            weightInputs.classList.remove('hidden');
+            netContentInput.classList.add('hidden');
+        } else { // netContent
+            weightInputs.classList.add('hidden');
+            netContentInput.classList.remove('hidden');
+        }
+    }
+
+    async function renderContent(hash) {
+        const mainContainer = document.getElementById('main-content');
+        mainContainer.innerHTML = `<div class="text-center p-8 text-gray-500">Loading Content...</div>`;
+        try {
+            switch (hash) {
+                case '#orders': await renderOrdersPage(mainContainer); break;
+                case '#products': await renderProductsPage(mainContainer); break;
+                case '#dashboard': default: await renderDashboardPage(mainContainer); break;
+            }
+        } catch (error) {
+            console.error("Failed to render content:", error);
+            mainContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4"><p class="font-bold">Could not load page content.</p><p>Check the console (F12) for details.</p></div>`;
+        }
+    }
+
+    async function fetchOrders() { return await getDocs(query(collection(db, 'orders'), orderBy('timestamp', 'desc'))); }
+    async function fetchProducts() { return await getDocs(query(collection(db, 'products'), orderBy('createdAt', 'desc'))); }
+
+    async function renderDashboardPage(container) { 
+        container.innerHTML = `<h1 class="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">Total Revenue</h3><p id="total-revenue" class="text-3xl font-bold">...</p></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">Total Orders</h3><p id="total-orders" class="text-3xl font-bold">...</p></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">New Orders</h3><p id="new-orders" class="text-3xl font-bold">...</p></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="text-gray-500">Total Products</h3><p id="total-products" class="text-3xl font-bold">...</p></div></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-8"><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="font-bold mb-4">Sales (Last 7 Days)</h3><canvas id="salesChart"></canvas></div><div class="bg-white p-6 rounded-lg shadow-md"><h3 class="font-bold mb-4">Order Status</h3><canvas id="orderStatusChart"></canvas></div></div>`;
+        const [orderDocs, productDocs] = await Promise.all([fetchOrders(), fetchProducts()]);
+        const ordersData = orderDocs.docs.map(d => d.data());
+        document.getElementById('total-revenue').textContent = `Rs. ${ordersData.reduce((sum, order) => sum + (order.payment?.total || 0), 0).toLocaleString()}`;
+        document.getElementById('total-orders').textContent = orderDocs.size;
+        document.getElementById('new-orders').textContent = ordersData.filter(o => o.status === 'New').length;
+        document.getElementById('total-products').textContent = productDocs.size;
+        renderSalesChart(ordersData);
+        renderOrderStatusChart(ordersData);
+    }
+
+    async function renderOrdersPage(container) {
+        container.innerHTML = `<h1 class="text-3xl font-bold text-gray-800 mb-6">Manage Orders</h1><div id="orders-container" class="space-y-6"></div>`;
+        const orderDocs = (await fetchOrders()).docs;
+        const ordersContainer = document.getElementById('orders-container');
+        if (orderDocs.length === 0) { ordersContainer.innerHTML = '<p class="text-gray-600 bg-white p-6 rounded-lg shadow-md">No orders found.</p>'; return; }
+        ordersContainer.innerHTML = orderDocs.map(createOrderCardHTML).join('');
+    }
+    
+    async function renderProductsPage(container) {
+        container.innerHTML = `
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold text-gray-800">Manage Products</h1>
+                <button id="show-add-product-form-btn" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">+ Add New Product</button>
+            </div>
+            <div id="add-product-container" class="w-full bg-white p-8 rounded-xl shadow-lg mb-8 hidden">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Add a New Product</h2>
+                <form id="addProductForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label for="productName" class="block text-sm">Product Name</label><input type="text" id="productName" required class="w-full mt-1 px-4 py-2 border rounded-md"></div>
+                        <div><label for="productPrice" class="block text-sm">Price (Rs.)</label><input type="number" id="productPrice" required class="w-full mt-1 px-4 py-2 border rounded-md"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                        <div><label for="addWeightType" class="block text-sm">Type</label><select id="addWeightType" class="w-full mt-1 px-4 py-2 border rounded-md"><option value="weight">Weight</option><option value="netContent">Net Content</option></select></div>
+                        <div id="add-weight-inputs"><label for="productWeightValue" class="block text-sm">Weight</label><div class="flex mt-1"><input type="number" id="productWeightValue" step="any" placeholder="e.g., 500" class="flex-grow w-full px-4 py-2 border border-gray-300 rounded-l-md"><select id="productWeightUnit" class="px-3 border-t border-b border-r border-gray-300 bg-gray-50 rounded-r-md"><option value="g">g</option><option value="kg">kg</option></select></div></div>
+                        <div id="add-net-content-input" class="hidden"><label for="productWeightDesc" class="block text-sm">Net Content Description</label><input type="text" id="productWeightDesc" placeholder="e.g., 50g or 25 x 2g" class="w-full mt-1 px-4 py-2 border rounded-md"></div>
+                    </div>
+                    <div>
+                        <label for="addMainDescription" class="block text-sm">Main Description</label>
+                        <textarea id="addMainDescription" rows="4" class="w-full mt-1 px-4 py-2 border rounded-md"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm">Bullet Points</label>
+                        <div id="addBulletPointsContainer" class="space-y-2 mt-1">
+                            <input type="text" name="bulletPoints[]" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Bullet point 1">
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="add-bullet-point-btn inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700" data-container="addBulletPointsContainer">
+                                + Add Point
+                            </button>
+                            <button type="button" class="remove-bullet-point-btn inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50" data-container="addBulletPointsContainer">
+                                - Remove Point
+                            </button>
+                        </div>
+                    </div>
+                    <div><label for="productImageFile" class="block text-sm">Product Image</label><input type="file" id="productImageFile" required accept="image/*" class="w-full mt-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"></div>
+                    <div><label for="productStock" class="block text-sm">Stock Status</label><select id="productStock" class="w-full mt-1 px-4 py-2 border rounded-md"><option>In Stock</option><option>Sold Out</option></select></div>
+                    <div class="text-right pt-4"><button type="button" id="cancel-add-product-btn" class="border font-bold py-2 px-4 rounded-md mr-2">Cancel</button><button type="submit" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md">Add Product</button></div>
+                    <div id="statusMessage" class="mt-4 text-center font-medium"></div>
+                </form>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead><tr class="border-b bg-gray-50"><th class="p-4 font-semibold">Image</th><th class="p-4 font-semibold">Name</th><th class="p-4 font-semibold">Price</th><th class="p-4 font-semibold">Weight</th><th class="p-4 font-semibold">Stock Status</th><th class="p-4 font-semibold">Actions</th></tr></thead>
+                        <tbody id="products-table-body"></tbody>
+                    </table>
+                </div>
+            </div>`;
+        
+        document.getElementById('addWeightType').addEventListener('change', (e) => {
+            toggleWeightInputs('add', e.target.value);
+        });
+        await populateProductsTable();
+    }
+
+    function createOrderCardHTML(orderDoc) {
+        const orderData = orderDoc.data(); const orderId = orderDoc.id; const actionButtons = orderData.status === 'New' ? `<div class="flex space-x-2"><button data-id="${orderId}" class="confirm-btn bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded text-xs">Confirm</button><button data-id="${orderId}" class="reject-btn bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs">Reject</button></div>` : ''; return `<div class="bg-white p-6 rounded-lg shadow-md border order-card-clickable cursor-pointer" id="${orderId}"><div class="flex flex-wrap justify-between items-start border-b pb-4 mb-4 gap-4"><div><p class="font-bold text-lg">${orderData.customer.firstName} ${orderData.customer.lastName}</p><p class="text-sm text-gray-600">${orderData.customer.phone}</p><p class="text-sm text-gray-600">${orderData.customer.address}, ${orderData.customer.city}</p></div><div class="text-right flex-shrink-0"><p class="font-semibold text-lg">Total: <span class="text-green-600">Rs. ${orderData.payment.total.toLocaleString()}</span></p><p class="text-xs text-gray-500">ID: ${orderId.substring(0,6)}... | ${orderData.timestamp.toDate().toLocaleString('en-LK')}</p><span class="status-badge ${orderData.status === 'New' ? 'status-new' : orderData.status === 'Confirmed' ? 'status-confirmed' : 'status-rejected'} mt-2">${orderData.status}</span></div></div><div class="flex items-center space-x-4 mb-4"><img src="${orderData.item.imageUrl}" class="w-16 h-16 rounded-md object-cover bg-gray-100"><div><p class="font-semibold">${orderData.item.name}</p><p class="text-sm">Qty: ${orderData.item.quantity}</p></div></div><div class="flex justify-between items-center text-sm bg-gray-50 p-3 rounded-md"><p><strong>Notes:</strong> ${orderData.customer.notes || 'None'}</p><div class="action-buttons">${actionButtons}</div></div></div>`;
+    }
+
+    async function populateProductsTable() {
+        const productDocs = (await fetchProducts()).docs;
+        const tableBody = document.getElementById('products-table-body');
+        if (!tableBody) return;
+        if (productDocs.length === 0) { tableBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No products found.</td></tr>'; return; }
+        tableBody.innerHTML = productDocs.map(doc => {
+            const p = doc.data(); 
+            const imageUrl = p.imageUrl || 'https://placehold.co/100x100?text=No+Image';
+            const stockStatus = p.stock || 'In Stock';
+            const stockStatusHtml = stockStatus === 'In Stock' ? `<span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">${stockStatus}</span>` : `<span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">${stockStatus}</span>`;
             
-            document.getElementById('addWeightType').addEventListener('change', (e) => {
-                toggleWeightInputs('add', e.target.value);
+            let weightText = 'N/A';
+            if (p.weightType === 'weight') {
+                weightText = `${p.weightValue || ''} ${p.weightUnit || ''}`.trim();
+            } else if (p.weightType === 'netContent') {
+                weightText = p.weightDescription || 'N/A';
+            }
+
+            return `<tr class="border-b hover:bg-gray-50"><td class="p-2"><img src="${imageUrl}" alt="${p.name || ''}" class="w-16 h-16 object-cover rounded-md bg-gray-100"></td><td class="p-4 font-medium">${p.name || 'N/A'}</td><td class="p-4">Rs. ${(p.price || 0).toLocaleString()}</td><td class="p-4">${weightText}</td><td class="p-4 text-sm">${stockStatusHtml}</td><td class="p-4"><button data-id="${doc.id}" class="edit-btn text-blue-600 hover:underline text-sm">Edit</button><button data-id="${doc.id}" class="delete-btn text-red-600 hover:underline text-sm ml-2">Delete</button></td></tr>`;
+        }).join('');
+    }
+
+    async function showOrderDetailsModal(orderId) { 
+        const modal = document.getElementById('order-details-modal'); const modalBody = document.getElementById('modal-order-details'); modalBody.innerHTML = '<p>Loading details...</p>'; modal.classList.remove('hidden'); try { const orderDoc = await getDoc(doc(db, "orders", orderId)); if (!orderDoc.exists()) { modalBody.innerHTML = '<p class="text-red-500">Error: Order not found.</p>'; return; } const data = orderDoc.data(); modalBody.innerHTML = `<h2 class="text-2xl font-bold text-gray-800 mb-4">Order Details</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><img src="${data.item.imageUrl}" alt="${data.item.name}" class="w-full rounded-lg object-cover mb-4 bg-gray-100" style="aspect-ratio: 1/1;"><h3 class="font-bold text-lg">${data.item.name}</h3><p><strong>Quantity:</strong> ${data.item.quantity}</p></div><div class="space-y-4"><div><h4 class="font-semibold text-gray-600 border-b pb-1 mb-2">Customer & Shipping Info</h4><p><strong>Name:</strong> ${data.customer.firstName} ${data.customer.lastName}</p><p><strong>Phone:</strong> ${data.customer.phone}</p><p><strong>Address:</strong> ${data.customer.address}, ${data.customer.city}</p><p><strong>Notes:</strong> ${data.customer.notes || 'None'}</p></div><div><h4 class="font-semibold text-gray-600 border-b pb-1 mb-2">Payment Details</h4><div class="flex justify-between"><p>Subtotal:</p> <p>Rs. ${data.payment.subtotal.toLocaleString()}</p></div><div class="flex justify-between"><p>Delivery Fee:</p> <p>Rs. ${data.payment.deliveryFee.toLocaleString()}</p></div><div class="flex justify-between font-bold text-lg mt-2 border-t pt-2"><p>Total:</p> <p>Rs. ${data.payment.total.toLocaleString()}</p></div></div><div><h4 class="font-semibold text-gray-600 border-b pb-1 mb-2">Order Status</h4><p><strong>Order ID:</strong> ${orderId}</p><p><strong>Date:</strong> ${data.timestamp.toDate().toLocaleString('en-LK')}</p><p><strong>Status:</strong> <span class="status-badge ${data.status === 'New' ? 'status-new' : data.status === 'Confirmed' ? 'status-confirmed' : 'status-rejected'}">${data.status}</span></p></div></div></div>`; } catch (error) { console.error("Error fetching order details:", error); modalBody.innerHTML = '<p class="text-red-500">Could not load order details.</p>'; }
+    }
+
+    function createEmailHtml(orderData, orderId) {
+        return `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px;"><h2 style="color: #15803d; text-align: center;">Your Dignify Ceylon Order is Confirmed!</h2><p>Hi ${orderData.customer.firstName},</p><p>Your order number is <strong>#${orderId.substring(0,6)}</strong>.</p><h3 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">Order Summary</h3><table style="width: 100%; border-collapse: collapse;"><tr style="background-color: #f3f4f6;"><th style="padding: 10px; text-align: left;">Product</th><th style="padding: 10px; text-align: right;">Price</th></tr><tr><td style="padding: 10px; border-bottom: 1px solid #ddd;">${orderData.item.name}<br><small>Qty: ${orderData.item.quantity}</small></td><td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: right;">Rs. ${orderData.payment.subtotal.toLocaleString()}</td></tr></table><table style="width: 100%; margin-top: 20px;"><tr><td style="text-align: right;">Subtotal:</td><td style="text-align: right;">Rs. ${orderData.payment.subtotal.toLocaleString()}</td></tr><tr><td style="text-align: right;">Delivery:</td><td style="text-align: right;">Rs. ${orderData.payment.deliveryFee.toLocaleString()}</td></tr><tr><td style="text-align: right; font-weight: bold;">Total:</td><td style="text-align: right; font-weight: bold;">Rs. ${orderData.payment.total.toLocaleString()}</td></tr></table><h3 style="border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 20px;">Shipping Address</h3><p style="line-height: 1.6;">${orderData.customer.firstName} ${orderData.customer.lastName}<br>${orderData.customer.address}<br>${orderData.customer.city}<br>${orderData.customer.phone}</p><p>Thank you for shopping with us!</p><p><strong>- Dignify Ceylon Team</strong></p></div>`;
+    }
+    
+    function handleAddBulletPoint(e) {
+        const containerId = e.target.dataset.container;
+        const container = document.getElementById(containerId);
+        const inputCount = container.getElementsByTagName('input').length;
+        const newPoint = document.createElement('input');
+        newPoint.type = 'text';
+        newPoint.name = 'bulletPoints[]';
+        newPoint.className = 'block w-full rounded-md border-gray-300 shadow-sm sm:text-sm';
+        newPoint.placeholder = `Bullet point ${inputCount + 1}`;
+        container.appendChild(newPoint);
+    }
+
+    function handleRemoveBulletPoint(e) {
+        const containerId = e.target.dataset.container;
+        const container = document.getElementById(containerId);
+        const inputs = container.getElementsByTagName('input');
+        if (inputs.length > 1) {
+            container.removeChild(inputs[inputs.length - 1]);
+        }
+    }
+
+    async function openEditProductModal(productId) {
+        const modal = document.getElementById('edit-product-modal');
+        const form = document.getElementById('editProductForm');
+        form.reset();
+        document.getElementById('editStatusMessage').textContent = '';
+        
+        try {
+            const productDoc = await getDoc(doc(db, "products", productId));
+            if (!productDoc.exists()) { alert("Product not found!"); return; }
+            
+            const data = productDoc.data();
+            document.getElementById('editProductId').value = productId;
+            document.getElementById('editProductName').value = data.name || '';
+            document.getElementById('editProductPrice').value = data.price || 0;
+            
+            const weightType = data.weightType || 'weight';
+            document.getElementById('editWeightType').value = weightType;
+            toggleWeightInputs('edit', weightType);
+
+            if (weightType === 'weight') {
+                document.getElementById('editProductWeightValue').value = data.weightValue || '';
+                document.getElementById('editProductWeightUnit').value = data.weightUnit || 'g';
+            } else {
+                document.getElementById('editProductWeightDesc').value = data.weightDescription || '';
+            }
+
+            document.getElementById('editMainDescription').value = data.mainDescription || '';
+            
+            const bulletPointsContainer = document.getElementById('editBulletPointsContainer');
+            bulletPointsContainer.innerHTML = ''; 
+            
+            if (data.bulletPoints && Array.isArray(data.bulletPoints) && data.bulletPoints.length > 0) {
+                data.bulletPoints.forEach((point, index) => {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = 'bulletPoints[]';
+                    input.className = 'block w-full rounded-md border-gray-300 shadow-sm sm:text-sm';
+                    input.placeholder = `Bullet point ${index + 1}`;
+                    input.value = point;
+                    bulletPointsContainer.appendChild(input);
+                });
+            } else {
+                 const input = document.createElement('input');
+                 input.type = 'text';
+                 input.name = 'bulletPoints[]';
+                 input.className = 'block w-full rounded-md border-gray-300 shadow-sm sm:text-sm';
+                 input.placeholder = `Bullet point 1`;
+                 bulletPointsContainer.appendChild(input);
+            }
+            
+            document.getElementById('editProductImagePreview').src = data.imageUrl || 'https://placehold.co/100x100?text=No+Image';
+            document.getElementById('currentImageUrl').value = data.imageUrl || '';
+            document.getElementById('editFileStatus').textContent = 'Select a new file to replace the current image.';
+            document.getElementById('editStockStatus').value = data.stock || 'In Stock';
+            
+            modal.classList.remove('hidden');
+
+        } catch (error) {
+            console.error("Error fetching product for edit:", error);
+            alert("Could not load product details.");
+        }
+    }
+    
+    async function handleEditProductSubmit(e) {
+        e.preventDefault();
+        const statusMsg = document.getElementById('editStatusMessage');
+        statusMsg.textContent = 'Updating...';
+        statusMsg.style.color = 'blue';
+
+        const productId = document.getElementById('editProductId').value;
+        const imageFile = document.getElementById('editProductImageFile').files[0];
+        let imageUrl = document.getElementById('currentImageUrl').value;
+        
+        try {
+            if(imageFile) {
+                imageUrl = await uploadImageToImgBB(imageFile, (msg) => { statusMsg.textContent = msg; });
+            }
+            
+            const mainDescription = document.getElementById('editMainDescription').value;
+            const bulletPointInputs = document.querySelectorAll('#editBulletPointsContainer input');
+            const bulletPoints = [];
+            bulletPointInputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    bulletPoints.push(input.value.trim());
+                }
             });
-            await populateProductsTable();
-        }
 
-        function createOrderCardHTML(orderDoc) {
-            const orderData = orderDoc.data(); const orderId = orderDoc.id; const actionButtons = orderData.status === 'New' ? `<div class="flex space-x-2"><button data-id="${orderId}" class="confirm-btn bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded text-xs">Confirm</button><button data-id="${orderId}" class="reject-btn bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs">Reject</button></div>` : ''; return `<div class="bg-white p-6 rounded-lg shadow-md border order-card-clickable cursor-pointer" id="${orderId}"><div class="flex flex-wrap justify-between items-start border-b pb-4 mb-4 gap-4"><div><p class="font-bold text-lg">${orderData.customer.firstName} ${orderData.customer.lastName}</p><p class="text-sm text-gray-600">${orderData.customer.phone}</p><p class="text-sm text-gray-600">${orderData.customer.address}, ${orderData.customer.city}</p></div><div class="text-right flex-shrink-0"><p class="font-semibold text-lg">Total: <span class="text-green-600">Rs. ${orderData.payment.total.toLocaleString()}</span></p><p class="text-xs text-gray-500">ID: ${orderId.substring(0,6)}... | ${orderData.timestamp.toDate().toLocaleString('en-LK')}</p><span class="status-badge ${orderData.status === 'New' ? 'status-new' : orderData.status === 'Confirmed' ? 'status-confirmed' : 'status-rejected'} mt-2">${orderData.status}</span></div></div><div class="flex items-center space-x-4 mb-4"><img src="${orderData.item.imageUrl}" class="w-16 h-16 rounded-md object-cover bg-gray-100"><div><p class="font-semibold">${orderData.item.name}</p><p class="text-sm">Qty: ${orderData.item.quantity}</p></div></div><div class="flex justify-between items-center text-sm bg-gray-50 p-3 rounded-md"><p><strong>Notes:</strong> ${orderData.customer.notes || 'None'}</p><div class="action-buttons">${actionButtons}</div></div></div>`;
-        }
+            const updatedData = {
+                name: document.getElementById('editProductName').value,
+                price: parseFloat(document.getElementById('editProductPrice').value),
+                mainDescription: mainDescription,
+                bulletPoints: bulletPoints,
+                imageUrl: imageUrl,
+                stock: document.getElementById('editStockStatus').value,
+                description: null 
+            };
 
-        async function populateProductsTable() {
-            const productDocs = (await fetchProducts()).docs;
-            const tableBody = document.getElementById('products-table-body');
-            if (!tableBody) return;
-            if (productDocs.length === 0) { tableBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">No products found.</td></tr>'; return; }
-            tableBody.innerHTML = productDocs.map(doc => {
-                const p = doc.data(); 
-                const imageUrl = p.imageUrl || 'https://placehold.co/100x100?text=No+Image';
-                const stockStatus = p.stock || 'In Stock';
-                const stockStatusHtml = stockStatus === 'In Stock' ? `<span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">${stockStatus}</span>` : `<span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">${stockStatus}</span>`;
-                
-                let weightText = 'N/A';
-                if (p.weightType === 'weight') {
-                    weightText = `${p.weightValue || ''} ${p.weightUnit || ''}`.trim();
-                } else if (p.weightType === 'netContent') {
-                    weightText = p.weightDescription || 'N/A';
-                }
+            const weightType = document.getElementById('editWeightType').value;
+            updatedData.weightType = weightType;
 
-                return `<tr class="border-b hover:bg-gray-50"><td class="p-2"><img src="${imageUrl}" alt="${p.name || ''}" class="w-16 h-16 object-cover rounded-md bg-gray-100"></td><td class="p-4 font-medium">${p.name || 'N/A'}</td><td class="p-4">Rs. ${(p.price || 0).toLocaleString()}</td><td class="p-4">${weightText}</td><td class="p-4 text-sm">${stockStatusHtml}</td><td class="p-4"><button data-id="${doc.id}" class="edit-btn text-blue-600 hover:underline text-sm">Edit</button><button data-id="${doc.id}" class="delete-btn text-red-600 hover:underline text-sm ml-2">Delete</button></td></tr>`;
-            }).join('');
-        }
-
-        async function showOrderDetailsModal(orderId) { 
-            const modal = document.getElementById('order-details-modal'); const modalBody = document.getElementById('modal-order-details'); modalBody.innerHTML = '<p>Loading details...</p>'; modal.classList.remove('hidden'); try { const orderDoc = await getDoc(doc(db, "orders", orderId)); if (!orderDoc.exists()) { modalBody.innerHTML = '<p class="text-red-500">Error: Order not found.</p>'; return; } const data = orderDoc.data(); modalBody.innerHTML = `<h2 class="text-2xl font-bold text-gray-800 mb-4">Order Details</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><img src="${data.item.imageUrl}" alt="${data.item.name}" class="w-full rounded-lg object-cover mb-4 bg-gray-100" style="aspect-ratio: 1/1;"><h3 class="font-bold text-lg">${data.item.name}</h3><p><strong>Quantity:</strong> ${data.item.quantity}</p></div><div class="space-y-4"><div><h4 class="font-semibold text-gray-600 border-b pb-1 mb-2">Customer & Shipping Info</h4><p><strong>Name:</strong> ${data.customer.firstName} ${data.customer.lastName}</p><p><strong>Phone:</strong> ${data.customer.phone}</p><p><strong>Address:</strong> ${data.customer.address}, ${data.customer.city}</p><p><strong>Notes:</strong> ${data.customer.notes || 'None'}</p></div><div><h4 class="font-semibold text-gray-600 border-b pb-1 mb-2">Payment Details</h4><div class="flex justify-between"><p>Subtotal:</p> <p>Rs. ${data.payment.subtotal.toLocaleString()}</p></div><div class="flex justify-between"><p>Delivery Fee:</p> <p>Rs. ${data.payment.deliveryFee.toLocaleString()}</p></div><div class="flex justify-between font-bold text-lg mt-2 border-t pt-2"><p>Total:</p> <p>Rs. ${data.payment.total.toLocaleString()}</p></div></div><div><h4 class="font-semibold text-gray-600 border-b pb-1 mb-2">Order Status</h4><p><strong>Order ID:</strong> ${orderId}</p><p><strong>Date:</strong> ${data.timestamp.toDate().toLocaleString('en-LK')}</p><p><strong>Status:</strong> <span class="status-badge ${data.status === 'New' ? 'status-new' : data.status === 'Confirmed' ? 'status-confirmed' : 'status-rejected'}">${data.status}</span></p></div></div></div>`; } catch (error) { console.error("Error fetching order details:", error); modalBody.innerHTML = '<p class="text-red-500">Could not load order details.</p>'; }
-        }
-
-        function createEmailHtml(orderData, orderId) {
-            return `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px;"><h2 style="color: #15803d; text-align: center;">Your Dignify Ceylon Order is Confirmed!</h2><p>Hi ${orderData.customer.firstName},</p><p>Your order number is <strong>#${orderId.substring(0,6)}</strong>.</p><h3 style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">Order Summary</h3><table style="width: 100%; border-collapse: collapse;"><tr style="background-color: #f3f4f6;"><th style="padding: 10px; text-align: left;">Product</th><th style="padding: 10px; text-align: right;">Price</th></tr><tr><td style="padding: 10px; border-bottom: 1px solid #ddd;">${orderData.item.name}<br><small>Qty: ${orderData.item.quantity}</small></td><td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: right;">Rs. ${orderData.payment.subtotal.toLocaleString()}</td></tr></table><table style="width: 100%; margin-top: 20px;"><tr><td style="text-align: right;">Subtotal:</td><td style="text-align: right;">Rs. ${orderData.payment.subtotal.toLocaleString()}</td></tr><tr><td style="text-align: right;">Delivery:</td><td style="text-align: right;">Rs. ${orderData.payment.deliveryFee.toLocaleString()}</td></tr><tr><td style="text-align: right; font-weight: bold;">Total:</td><td style="text-align: right; font-weight: bold;">Rs. ${orderData.payment.total.toLocaleString()}</td></tr></table><h3 style="border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 20px;">Shipping Address</h3><p style="line-height: 1.6;">${orderData.customer.firstName} ${orderData.customer.lastName}<br>${orderData.customer.address}<br>${orderData.customer.city}<br>${orderData.customer.phone}</p><p>Thank you for shopping with us!</p><p><strong>- Dignify Ceylon Team</strong></p></div>`;
-        }
-
-        async function openEditProductModal(productId) {
-            const modal = document.getElementById('edit-product-modal');
-            const form = document.getElementById('editProductForm');
-            form.reset();
-            document.getElementById('editStatusMessage').textContent = '';
-            
-            try {
-                const productDoc = await getDoc(doc(db, "products", productId));
-                if (!productDoc.exists()) { alert("Product not found!"); return; }
-                
-                const data = productDoc.data();
-                document.getElementById('editProductId').value = productId;
-                document.getElementById('editProductName').value = data.name || '';
-                document.getElementById('editProductPrice').value = data.price || 0;
-                
-                const weightType = data.weightType || 'weight';
-                document.getElementById('editWeightType').value = weightType;
-                toggleWeightInputs('edit', weightType);
-
-                if (weightType === 'weight') {
-                    document.getElementById('editProductWeightValue').value = data.weightValue || '';
-                    document.getElementById('editProductWeightUnit').value = data.weightUnit || 'g';
-                } else {
-                    document.getElementById('editProductWeightDesc').value = data.weightDescription || '';
-                }
-
-                document.getElementById('editProductDescription').value = data.description || '';
-                document.getElementById('editProductImagePreview').src = data.imageUrl || 'https://placehold.co/100x100?text=No+Image';
-                document.getElementById('currentImageUrl').value = data.imageUrl || '';
-                document.getElementById('editFileStatus').textContent = 'Select a new file to replace the current image.';
-                document.getElementById('editStockStatus').value = data.stock || 'In Stock';
-                
-                modal.classList.remove('hidden');
-
-            } catch (error) {
-                console.error("Error fetching product for edit:", error);
-                alert("Could not load product details.");
+            if (weightType === 'weight') {
+                updatedData.weightValue = parseFloat(document.getElementById('editProductWeightValue').value) || null;
+                updatedData.weightUnit = document.getElementById('editProductWeightUnit').value;
+                updatedData.weightDescription = null; 
+            } else {
+                updatedData.weightDescription = document.getElementById('editProductWeightDesc').value;
+                updatedData.weightValue = null; 
+                updatedData.weightUnit = null;
             }
-        }
-        
-        async function handleEditProductSubmit(e) {
-            e.preventDefault();
-            const statusMsg = document.getElementById('editStatusMessage');
-            statusMsg.textContent = 'Updating...';
-            statusMsg.style.color = 'blue';
+            
+            await updateDoc(doc(db, "products", productId), updatedData);
+            statusMsg.textContent = 'Product updated successfully!';
+            statusMsg.style.color = 'green';
+            await populateProductsTable();
+            setTimeout(() => { document.getElementById('edit-product-modal').classList.add('hidden'); }, 1500);
 
-            const productId = document.getElementById('editProductId').value;
-            const imageFile = document.getElementById('editProductImageFile').files[0];
-            let imageUrl = document.getElementById('currentImageUrl').value;
+        } catch (error) {
+            console.error("Error updating product: ", error);
+            statusMsg.textContent = `Error: ${error.message}`;
+            statusMsg.style.color = 'red';
+        }
+    }
+
+    // === FIX: Renamed function and moved logic here ===
+    async function handleGlobalClick(e) {
+        const target = e.target;
+        
+        if (target.id === 'show-add-product-form-btn') document.getElementById('add-product-container').classList.remove('hidden');
+        if (target.id === 'cancel-add-product-btn') document.getElementById('add-product-container').classList.add('hidden');
+        
+        if (target.classList.contains('add-bullet-point-btn')) handleAddBulletPoint(e);
+        if (target.classList.contains('remove-bullet-point-btn')) handleRemoveBulletPoint(e);
+
+        if (target.closest('form')?.id === 'addProductForm' && target.type === 'submit') {
+            e.preventDefault();
+            const form = target.closest('form'); const statusMsg = document.getElementById('statusMessage'); statusMsg.textContent = 'Adding...'; statusMsg.style.color = 'blue';
+            const imageFile = form.querySelector('#productImageFile').files[0];
+            if (!imageFile) { statusMsg.textContent = 'Please select an image file.'; statusMsg.style.color = 'red'; return; }
             
             try {
-                if(imageFile) {
-                    imageUrl = await uploadImageToImgBB(imageFile, (msg) => { statusMsg.textContent = msg; });
-                }
+                const imageUrl = await uploadImageToImgBB(imageFile, (msg) => { statusMsg.textContent = msg; });
+                statusMsg.textContent = 'Processing data...';
                 
-                const updatedData = {
-                    name: document.getElementById('editProductName').value,
-                    price: parseFloat(document.getElementById('editProductPrice').value),
-                    description: document.getElementById('editProductDescription').value,
-                    imageUrl: imageUrl,
-                    stock: document.getElementById('editStockStatus').value
+                const mainDescription = document.getElementById('addMainDescription').value;
+                const bulletPointInputs = document.querySelectorAll('#addBulletPointsContainer input');
+                const bulletPoints = [];
+                bulletPointInputs.forEach(input => {
+                    if (input.value.trim() !== '') {
+                        bulletPoints.push(input.value.trim());
+                    }
+                });
+
+                const productData = { 
+                    name: form.querySelector('#productName').value, 
+                    price: parseFloat(form.querySelector('#productPrice').value), 
+                    mainDescription: mainDescription,
+                    bulletPoints: bulletPoints,
+                    imageUrl: imageUrl, 
+                    stock: form.querySelector('#productStock').value, 
+                    createdAt: serverTimestamp() 
                 };
 
-                const weightType = document.getElementById('editWeightType').value;
-                updatedData.weightType = weightType;
+                const weightType = form.querySelector('#addWeightType').value;
+                productData.weightType = weightType;
 
                 if (weightType === 'weight') {
-                    updatedData.weightValue = parseFloat(document.getElementById('editProductWeightValue').value) || null;
-                    updatedData.weightUnit = document.getElementById('editProductWeightUnit').value;
-                    updatedData.weightDescription = null; // Clear other field
-                } else { // netContent
-                    updatedData.weightDescription = document.getElementById('editProductWeightDesc').value;
-                    updatedData.weightValue = null; // Clear other fields
-                    updatedData.weightUnit = null;
+                    productData.weightValue = parseFloat(form.querySelector('#productWeightValue').value) || null;
+                    productData.weightUnit = form.querySelector('#productWeightUnit').value;
+                } else { 
+                    productData.weightDescription = form.querySelector('#productWeightDesc').value;
                 }
-                
-                await updateDoc(doc(db, "products", productId), updatedData);
-                statusMsg.textContent = 'Product updated successfully!';
-                statusMsg.style.color = 'green';
-                await populateProductsTable();
-                setTimeout(() => { document.getElementById('edit-product-modal').classList.add('hidden'); }, 1500);
 
-            } catch (error) {
-                console.error("Error updating product: ", error);
-                statusMsg.textContent = `Error: ${error.message}`;
-                statusMsg.style.color = 'red';
-            }
+                await addDoc(collection(db, "products"), productData);
+                statusMsg.textContent = 'Success!'; statusMsg.style.color = 'green'; form.reset(); document.getElementById('add-product-container').classList.add('hidden'); await populateProductsTable();
+            } catch (error) { statusMsg.textContent = `Error: ${error.message}`; statusMsg.style.color = 'red'; }
+        }
+        
+        if (target.classList.contains('edit-btn')) {
+            openEditProductModal(target.dataset.id);
+        }
+        if (target.classList.contains('delete-btn')) {
+            const productId = target.dataset.id;
+            if (confirm('Are you sure you want to delete this product?')) { await deleteDoc(doc(db, "products", productId)); await populateProductsTable(); }
+        }
+        
+        if (target.classList.contains('confirm-btn') || target.classList.contains('reject-btn')) {
+            const orderId = target.dataset.id; target.disabled = true; target.textContent = '...';
+            const orderRef = doc(db, "orders", orderId); const newStatus = target.classList.contains('confirm-btn') ? 'Confirmed' : 'Rejected';
+            try {
+                await updateDoc(orderRef, { status: newStatus });
+                if (newStatus === 'Confirmed') {
+                    const orderDoc = await getDoc(orderRef);
+                    if(orderDoc.exists() && orderDoc.data().customer.email) { await addDoc(collection(db, "mail"), { to: [orderDoc.data().customer.email], message: { subject: `Your Order #${orderId.substring(0, 6)} is Confirmed!`, html: createEmailHtml(orderDoc.data(), orderId) } }); }
+                }
+                const orderCard = document.getElementById(orderId);
+                if (orderCard) {
+                    orderCard.querySelector('.status-badge').textContent = newStatus;
+                    orderCard.querySelector('.status-badge').className = `status-badge ${newStatus === 'Confirmed' ? 'status-confirmed' : 'status-rejected'}`;
+                    orderCard.querySelector('.action-buttons').innerHTML = '';
+                }
+            } catch (error) { console.error("Error updating order:", error); alert("Failed to update order status."); target.disabled = false; target.textContent = newStatus === 'Confirmed' ? 'Confirm' : 'Reject'; }
+        }
+        const orderCard = target.closest('.order-card-clickable');
+        if (orderCard && !target.closest('button')) {
+            showOrderDetailsModal(orderCard.id);
         }
 
-        async function handleMainContentClick(e) {
-            const target = e.target;
-            
-            if (target.id === 'show-add-product-form-btn') document.getElementById('add-product-container').classList.remove('hidden');
-            if (target.id === 'cancel-add-product-btn') document.getElementById('add-product-container').classList.add('hidden');
-            if (target.closest('form')?.id === 'addProductForm' && target.type === 'submit') {
-                e.preventDefault();
-                const form = target.closest('form'); const statusMsg = document.getElementById('statusMessage'); statusMsg.textContent = 'Adding...'; statusMsg.style.color = 'blue';
-                const imageFile = form.productImageFile.files[0];
-                if (!imageFile) { statusMsg.textContent = 'Please select an image file.'; statusMsg.style.color = 'red'; return; }
-                
-                try {
-                    const imageUrl = await uploadImageToImgBB(imageFile, (msg) => { statusMsg.textContent = msg; });
-                    statusMsg.textContent = 'Processing data...';
-
-                    const productData = { 
-                        name: form.productName.value, 
-                        price: parseFloat(form.productPrice.value), 
-                        description: form.productDescription.value, 
-                        imageUrl: imageUrl, 
-                        stock: form.productStock.value, 
-                        createdAt: serverTimestamp() 
-                    };
-
-                    const weightType = form.addWeightType.value;
-                    productData.weightType = weightType;
-
-                    if (weightType === 'weight') {
-                        productData.weightValue = parseFloat(form.productWeightValue.value) || null;
-                        productData.weightUnit = form.productWeightUnit.value;
-                    } else { // netContent
-                        productData.weightDescription = form.productWeightDesc.value;
-                    }
-
-                    await addDoc(collection(db, "products"), productData);
-                    statusMsg.textContent = 'Success!'; statusMsg.style.color = 'green'; form.reset(); document.getElementById('add-product-container').classList.add('hidden'); await populateProductsTable();
-                } catch (error) { statusMsg.textContent = `Error: ${error.message}`; statusMsg.style.color = 'red'; }
-            }
-            
-            if (target.classList.contains('edit-btn')) {
-                openEditProductModal(target.dataset.id);
-            }
-            if (target.classList.contains('delete-btn')) {
-                const productId = target.dataset.id;
-                if (confirm('Are you sure you want to delete this product?')) { await deleteDoc(doc(db, "products", productId)); await populateProductsTable(); }
-            }
-            
-            if (target.classList.contains('confirm-btn') || target.classList.contains('reject-btn')) {
-                const orderId = target.dataset.id; target.disabled = true; target.textContent = '...';
-                const orderRef = doc(db, "orders", orderId); const newStatus = target.classList.contains('confirm-btn') ? 'Confirmed' : 'Rejected';
-                try {
-                    await updateDoc(orderRef, { status: newStatus });
-                    if (newStatus === 'Confirmed') {
-                        const orderDoc = await getDoc(orderRef);
-                        if(orderDoc.exists() && orderDoc.data().customer.email) { await addDoc(collection(db, "mail"), { to: [orderDoc.data().customer.email], message: { subject: `Your Order #${orderId.substring(0, 6)} is Confirmed!`, html: createEmailHtml(orderDoc.data(), orderId) } }); }
-                    }
-                    const orderCard = document.getElementById(orderId);
-                    if (orderCard) {
-                        orderCard.querySelector('.status-badge').textContent = newStatus;
-                        orderCard.querySelector('.status-badge').className = `status-badge ${newStatus === 'Confirmed' ? 'status-confirmed' : 'status-rejected'}`;
-                        orderCard.querySelector('.action-buttons').innerHTML = '';
-                    }
-                } catch (error) { console.error("Error updating order:", error); alert("Failed to update order status."); target.disabled = false; target.textContent = newStatus === 'Confirmed' ? 'Confirm' : 'Reject'; }
-            }
-            const orderCard = target.closest('.order-card-clickable');
-            if (orderCard && !target.closest('button')) {
-                showOrderDetailsModal(orderCard.id);
-            }
+        // Close modal logic
+        if (target.closest('#close-modal-btn, #cancel-edit-product-btn')) {
+             target.closest('.modal').classList.add('hidden');
         }
+    }
 
-        function renderSalesChart(ordersData) {
-            const ctx = document.getElementById('salesChart')?.getContext('2d'); if(!ctx) return; const last7Days = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - i); return d.toISOString().split('T')[0]; }).reverse(); const salesData = last7Days.map(day => ordersData.filter(o => o.timestamp?.toDate().toISOString().split('T')[0] === day).reduce((sum, o) => sum + (o.payment?.total || 0), 0)); if(salesChartInstance) salesChartInstance.destroy(); salesChartInstance = new Chart(ctx, { type: 'bar', data: { labels: last7Days, datasets: [{ label: 'Sales (Rs.)', data: salesData, backgroundColor: 'rgba(21, 128, 61, 0.6)' }] }, options: { scales: { y: { beginAtZero: true } } } });
-        }
-        function renderOrderStatusChart(ordersData) {
-            const ctx = document.getElementById('orderStatusChart')?.getContext('2d'); if(!ctx) return; const statusCounts = ordersData.reduce((acc, order) => { const status = order.status || 'Unknown'; acc[status] = (acc[status] || 0) + 1; return acc; }, {}); if(orderStatusChartInstance) orderStatusChartInstance.destroy(); orderStatusChartInstance = new Chart(ctx, { type: 'doughnut', data: { labels: Object.keys(statusCounts), datasets: [{ data: Object.values(statusCounts), backgroundColor: ['#f59e0b', '#22c55e', '#ef4444', '#3b82f6', '#6b7280'] }] } });
-        }
+    function renderSalesChart(ordersData) {
+        const ctx = document.getElementById('salesChart')?.getContext('2d'); if(!ctx) return; const last7Days = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - i); return d.toISOString().split('T')[0]; }).reverse(); const salesData = last7Days.map(day => ordersData.filter(o => o.timestamp?.toDate().toISOString().split('T')[0] === day).reduce((sum, o) => sum + (o.payment?.total || 0), 0)); if(salesChartInstance) salesChartInstance.destroy(); salesChartInstance = new Chart(ctx, { type: 'bar', data: { labels: last7Days, datasets: [{ label: 'Sales (Rs.)', data: salesData, backgroundColor: 'rgba(21, 128, 61, 0.6)' }] }, options: { scales: { y: { beginAtZero: true } } } });
+    }
+    function renderOrderStatusChart(ordersData) {
+        const ctx = document.getElementById('orderStatusChart')?.getContext('2d'); if(!ctx) return; const statusCounts = ordersData.reduce((acc, order) => { const status = order.status || 'Unknown'; acc[status] = (acc[status] || 0) + 1; return acc; }, {}); if(orderStatusChartInstance) orderStatusChartInstance.destroy(); orderStatusChartInstance = new Chart(ctx, { type: 'doughnut', data: { labels: Object.keys(statusCounts), datasets: [{ data: Object.values(statusCounts), backgroundColor: ['#f59e0b', '#22c55e', '#ef4444', '#3b82f6', '#6b7280'] }] } });
+    }
 
-    </script>
+</script>
+</body>
+</html>
 </body>
 </html>
