@@ -3,18 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KANDY WORLD - Premium Men's Wear</title>
+    <title>Dignify Ceylon - Authentic BM Foods</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
 
     <style>
-        /* Applying Poppins Font to the entire site */
-        body { font-family: 'Poppins', sans-serif; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+        }
+
+        #page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://i.ibb.co/Gfg6DS3V/a-HR0c-HM6-Ly9l-Ln-N0-YWVkd-Gxlcm-Nkbi5j.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        #content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .font-brand {
+            font-family: 'Galada', cursive;
+        }
 
         .sidebar-panel { transition: transform 0.3s ease-in-out; }
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
@@ -26,83 +56,229 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Style to handle the scroll locking */
-        .no-scroll {
-            overflow: hidden;
+        .swiper-pagination-bullet-active {
+            background-color: #16a34a;
         }
         
-        /* Swiper Pagination color */
-        .swiper-pagination-bullet-active {
-            background-color: #facc15; /* yellow-400 */
+        .goals-swiper .swiper-pagination-bullet {
+            background-color: rgba(255, 255, 255, 0.6);
+            opacity: 1;
         }
-        /* Applying Playfair Display to the brand name and main headings */
-.font-black, h2, h3 {
-    font-family: 'Playfair Display', serif;
+        .goals-swiper .swiper-pagination-bullet-active {
+            background-color: #ffffff;
+        }
+        .goals-swiper .swiper-pagination {
+            bottom: 16px !important;
+        }
+/* Animation එකට පෙර මූලික অবস্থা */
+.mind-map-item {
+    opacity: 0;
+    transform: translateY(25px); /* පහළ සිට මතුවීමට */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* JavaScript මගින් class එක එකතු වූ පසු ක්‍රියාත්මක වන অবস্থা */
+.mind-map-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered effect එක සඳහා delay classes */
+.delay-1 { transition-delay: 100ms; }
+.delay-2 { transition-delay: 200ms; }
+.delay-3 { transition-delay: 300ms; }
+.delay-4 { transition-delay: 400ms; }
+.delay-5 { transition-delay: 500ms; }
+.delay-6 { transition-delay: 600ms; }
+
+/* Hover effect එක සඳහා */
+.info-box {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.info-box:hover {
+    transform: translateY(-8px) scale(1.03); /* ඉස්සිලා ලොකු වීම */
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
     </style>
 </head>
-
-<body class="bg-white min-h-screen text-gray-800">
-  <div id="preloader" class="fixed inset-0 bg-white z-50 grid place-items-center">
-    <div class="w-20 h-20 border-4 border-gray-200 border-t-black rounded-full animate-spin col-start-1 row-start-1"></div>
-    <img src="https://i.ibb.co/PyNpHPH/Untitled-design-3.png" alt="Kandy World Logo Loading" class="h-14 w-auto col-start-1 row-start-1">
-</div>
-
 <script>
-    // Page eke siyalu de (images, etc.) load wela iwara unama me function eka run wenawa
-    window.onload = function() {
-        // Preloader eka ID eken select karagannawa
-        const preloader = document.getElementById('preloader');
-        
-        if (preloader) {
-            // Fade out effect eka start karanna class add karanawa
-            preloader.classList.add('transition-opacity', 'duration-500', 'opacity-0');
-            
-            // Milliseconds 500kata passe (fade out wela iwara unama), preloader eka sampurnayenma ain karanawa
-            setTimeout(() => {
-                preloader.classList.add('hidden');
-            }, 500); 
+    // GSAP සහ ScrollTrigger plugins register කරන්න
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const section = document.getElementById('dehydration-section');
+        const mindMapItems = document.querySelectorAll('.mind-map-item');
+        const svg = document.getElementById('mindMapSvg');
+
+        if (!section || !svg) {
+            console.error("Mind map section or SVG container not found!");
+            return;
         }
-    };
+
+        // 1. Boxes සහ Text සඳහා වන මූලික animation එක
+        mindMapItems.forEach((item, index) => {
+            gsap.fromTo(item, 
+                { opacity: 0, x: -50 }, 
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        // 2. SVG රේඛා ඇඳීමේ function එක
+        const drawMindMapLines = () => {
+            // පරණ paths අයින් කිරීම
+            svg.innerHTML = '<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto" fill="#9CA3AF"><polygon points="0 0, 10 3.5, 0 7" /></marker></defs>';
+
+            const boxes = ['box1', 'box2', 'box3', 'box4'].map(id => document.getElementById(id));
+            const titleElement = document.querySelector('#dehydration-section .md\\:w-1\\/3');
+
+            if (!boxes.every(b => b) || !titleElement) return;
+
+            const sectionRect = section.getBoundingClientRect();
+            const svgWidth = svg.offsetWidth;
+            const svgHeight = svg.offsetHeight;
+
+            if (svgWidth === 0 || svgHeight === 0) return;
+
+            const scaleX = 100 / svgWidth;
+            const scaleY = 100 / svgHeight;
+
+            const getSvgPoint = (el, side, vAlign) => {
+                const rect = el.getBoundingClientRect();
+                let x = (side === 'left') ? rect.left : (side === 'right') ? rect.right : rect.left + rect.width / 2;
+                let y = (vAlign === 'top') ? rect.top : (vAlign === 'bottom') ? rect.bottom : rect.top + rect.height / 2;
+                return {
+                    x: (x - sectionRect.left) * scaleX,
+                    y: (y - sectionRect.top) * scaleY
+                };
+            };
+            
+            // Title එකේ සිට පළමු box එකට
+            const titlePoint = getSvgPoint(titleElement, 'right', 'center');
+            const box1Point = getSvgPoint(boxes[0], 'left', 'center');
+            let path1_d = `M ${titlePoint.x + 5} ${titlePoint.y} H ${box1Point.x - 5}`;
+            createPath(path1_d, false, true);
+
+            // Boxes අතර සම්බන්ධතා
+            for (let i = 0; i < boxes.length - 1; i++) {
+                const startPoint = getSvgPoint(boxes[i], 'center', 'bottom');
+                const endPoint = getSvgPoint(boxes[i+1], 'center', 'top');
+                const midY = startPoint.y + (endPoint.y - startPoint.y) / 2;
+                let path_d = `M ${startPoint.x} ${startPoint.y} V ${midY} H ${endPoint.x} V ${endPoint.y}`;
+                createPath(path_d, true, false);
+            }
+            
+            animatePaths();
+        };
+
+        const createPath = (d, isDashed, hasArrow) => {
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            let classes = "svg-path";
+            if (isDashed) classes += " dashed-line";
+            path.setAttribute("class", classes);
+            path.setAttribute("stroke", "#9CA3AF");
+            path.setAttribute("d", d);
+            if (hasArrow) path.setAttribute("marker-end", "url(#arrowhead)");
+            svg.appendChild(path);
+        };
+
+        const animatePaths = () => {
+            gsap.utils.toArray(".svg-path").forEach((path, index) => {
+                const length = path.getTotalLength();
+                if (length > 0) {
+                    path.style.strokeDasharray = length;
+                    path.style.strokeDashoffset = length;
+                    gsap.to(path, {
+                        strokeDashoffset: 0,
+                        duration: 1.5,
+                        ease: "power1.inOut",
+                        delay: index * 0.4 + 0.5,
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 50%",
+                            toggleActions: "play none none none",
+                        }
+                    });
+                }
+            });
+        };
+
+        // 3. ResizeObserver භාවිතා කරමින්, section එකේ ප්‍රමාණය තීරණය වූ පසු draw function එක ක්‍රියාත්මක කිරීම
+        const observer = new ResizeObserver(entries => {
+            // We only need to draw once when it becomes visible and has a size
+            if (entries[0].contentRect.width > 0) {
+                drawMindMapLines();
+                // Stop observing after the first successful draw to save resources
+                observer.unobserve(section);
+            }
+        });
+
+        // Start observing the section
+        observer.observe(section);
+
+        // Also add a listener for window resize to redraw lines
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                drawMindMapLines();
+                ScrollTrigger.refresh(true);
+            }, 200);
+        });
+    });
 </script>
 
+<body class="text-gray-800">
 
-    <div class="bg-black text-white text-center py-2 text-sm">
+<div id="page-background"></div>
+
+<div id="content-wrapper">
+
+    <div class="bg-green-900 text-white text-center py-2 text-sm">
         Free Island-wide Delivery on Orders Over Rs. 5000!
     </div>
 
     <nav class="bg-white text-gray-800 px-4 py-4 sticky top-0 z-40 shadow-sm border-b">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center">
-    <a href="index.html" class="flex items-center">
-        <img src="https://i.ibb.co/PyNpHPH/Untitled-design-3.png" alt="Kandy World Logo" class="h-10 mr-3">
-        <span class="text-2xl font-black tracking-wider text-black">KANDY WORLD</span>
-    </a>
-</div>
+                <a href="index.html" class="font-brand text-3xl tracking-wider text-green-800">Dignify Ceylon</a>
+            </div>
     
             <div class="hidden lg:flex flex-grow max-w-xl mx-8">
                 <form id="desktop-search-form" class="w-full flex items-center border border-gray-300 rounded-md">
                     <div class="relative">
                         <select class="pl-4 pr-8 py-2 bg-gray-100 rounded-l-md border-r border-gray-300 text-sm focus:outline-none appearance-none">
                             <option>All</option>
-                            <option>T-Shirts</option>
-                            <option>Long Sleeves</option>
-                            <option>Shorts</option>
+                            <option>Spices & Herbs</option>
+                            <option>Snacks & Sweets</option>
+                            <option>Ready to Eat</option>
+                            <option>Beverages</option>
                         </select>
                     </div>
-                    <input type="text" id="desktop-search-input" placeholder="I'm shopping for..." class="w-full py-2 px-4 text-gray-900 placeholder-gray-500 focus:outline-none">
-                    <button type="submit" class="px-6 py-2 bg-black text-white font-semibold rounded-r-md hover:bg-gray-800">
+                    <input type="text" id="desktop-search-input" placeholder="Search for spices, snacks..." class="w-full py-2 px-4 text-gray-900 placeholder-gray-500 focus:outline-none">
+                    <button type="submit" class="px-6 py-2 bg-green-700 text-white font-semibold rounded-r-md hover:bg-green-800">
                         Search
                     </button>
                 </form>
             </div>
     
             <div class="flex items-center space-x-6">
-                <a href="cart.html" id="cart-button" class="flex items-center gap-2 hover:text-teal-600 relative">
+                <a href="cart.html" id="cart-button" class="flex items-center gap-2 hover:text-green-600 relative">
                     <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.658-.463 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-amber-400 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white">0</span>
                 </a>
-                 <button id="user-button" class="flex items-center gap-2 hover:text-teal-600">
+                 <button id="user-button" class="flex items-center gap-2 hover:text-green-600">
                     <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
                     <span id="user-text" class="text-sm hidden md:block">Log in / Register</span>
                 </button>
@@ -112,137 +288,151 @@
         <div class="mt-3 lg:hidden">
             <form id="mobile-search-form" class="w-full">
                 <div class="relative">
-                    <input type="text" id="mobile-search-input" placeholder="I'm shopping for..." class="w-full py-2 pl-4 pr-12 rounded-md text-gray-900 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500">
-                    <button type="submit" class="absolute inset-y-0 right-0 flex items-center px-4 bg-black rounded-r-md">
+                    <input type="text" id="mobile-search-input" placeholder="Search for spices, snacks..." class="w-full py-2 pl-4 pr-12 rounded-md text-gray-900 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <button type="submit" class="absolute inset-y-0 right-0 flex items-center px-4 bg-green-700 rounded-r-md">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                 </div>
             </form>
         </div>
     </nav>
-     
-<header>
+    
+   <header>
     <div class="relative">
         <div class="swiper heroSwiper w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/8] lg:aspect-[16/6]">
             <div class="swiper-wrapper">
 
                 <div class="swiper-slide">
                     <picture>
-                        <source media="(min-width: 1024px)" srcset="https://i.ibb.co/gZnR7qLK/LINEN-SHIRTS-22.png">
-                        <source media="(min-width: 768px)" srcset="https://i.ibb.co/zV3LJQ1h/LINEN-SHIRTS-28.png">
-                        <img src="https://i.ibb.co/spmpQj4g/LINEN-SHIRTS-31.png" class="w-full h-full object-cover" alt="Super Fins Hero Image 1" />
+                        <source media="(min-width: 1024px)" srcset="https://i.ibb.co/Psh7srJv/LINEN-SHIRTS-28.png">
+                        <source media="(min-width: 768px)" srcset="https://i.ibb.co/G4KC1F7Q/LINEN-SHIRTS-30.png">
+                        <img src="https://i.ibb.co/tw4YTtC5/LINEN-SHIRTS-32.pngvv" class="w-full h-full object-cover" alt="Super Fins Hero Image 1" />
                     </picture>
                 </div>
 
                 <div class="swiper-slide">
                     <picture>
-                        <source media="(min-width: 1024px)" srcset="https://i.ibb.co/RdkbfyF/LINEN-SHIRTS-24.png">
-                        <source media="(min-width: 768px)" srcset="https://i.ibb.co/MDkCfXzr/LINEN-SHIRTS-29.png">
-                        <img src="https://i.ibb.co/ynTz9RMp/LINEN-SHIRTS-34.png" class="w-full h-full object-cover" alt="Watersports Action" />
+                        <source media="(min-width: 1024px)" srcset="https://i.ibb.co/7J0NrSx6/LINEN-SHIRTS-29.png">
+                        <source media="(min-width: 768px)" srcset="https://i.ibb.co/hxLVVywD/LINEN-SHIRTS-19.png">
+                        <img src="https://i.ibb.co/LdH3495K/LINEN-SHIRTS-20.png" class="w-full h-full object-cover" alt="Watersports Action" />
                     </picture>
                 </div>
+
+            
             </div>
             <div class="swiper-pagination"></div>
         </div>
     </div>
 </header>
 
-
-  <section class="bg-white pt-10 pb-4">
+    <section class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-            <div id="category-scroller" class="flex space-x-4 overflow-x-auto snap-x snap-mandatory no-scrollbar p-2">
-                <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 snap-start">
-                    <img src="https://i.ibb.co/q33nKzHp/1.png" alt="Mens Linen Pants" class="w-full h-full object-cover rounded-md">
-                    <div class="absolute inset-0 flex items-end p-4">
-                        <h3 class="text-black text-sm font-semibold uppercase drop-shadow-md bg-white bg-opacity-70 px-2 py-1 rounded">Mens Linen Pants</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="flex items-center gap-4">
+                    <img src="https://img.icons8.com/ios/50/22c55e/restaurant.png" alt="Authentic Flavours" class="w-12 h-12"/>
+                    <div>
+                        <h3 class="font-bold text-gray-800">Authentic Flavours</h3>
+                        <p class="text-sm text-gray-600">Taste the tradition.</p>
                     </div>
-                </a>
-                <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 snap-start">
-                    <img src="https://i.ibb.co/mrrtqNSx/2.png" alt="Ladies linen Pants" class="w-full h-full object-cover rounded-md">
-                    <div class="absolute inset-0 flex items-end p-4">
-                        <h3 class="text-black text-sm font-semibold uppercase drop-shadow-md bg-white bg-opacity-70 px-2 py-1 rounded">Ladies linen Pants</h3>
+                </div>
+                <div class="flex items-center gap-4">
+                     <img src="https://img.icons8.com/ios/50/22c55e/sprout.png" alt="Freshly Packed" class="w-12 h-12"/>
+                    <div>
+                        <h3 class="font-bold text-gray-800">Freshly Packed</h3>
+                        <p class="text-sm text-gray-600">Sealed for freshness.</p>
                     </div>
-                </a>
-                <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 snap-start">
-                    <img src="https://i.ibb.co/dwLZmCj3/3.png" alt="Ladies Linen Shorts" class="w-full h-full object-cover rounded-md">
-                    <div class="absolute inset-0 flex items-end p-4">
-                        <h3 class="text-black text-sm font-semibold uppercase drop-shadow-md bg-white bg-opacity-70 px-2 py-1 rounded">Ladies Linen Shorts</h3>
+                </div>
+                <div class="flex items-center gap-4">
+                    <img src="https://img.icons8.com/ios/50/22c55e/box.png" alt="Secure Packaging" class="w-12 h-12"/>
+                    <div>
+                        <h3 class="font-bold text-gray-800">Secure Packaging</h3>
+                        <p class="text-sm text-gray-600">Delivered safe and sound.</p>
                     </div>
-                </a>
-                <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 snap-start">
-                    <img src="https://i.ibb.co/Nn6L382j/4.png" alt="Viscose Casual shirts" class="w-full h-full object-cover rounded-md">
-                    <div class="absolute inset-0 flex items-end p-4">
-                        <h3 class="text-black text-sm font-semibold uppercase drop-shadow-md bg-white bg-opacity-70 px-2 py-1 rounded"> Viscose Casual shirts</h3>
+                </div>
+                <div class="flex items-center gap-4">
+                    <img src="https://img.icons8.com/ios/50/22c55e/cash-on-delivery.png" alt="Cash on Delivery" class="w-12 h-12"/>
+                    <div>
+                        <h3 class="font-bold text-gray-800">Cash on Delivery</h3>
+                        <p class="text-sm text-gray-600">Pay at your doorstep.</p>
                     </div>
-                </a>
-                <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 snap-start">
-                    <img src="https://i.ibb.co/ynYTNGwm/5.png" alt="Casual Linen Shirts" class="w-full h-full object-cover rounded-md">
-                    <div class="absolute inset-0 flex items-end p-4">
-                        <h3 class="text-black text-sm font-semibold uppercase drop-shadow-md bg-white bg-opacity-70 px-2 py-1 rounded">Casual Linen Shirts</h3>
-                    </div>
-                </a>
-                
+                </div>
             </div>
         </div>
     </section>
+
+    <section class="pb-9">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div id="category-scroller" class="flex space-x-4 overflow-x-auto snap-x snap-mandatory no-scrollbar p-2">
+            
+            <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 lg:w-1/5 snap-start">
+                <img src="https://i.ibb.co/KxTWp4gr/1.png" alt="Spices & Herbs" class="w-full h-full object-cover rounded-md">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4 rounded-md group-hover:bg-opacity-30 transition">
+                </div>
+            </a>
+            
+            <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 lg:w-1/5 snap-start">
+                <img src="https://i.ibb.co/PsynwqL5/2.png" alt="Snacks & Sweets" class="w-full h-full object-cover rounded-md">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4 rounded-md group-hover:bg-opacity-30 transition">
+                </div>
+            </a>
+            
+            <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 lg:w-1/5 snap-start">
+                <img src="https://i.ibb.co/JF7jgjwY/3.png" alt="Ready to Eat" class="w-full h-full object-cover rounded-md">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4 rounded-md group-hover:bg-opacity-30 transition">
+                </div>
+            </a>
+            
+            <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 lg:w-1/5 snap-start">
+                <img src="https://i.ibb.co/d0CCjQwV/4.png" alt="Beverages" class="w-full h-full object-cover rounded-md">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4 rounded-md group-hover:bg-opacity-30 transition">
+                </div>
+            </a>
+            
+            <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 lg:w-1/5 snap-start">
+                <img src="https://i.ibb.co/knmvFR7/5.png" alt="Organic Products" class="w-full h-full object-cover rounded-md">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4 rounded-md group-hover:bg-opacity-30 transition">
+                </div>
+            </a>
+            
+            <a href="#" class="group relative block aspect-square flex-shrink-0 w-2/5 md:w-1/4 lg:w-1/5 snap-start">
+                <img src="https://i.ibb.co/Rd067Hh/6.png" alt="Gift Packs" class="w-full h-full object-cover rounded-md">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-end p-4 rounded-md group-hover:bg-opacity-30 transition">
+                </div>
+            </a>
+            
+        </div>
+    </div>
+</section>
     
-    <div id="product-grid-container" class="max-w-7xl mx-auto px-4 pt-2 pb-16">
+    <div id="product-grid-container" class="max-w-7xl mx-auto px-4 pt-3 pb-16">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8">
             <aside id="desktop-filter-panel" class="hidden lg:block lg:col-span-1">
                 <div class="space-y-8 sticky top-28">
-                    <div class="border-b pb-6">
-                 
-                        <input type="text" id="desktop-brand-search" placeholder="Search Brand" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm mb-3">
-                        <div id="desktop-brand-filter-list" class="space-y-2">
-                            <p class="text-xs text-gray-400">Loading brands...</p>
+                    <div class="border rounded-lg p-4 bg-blue-50 border-blue-200">
+                        <h3 class="font-semibold mb-4 text-lg text-gray-800">Wholesale Rules & Regulations</h3>
+                        <div class="space-y-3 text-sm text-gray-700">
+                            <p>To partner with us for wholesale purchases, please adhere to the following guidelines:</p>
+                            <ul class="list-disc list-inside space-y-2 pl-1">
+                                <li><strong>Minimum Order (MOQ):</strong> A minimum of 20 units per order is required.</li>
+                                <li><strong>Pricing:</strong> Special wholesale pricing is available. Please contact us via WhatsApp for a detailed quote.</li>
+                                <li><strong>Ordering:</strong> All wholesale orders must be placed directly through our WhatsApp business line for efficient processing.</li>
+                                <li><strong>Payment:</strong> A 50% advance payment is required to confirm your order, with the remaining balance due before dispatch.</li>
+                                <li><strong>Delivery:</strong> We offer island-wide delivery. Delivery charges may apply based on order size and location.</li>
+                            </ul>
+                            <p class="pt-2 font-semibold text-blue-800">Contact us today to get started!</p>
                         </div>
                     </div>
-                    <div class="border-b pb-6">
-                        <h3 class="font-semibold mb-4 text-lg">Category</h3>
-                        <div id="desktop-category-filter-list" class="space-y-2"><p class="text-xs text-gray-400">Loading categories...</p></div>
-                    </div>
-                    <div class="pb-6">
-                        <h3 class="font-semibold mb-2 text-lg">Size</h3>
-                        <div class="border-b border-gray-200">
-                            <nav class="-mb-px flex space-x-6" aria-label="Tabs">
-                                <button class="size-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-teal-500 text-teal-600" data-tab="brand-size">Brand Size</button>
-                                <button class="size-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="eu">EU</button>
-                            </nav>
-                        </div>
-                        <div class="mt-4">
-                            <div id="desktop-size-filter-list">
-                                <div class="tab-panel active grid grid-cols-4 gap-2" data-panel="brand-size">
-                                    <button data-size="XXS" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">XXS</button>
-                                    <button data-size="XS" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">XS</button>
-                                    <button data-size="S" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">S</button>
-                                    <button data-size="M" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">M</button>
-                                    <button data-size="L" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">L</button>
-                                    <button data-size="XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">XL</button>
-                                    <button data-size="2XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">2XL</button>
-                                    <button data-size="3XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">3XL</button>
-                                    <button data-size="4XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">4XL</button>
-                                    <button data-size="5XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">5XL</button>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold mb-4 text-gray-800">Category</h3>
+                            <div id="desktop-category-filter-list" class="space-y-2">
                                 </div>
-                                <div class="tab-panel" data-panel="eu"><p class="text-xs text-gray-400">EU sizes not available.</p></div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="border-t pt-6">
-                         <h3 class="font-semibold mb-2 text-lg">Price Range</h3>
-                         <div class="flex items-center space-x-2">
-                             <input type="number" id="desktop-min-price" placeholder="Min" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                             <span class="text-gray-500">-</span>
-                             <input type="number" id="desktop-max-price" placeholder="Max" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                         </div>
-                    </div>
-                    <div class="pt-4 flex flex-col space-y-2">
-                         <button id="desktop-apply-filters-btn" class="w-full bg-teal-600 text-white font-bold py-2.5 rounded-md hover:bg-teal-700 transition">Apply</button>
-                         <button id="desktop-clear-filters-btn" class="w-full bg-gray-200 text-gray-800 font-bold py-2.5 rounded-md hover:bg-gray-300 transition">Clear All</button>
-                    </div>
+                        </div>
                 </div>
             </aside>
-
             <main class="lg:col-span-3">
                 <div id="main-content-area">
                     <p class="col-span-full text-center text-gray-500 text-lg">Loading...</p>
@@ -251,63 +441,48 @@
         </div>
     </div>
     
-    <div id="mobile-filter-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
-        <div id="mobile-filter-panel" class="sidebar-panel absolute top-0 left-0 h-full w-full max-w-sm bg-white shadow-xl transform -translate-x-full flex flex-col">
-            <div class="flex items-center justify-between p-4 border-b">
-                <h2 class="text-lg font-semibold">Filters</h2>
-                <button id="close-filter-btn" class="p-2 rounded-full hover:bg-gray-100"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+   <div id="mobile-filter-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden lg:hidden">
+    <div id="mobile-filter-panel" class="sidebar-panel absolute top-0 left-0 h-full w-full max-w-sm bg-white shadow-xl transform -translate-x-full flex flex-col">
+        <div class="flex items-center justify-between p-4 border-b">
+            <h2 class="text-lg font-semibold">Filter & Sort</h2>
+            <button id="close-filter-btn" class="p-2 rounded-full hover:bg-gray-100"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+
+        <div class="p-4 overflow-y-auto flex-grow custom-scrollbar">
+            <div class="bg-blue-50 border border-blue-200 p-3 rounded-md mb-6">
+               <h3 class="font-semibold mb-3 text-base text-gray-800">Wholesale Rules & Regulations</h3>
+               <div class="space-y-3 text-sm text-gray-700">
+                    <p>To partner with us for wholesale purchases, please adhere to the following guidelines:</p>
+                    <ul class="list-disc list-inside space-y-2 pl-1">
+                        <li><strong>Minimum Order (MOQ):</strong> A minimum of 20 units per order is required.</li>
+                        <li><strong>Pricing:</strong> Special wholesale pricing is available. Please contact us via WhatsApp for a detailed quote.</li>
+                        <li><strong>Ordering:</strong> All wholesale orders must be placed directly through our WhatsApp business line for efficient processing.</li>
+                        <li><strong>Payment:</strong> A 50% advance payment is required to confirm your order, with the remaining balance due before dispatch.</li>
+                        <li><strong>Delivery:</strong> We offer island-wide delivery. Delivery charges may apply based on order size and location.</li>
+                    </ul>
+                    <p class="pt-2 font-semibold text-blue-800">Contact us today to get started!</p>
+               </div>
             </div>
-            <div class="p-4 space-y-6 overflow-y-auto flex-grow custom-scrollbar">
+            
+            <div class="space-y-6">
                 <div>
-                    <h3 class="font-semibold mb-2">Brand</h3>
-                    <input type="text" id="mobile-brand-search" placeholder="Search Brand" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm mb-3">
-                    <div id="mobile-brand-filter-list" class="space-y-2 max-h-40 overflow-y-auto"></div>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-2">Category</h3>
-                    <div id="mobile-category-filter-list" class="space-y-2"></div>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-2">Size</h3>
-                    <div class="border-b border-gray-200">
-                        <nav class="-mb-px flex space-x-4" aria-label="Tabs">
-                            <button class="size-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-teal-500 text-teal-600" data-tab="brand-size">Brand Size</button>
-                            <button class="size-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500" data-tab="eu">EU</button>
-                        </nav>
-                    </div>
-                    <div class="mt-4">
-                        <div id="mobile-size-filter-list">
-                            <div class="tab-panel active grid grid-cols-4 gap-2" data-panel="brand-size">
-                                <button data-size="XXS" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">XXS</button>
-                                <button data-size="XS" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">XS</button>
-                                <button data-size="S" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">S</button>
-                                <button data-size="M" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">M</button>
-                                <button data-size="L" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">L</button>
-                                <button data-size="XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">XL</button>
-                                <button data-size="2XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">2XL</button>
-                                <button data-size="3XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">3XL</button>
-                                <button data-size="4XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">4XL</button>
-                                <button data-size="5XL" class="size-btn p-2 border border-gray-300 rounded-md text-sm hover:border-black">5XL</button>
-                            </div>
-                            <div class="tab-panel" data-panel="eu"><p class="text-xs text-gray-400">EU sizes not available.</p></div>
+                    <h3 class="font-semibold mb-4 text-gray-800">Category</h3>
+                    <div id="mobile-category-filter-list" class="space-y-2">
                         </div>
-                    </div>
                 </div>
                 <div>
-                    <h3 class="font-semibold mb-2">Price Range</h3>
-                    <div class="flex items-center space-x-2">
-                        <input type="number" id="mobile-min-price" placeholder="Min" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                        <span class="text-gray-500">-</span>
-                        <input type="number" id="mobile-max-price" placeholder="Max" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm" min="0">
-                    </div>
+                    <h3 class="font-semibold mb-4 text-gray-800">Sort By</h3>
+                    <select id="mobile-sort-select" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                        <option value="createdAt-desc">Newest</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                    </select>
                 </div>
-            </div>
-            <div class="p-4 border-t bg-white flex space-x-2">
-                <button id="mobile-clear-filters-btn" class="w-1/2 bg-gray-200 text-gray-800 font-bold py-2.5 rounded-md hover:bg-gray-300 transition">Clear All</button>
-                <button id="mobile-apply-filters-btn" class="w-1/2 bg-teal-600 text-white font-bold py-2.5 rounded-md hover:bg-teal-700 transition">Apply</button>
             </div>
         </div>
+        
     </div>
+</div>
 
     <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
          <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
@@ -317,165 +492,309 @@
              </div>
              <div class="p-8">
                  <form id="login-form" class="space-y-4">
-                     <div>
-                         <label for="login-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                         <input type="email" id="login-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
-                     </div>
-                     <div>
-                         <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
-                         <input type="password" id="login-password" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
-                     </div>
-                     <button type="submit" class="w-full bg-teal-600 text-white font-bold py-2.5 rounded-md hover:bg-teal-700 transition">Login</button>
+                      <div>
+                          <label for="login-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                          <input type="email" id="login-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <div>
+                          <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+                          <input type="password" id="login-password" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Login</button>
                  </form>
                  <form id="signup-form" class="space-y-4 hidden">
-                     <div>
-                         <label for="signup-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                         <input type="email" id="signup-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
-                     </div>
-                     <div>
-                         <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
-                         <input type="password" id="signup-password" minlength="6" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
-                         <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long.</p>
-                     </div>
-                     <button type="submit" class="w-full bg-teal-600 text-white font-bold py-2.5 rounded-md hover:bg-teal-700 transition">Create Account</button>
+                      <div>
+                          <label for="signup-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                          <input type="email" id="signup-email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                      </div>
+                      <div>
+                          <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                          <input type="password" id="signup-password" minlength="6" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                          <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters long.</p>
+                      </div>
+                      <button type="submit" class="w-full bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">Create Account</button>
                  </form>
                  <div class="relative flex py-5 items-center">
-                     <div class="flex-grow border-t border-gray-200"></div>
-                     <span class="flex-shrink mx-4 text-xs text-gray-400 uppercase">Or</span>
-                     <div class="flex-grow border-t border-gray-200"></div>
+                      <div class="flex-grow border-t border-gray-200"></div>
+                      <span class="flex-shrink mx-4 text-xs text-gray-400 uppercase">Or</span>
+                      <div class="flex-grow border-t border-gray-200"></div>
                  </div>
                  <button id="google-signin-btn" class="w-full flex items-center justify-center py-2.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
-                     <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.223 0-9.641-3.657-11.297-8.591l-6.522 5.025C9.505 39.556 16.227 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.574l6.19 5.238C42.012 35.245 44 30.024 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
-                     Sign in with Google
+                      <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.223 0-9.641-3.657-11.297-8.591l-6.522 5.025C9.505 39.556 16.227 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.574l6.19 5.238C42.012 35.245 44 30.024 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
+                      Sign in with Google
                  </button>
                  <p id="auth-error" class="text-red-500 text-sm mt-4 text-center"></p>
              </div>
-         </div>
+        </div>
     </div>
     
     <div id="user-info-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-sm p-6 text-center">
             <h2 class="text-lg font-medium text-gray-900">Welcome!</h2>
             <p id="user-email-display" class="mt-2 text-sm text-gray-600 truncate"></p>
-            <a href="my-orders.html" id="my-orders-button" class="mt-4 w-full block bg-teal-600 text-white font-bold py-2.5 rounded-md hover:bg-teal-700 transition">My Orders</a>
+            <a href="my-orders.html" id="my-orders-button" class="mt-4 w-full block bg-green-600 text-white font-bold py-2.5 rounded-md hover:bg-green-700 transition">My Orders</a>
             <button id="logout-button" class="mt-2 w-full bg-red-600 text-white font-bold py-2.5 rounded-md hover:bg-red-700 transition">Logout</button>
             <button id="close-user-modal" class="mt-2 w-full text-gray-600 text-sm py-2">Close</button>
         </div>
     </div>
-<section id="get-in-touch" class="bg-white py-16 sm:py-24">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact Our Team</h2>
-                    <p class="mt-4 text-lg leading-8 text-gray-600">
-                        Have questions about our products, an order, or just want to say hello? We'd love to hear from you. Reach out through your preferred method below.
-                    </p>
-                    <div class="mt-10 space-y-4 text-base leading-7 text-gray-600">
-                        <div class="flex gap-x-4">
-                            <div class="h-7 w-7 flex-none">
-                                <svg class="text-teal-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                                </svg>
-                            </div>
-                            <span>Kandy, Sri Lanka</span>
+
+<section id="dehydration-section" class="py-20 bg-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 relative">
+        
+        <div class="md:w-1/3 text-left md:sticky md:top-20 self-start">
+            <h2 class="text-3xl font-bold text-gray-800 tracking-tight sm:text-4xl mb-4 mind-map-item delay-1">
+                What is Dehydration?
+            </h2>
+            <p class="mt-4 text-lg text-gray-600 mind-map-item delay-2 md:hidden">
+                The ancient art of preserving food by gently removing its moisture. This natural process locks in flavour, nutrients, and goodness.
+            </p>
+            <p class="hidden mt-4 text-lg text-gray-600 mind-map-item delay-2 md:block">
+                Dehydration is a time-honored technique of gently removing moisture from food using low heat. This simple yet effective method does more than just preserve; it transforms. By removing water, we concentrate the food's natural essence, intensifying its flavours, aromas, and nutritional value. It's a process where modern science meets ancient wisdom, allowing us to capture the peak freshness of ingredients and lock in their goodness without any artificial preservatives.
+            </p>
+        </div>
+
+        <div class="md:w-2/3 relative flex flex-col items-center">
+            
+            <svg id="mindMapSvg" class="absolute top-0 left-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto" fill="#9CA3AF">
+                        <polygon points="0 0, 10 3.5, 0 7" />
+                    </marker>
+                </defs>
+            </svg>
+
+            <div class="w-full space-y-8 z-10">
+                <div id="box1" class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-3 md:ml-auto md:w-2/3 info-box">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mr-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                         </div>
-                        <div class="flex gap-x-4">
-                            <div class="h-7 w-7 flex-none">
-                               <svg class="text-teal-600" xmlns="http://www.w.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6,14.2l-1.5-0.8c-0.4-0.2-1-0.1-1.3,0.2L13,14.5c-0.1,0.1-0.3,0.2-0.5,0.1c-0.7-0.3-1.8-1-2.9-2.1c-1-1-1.8-2.2-2.1-2.9c-0.1-0.2,0-0.4,0.1-0.5l0.9-0.9c0.3-0.3,0.4-0.9,0.2-1.3l-0.8-1.5C9.4,4.6,9.1,4,8.6,4C8.4,4,8.1,4,7.9,4.1L6.7,4.3C6.2,4.4,5.8,4.8,5.7,5.3C5.5,6.1,5.8,7,6.3,8.3c0.7,1.8,1.9,3.5,3.6,5.1c2.1,2.1,4.2,3.3,6.2,3.6c0.5,0.1,1,0.1,1.5,0.1c0.5,0,1-0.2,1.4-0.5c0.4-0.3,0.7-0.8,0.7-1.3l0.2-1.2C17,14.9,16.9,14.5,16.6,14.2z M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10c5.5,0,10-4.5,10-10S17.5,2,12,2z M12,20c-4.4,0-8-3.6-8-8s3.6-8,8-8s8,3.6,8,8S16.4,20,12,20z"/></svg>
-                            </div>
-                            <a href="https://wa.me/94773956355" target="_blank" class="hover:text-gray-900">+94 77 395 6355 (WhatsApp)</a>
-                        </div>
-                        <div class="flex gap-x-4">
-                            <div class="h-7 w-7 flex-none">
-                                <svg class="text-teal-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                                </svg>
-                            </div>
-                            <a href="mailto:support@kandyworld.com" class="hover:text-gray-900">support@kandyworld.com</a>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Natural Preservation</h3>
+                            <p class="mt-1 text-gray-600">
+                                Removes water that bacteria and mold need to grow, keeping food safe for months without chemicals.
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-12 lg:mt-0 p-8 bg-gray-50 rounded-2xl">
-                    <h3 class="text-2xl font-semibold leading-7 text-gray-900">Send us a message</h3>
-                    <form id="whatsapp-form" class="mt-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-                            <div>
-                                <label for="wa-name" class="block text-sm font-semibold leading-6 text-gray-900">Full Name</label>
-                                <div class="mt-2">
-                                    <input type="text" id="wa-name" name="name" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                                </div>
-                            </div>
-                            <div>
-                                <label for="wa-email" class="block text-sm font-semibold leading-6 text-gray-900">Email Address</label>
-                                <div class="mt-2">
-                                    <input type="email" id="wa-email" name="email" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                                </div>
-                            </div>
-                            <div class="sm:col-span-2">
-                                <label for="wa-message" class="block text-sm font-semibold leading-6 text-gray-900">Message</label>
-                                <div class="mt-2">
-                                    <textarea id="wa-message" name="message" rows="4" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"></textarea>
-                                </div>
-                            </div>
+                <div id="box2" class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-4 md:mr-auto md:w-2/3 info-box">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-600 mr-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7.014A8.003 8.003 0 0112 2c1.398 0 2.743.57 3.714 1.543C18.5 5.543 19 8 19 10c2 1 2.657 1.657 2.657 1.657a8 8 0 01-4.001 7z"></path></svg>
                         </div>
-                        <div class="mt-8">
-                            <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-md hover:bg-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-colors">Send via WhatsApp</button>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Concentrated Flavour</h3>
+                            <p class="mt-1 text-gray-600">
+                                As water leaves, the food's natural flavours, sugars, and spices become richer and more intense.
+                            </p>
                         </div>
-                    </form>
+                    </div>
+                </div>
+
+                <div id="box3" class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-5 md:ml-auto md:w-2/3 info-box">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mr-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Nutrient Retention</h3>
+                            <p class="mt-1 text-gray-600">
+                                Low-heat dehydration is gentle, preserving essential vitamins and minerals that high-heat cooking can destroy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="box4" class="bg-gray-50 p-6 rounded-xl shadow-lg mind-map-item delay-6 md:mr-auto md:w-2/3 info-box">
+                     <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 mr-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Longer Shelf Life</h3>
+                            <p class="mt-2 text-gray-600">
+                                Reduces food waste by extending the life of seasonal produce, making flavours available all year round.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-<script>
-// --- WhatsApp Form Handler ---
-        const whatsappForm = document.getElementById('whatsapp-form');
-        if (whatsappForm) {
-            whatsappForm.addEventListener('submit', function(event) {
-                event.preventDefault();
+     <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+            <img src="https://i.ibb.co/k2cvwnfQ/DIGNIFY-CEYLON.jpg" alt="Hands holding authentic Sri Lankan spices" class="rounded-lg shadow-2xl w-full h-full object-cover">
+        </div>
+        <div class="space-y-4">
+            <h2 class="text-3xl font-bold text-gray-800 tracking-tight">Our Story: The Essence of Ceylon</h2>
+            <p class="text-gray-700 leading-relaxed">
+                Born from a passion for authentic Sri Lankan natural food colours and flavours. Our journey is rooted in bringing the true essence of our island's rich culinary heritage to your home.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+                Each product is prepared with care, following age-old recipes and our own new methods to preserve the natural goodness and authentic taste you love.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+                <strong>Award Winning & Trusted:</strong> We are proudly registered with the Ceylon Chamber of Commerce and featured on recognized e-commerce platforms like <a href="http://www.fromsrilanka.com" class="text-blue-600 hover:underline">fromsrilanka.com</a> and
+                 , trusted by thousands.Registered with Chamber of Commerce E- Commerce  platforms as well as Registered Export Development Board and Sri lanka Tea Board.
+            </p>
+        </div>
+    </div>
+</section>
 
-                const name = document.getElementById('wa-name').value;
-                const email = document.getElementById('wa-email').value;
-                const message = document.getElementById('wa-message').value;
-                
-                // Your WhatsApp number without '+' or spaces
-                const phoneNumber = "94773956355"; 
+    
+   <section id="achievements-section" class="bg-white py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col-reverse md:flex-row gap-12 items-center">
+            
+            <div class="space-y-5 w-full md:w-1/2">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 tracking-tight">Our Achievements</h2>
+                <span class="text-green-700 font-bold uppercase tracking-wider">A MARK OF EXCELLENCE</span>
+                <h3 class="text-2xl font-bold text-gray-800">Delivering Certified Quality & Authentic Taste</h3>
+                <p id="dynamic-achievement-description" class="text-gray-600 leading-relaxed min-h-[100px] transition-opacity duration-300">
+                </p>
+              <div class="pt-4">
+    <h4 class="font-semibold text-gray-700 mb-3">Our Credentials:</h4>
+    <ul class="space-y-4">
+        <li class="flex items-start text-gray-600">
+            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span><strong>Official Registration:</strong> We are proudly registered with the Ceylon Chamber of Commerce, adhering to the highest standards of business ethics and quality.</span>
+        </li>
+        <li class="flex items-start text-gray-600">
+            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span><strong>Advanced Training:</strong> Our team has completed specialized training at a leading food technology academy in Thailand, mastering advanced techniques in natural food processing and preservation.</span>
+        </li>
+        <li class="flex items-start text-gray-600">
+            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span><strong>Trusted by Thousands:</strong> Proudly serving over 50,000 satisfied customers in Sri Lanka and across the globe who trust us for purity and taste.</span>
+        </li>
+         <li class="flex items-start text-gray-600">
+            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span><strong>Registerd With:</strong> Chamber of Commerce E- Commerce Platform as well as Registered Export Development Board and Sri lanka Tea Board .</span>
+        </li>
+    </ul>
+</div>
+            </div>
 
-                // Construct the message with clear labels
-                const fullMessage = `New Inquiry from KANDY WORLD Website:\n\n*Name:* ${name}\n*Email:* ${email}\n\n*Message:*\n${message}`;
-                
-                // Encode the message for the URL
-                const encodedMessage = encodeURIComponent(fullMessage);
-                
-                // Create the WhatsApp click-to-chat URL
-                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-                
-                // Open the URL in a new tab to start the chat
-                window.open(whatsappURL, '_blank');
-            });
-        }
+            <div class="relative rounded-lg shadow-xl overflow-hidden w-full md:w-1/2">
+                <div class="swiper goals-swiper h-full">
+                    <div class="swiper-wrapper">
+                        
+                        <div class="swiper-slide youtube-slide" data-description="Watch our official company video to see our dedication to quality and the authentic process behind our products, from the heart of Sri Lanka to your table.">
+                            <div class="aspect-video">
+                                <iframe id="youtube-player" class="w-full h-full" 
+                                    src="https://www.youtube.com/embed/kX5yDwbTwik?enablejsapi=1&autoplay=0&mute=1&loop=1&playlist=kX5yDwbTwik&controls=0&modestbranding=1" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
 
-</script>
+                        <div class="swiper-slide" data-description="This is the official registration certificate for the business named 'Dignify Ceylon Food Products', issued by the Department of Business Names Registration of the Western Province, confirming our legal operation in Sri Lanka.">
+                            <img src="https://i.ibb.co/SDCgJrsy/Untitled-design-3.png" alt="Official Business Registration Certificate" class="w-full h-auto object-contain">
+                        </div>
+                        
+                        <div class="swiper-slide" data-description="This certificate confirms the successful completion of a course in Thailand Food Dehydration Technology by our leadership, covering advanced dehydration methods, packaging, and zero-waste management.">
+                            <img src="https://i.ibb.co/vK0WwQX/Untitled-design-2.png" alt="Certificate for Thailand Food Dehydration Technology" class="w-full h-auto object-contain">
+                        </div>
 
-  <footer class="bg-gray-800 text-white">
+                        <div class="swiper-slide" data-description="A professional endorsement from High Tags Holding (Pvt) Ltd, vouching for the high standard of our 100% natural, preservative-free coconut products and excellent service for international logistics.">
+                            <img src="https://i.ibb.co/b52GDR0r/Untitled-design-1.png" alt="Recommendation Letter from High Tags Holding" class="w-full h-auto object-contain">
+                        </div>
+
+                    </div>
+                    <div class="swiper-button-next text-white after:text-2xl"></div>
+                    <div class="swiper-button-prev text-white after:text-2xl"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact-us" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 tracking-tight">Get In Touch</h2>
+            <p class="mt-4 text-lg text-gray-600">Have questions? We'd love to hear from you.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800">Contact Information</h3>
+                    <p class="text-gray-600 mt-2">Fill up the form and our team will get back to you within 24 hours.</p>
+                </div>
+                <div class="flex items-center space-x-4 text-gray-700">
+                    <svg class="w-6 h-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 6.75z" />
+                    </svg>
+                    <span>+94 71 906 3442</span>
+                </div>
+                <div class="flex items-center space-x-4 text-gray-700">
+                    <svg class="w-6 h-6 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                    <span>contact@dignifyceylon.com</span>
+                </div>
+                <div class="flex items-start space-x-4 text-gray-700">
+                    <svg class="w-6 h-6 text-green-700 mt-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                    <span>Main Street, Colombo, Sri Lanka</span>
+                </div>
+            </div>
+
+            <div class="p-8 rounded-lg">
+                <form id="contact-form" novalidate>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="contact-name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="contact-email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="contact-message" name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-green-700 text-white font-bold py-3 px-6 rounded-md hover:bg-green-800 transition-colors flex items-center justify-center space-x-2">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.94631 9.42398C1.83325 8.94193 2.23558 8.48421 2.71074 8.52936L21.4988 10.0526C21.933 10.0941 22.1465 10.6183 21.8485 10.9419L19.0195 14.004C18.8211 14.2183 18.5143 14.2479 18.2868 14.0729L13.1678 10.3755C13.0617 10.2941 12.9056 10.3635 12.8943 10.4907L12.0125 19.8631C11.9961 20.0416 11.8021 20.1424 11.6375 20.0461L8.14693 17.9317C7.94273 17.8142 7.78137 17.6118 7.72295 17.3809L5.80858 9.8732C5.74837 9.63583 5.86476 9.39294 6.08865 9.27419L11.5312 6.18235C11.6601 6.10729 11.8153 6.20853 11.7877 6.36106L10.3123 15.1118L13.7844 17.6536L16.2737 15.0116L12.4208 11.5173C12.1154 11.2366 12.158 10.7485 12.4938 10.5126L17.337 7.21808L3.89666 8.46825L6.20171 16.082L7.30933 16.595L8.94827 10.0231C9.02058 9.73693 8.8475 9.44497 8.56069 9.38012L2.09115 8.08328C2.01358 8.06797 1.93895 8.03157 1.87974 7.97962C1.7259 7.84478 1.63855 7.63281 1.6845 7.4299L2.50284 3.78417C2.59019 3.39572 2.1462 3.09033 1.77681 3.28454L0.424299 3.96081C0.0549045 4.15501 -0.118081 4.64307 0.052824 5.01898L1.94631 9.42398Z"/></svg>
+                                <span>Send Message on WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    <footer class="bg-green-900 text-white">
         <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-lg font-bold mb-4">KANDY WORLD</h3>
+                    <h3 class="font-brand text-2xl mb-4">Dignify Ceylon</h3>
                     <p class="text-gray-400 text-sm">
-                        Discover premium quality t-shirts designed for comfort and style. Your new favorite tee awaits.
+                        Discover authentic Sri Lankan flavours with Dignify Ceylon. Quality ingredients, freshly packed for your home.
                     </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Shop</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Men's Linen Pants</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Ladies' Linen Pants</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Linen Shirts</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Ladies' Linen Shorts</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Viscose Casual Shirts</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Spices</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Snacks</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Beverages</a></li>
                     </ul>
                 </div>
                 <div>
@@ -484,7 +803,6 @@
                         <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white">Shipping & Returns</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Size Guide</a></li>
                     </ul>
                 </div>
                 <div>
@@ -492,7 +810,7 @@
                     <p class="text-gray-400 text-sm mb-3">Get exclusive deals and updates straight to your inbox.</p>
                     <form class="flex">
                         <input type="email" placeholder="Your Email" class="w-full rounded-l-md py-2 px-3 text-gray-800 focus:outline-none">
-                        <button type="submit" class="bg-teal-600 hover:bg-teal-700 rounded-r-md px-4 py-2 font-semibold">Go</button>
+                        <button type="submit" class="bg-green-700 hover:bg-green-800 rounded-r-md px-4 py-2 font-semibold">Go</button>
                     </form>
                     <div class="flex space-x-4 mt-6">
                         <a href="#" class="text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.59 0 0 .59 0 1.325v21.351C0 23.41.59 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.735 0 1.325-.59 1.325-1.325V1.325C24 .59 23.41 0 22.675 0z"></path></svg></a>
@@ -501,13 +819,16 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
-                <p>&copy; 2025 KANDY WORLD. All Rights Reserved.</p>
+            <div class="mt-8 pt-8 border-t border-green-800 text-center text-sm text-gray-400">
+                <p>&copy; 2025 Dignify Ceylon. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -515,14 +836,16 @@
     import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     // --- Firebase Config ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyDglDGMO-cknnl7JR7cD89_4yWdLRkvLBY",
-        authDomain: "ssdfashion-af744.firebaseapp.com",
-        projectId: "ssdfashion-af744",
-        storageBucket: "ssdfashion-af744.appspot.com",
-        messagingSenderId: "233163735482",
-        appId: "1:233163735482:web:14ecbc0b46a28fb02e9d83"
-    };
+      const firebaseConfig = {
+            apiKey: "AIzaSyCpLC8en-GBODf7Xk-uSpZg_HB37J5a-4I",
+            authDomain: "dignify-69351.firebaseapp.com",
+            projectId: "dignify-69351",
+            storageBucket: "dignify-69351.appspot.com",
+            messagingSenderId: "141142153545",
+            appId: "1:141142153545:web:c464f04b452206d1456298",
+            measurementId: "G-FV52NPV5Q4"
+        };
+        
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
@@ -536,6 +859,7 @@
     const authModal = document.getElementById('auth-modal');
     const userInfoModal = document.getElementById('user-info-modal');
     const userText = document.getElementById('user-text');
+    const currencyModal = document.getElementById('currency-modal');
     
     // --- Global State ---
     let currentFilters = {};
@@ -543,6 +867,10 @@
     let wishlistedProductIds = new Set();
     let cartListener = null;
     let wishlistListener = null;
+    
+    // --- New Currency State ---
+    let selectedCurrency = 'LKR'; 
+    const LKR_TO_USD_RATE = 300; // IMPORTANT: Set your exchange rate here. 1 USD = 300 LKR
 
     // --- Icons ---
     const heartIconEmpty = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"></path></svg>`;
@@ -551,9 +879,48 @@
     const starEmptyIcon = `<svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`;
 
     const isMobileView = () => window.innerWidth < 1024;
+    
+    // --- New Function to Format Price ---
+    function formatPrice(lkrPrice) {
+        if (selectedCurrency === 'USD') {
+            const usdPrice = lkrPrice / LKR_TO_USD_RATE;
+            return `$${usdPrice.toFixed(2)}`;
+        }
+        // Default to LKR
+        return `Rs. ${lkrPrice.toLocaleString()}`;
+    }
+
+    // --- New Function to handle Currency Selection ---
+    function setupCurrencyModal() {
+        if (!currencyModal) return;
+        const currencyPreferenceSet = sessionStorage.getItem('currencyPreferenceSet');
+
+        if (!currencyPreferenceSet) {
+            currencyModal.classList.remove('hidden');
+        } else {
+            selectedCurrency = sessionStorage.getItem('userCurrency') || 'LKR';
+            loadProducts(); // Load products with saved preference
+        }
+
+        document.getElementById('select-lkr-btn').addEventListener('click', () => {
+            selectedCurrency = 'LKR';
+            sessionStorage.setItem('userCurrency', 'LKR');
+            sessionStorage.setItem('currencyPreferenceSet', 'true');
+            currencyModal.classList.add('hidden');
+            loadProducts(); // Reload products with new currency
+        });
+
+        document.getElementById('select-usd-btn').addEventListener('click', () => {
+            selectedCurrency = 'USD';
+            sessionStorage.setItem('userCurrency', 'USD');
+            sessionStorage.setItem('currencyPreferenceSet', 'true');
+            currencyModal.classList.add('hidden');
+            loadProducts(); // Reload products with new currency
+        });
+    }
 
     function setupHeroSlider() {
-        const swiper = new Swiper('.hero-slider', {
+        const swiper = new Swiper('.heroSwiper', {
             loop: true,
             effect: 'fade',
             autoplay: {
@@ -577,7 +944,7 @@
                 if (!firstItem) return;
                 const scrollAmount = firstItem.offsetWidth + 16;
                 let newScrollLeft = scroller.scrollLeft + scrollAmount;
-                if (newScrollLeft + scroller.clientWidth > scroller.scrollWidth) {
+                if (newScrollLeft + scroller.clientWidth >= scroller.scrollWidth) {
                     newScrollLeft = 0;
                 }
                 scroller.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
@@ -591,20 +958,16 @@
 
     async function populateFilterOptions() {
         try {
-            const [productsSnapshot, categoriesSnapshot] = await Promise.all([
-                getDocs(collection(db, "products")),
-                getDocs(collection(db, "categories"))
-            ]);
+            const staticCategories = [
+                "Spices & Herbs",
+                "Snacks & Sweets",
+                "Ready to Eat",
+                "Beverages",
+                "Organic Products",
+                "Gift Packs"
+            ];
             
-            const allProducts = productsSnapshot.docs.map(doc => doc.data());
-            
-            const brands = [...new Set(allProducts.map(p => p.brand).filter(Boolean))].sort();
-            const brandHTML = brands.map(brand => `<label class="flex items-center space-x-2 text-sm cursor-pointer"><input type="checkbox" value="${brand}" class="rounded text-teal-600 focus:ring-teal-500"><span>${brand}</span></label>`).join('');
-            document.getElementById('desktop-brand-filter-list').innerHTML = brandHTML || '<p class="text-xs text-gray-400">No brands found.</p>';
-            document.getElementById('mobile-brand-filter-list').innerHTML = brandHTML || '<p class="text-xs text-gray-400">No brands found.</p>';
-
-            const categories = categoriesSnapshot.docs.map(doc => doc.data().name).sort();
-            const categoryHTML = categories.map(cat => `<label class="flex items-center space-x-2 text-sm cursor-pointer"><input type="checkbox" value="${cat}" class="rounded text-teal-600 focus:ring-teal-500"><span>${cat}</span></label>`).join('');
+            const categoryHTML = staticCategories.map(cat => `<label class="flex items-center space-x-2 text-sm cursor-pointer"><input type="checkbox" value="${cat}" class="rounded text-green-600 focus:ring-green-500"><span>${cat}</span></label>`).join('');
             
             document.getElementById('desktop-category-filter-list').innerHTML = categoryHTML || '<p class="text-xs text-gray-400">No categories found.</p>';
             document.getElementById('mobile-category-filter-list').innerHTML = categoryHTML || '<p class="text-xs text-gray-400">No categories found.</p>';
@@ -624,7 +987,7 @@
             titleRow.className = 'flex items-center justify-between mb-6';
             
             let title = 'Filtered Results';
-            const hasOnlyCategoryFilter = currentFilters.categories?.length > 0 && !currentFilters.brands?.length && currentFilters.sizes?.length === 0 && currentFilters.minPrice == null && currentFilters.maxPrice == null;
+            const hasOnlyCategoryFilter = currentFilters.categories?.length > 0 && !currentFilters.brands?.length;
             if (hasOnlyCategoryFilter) {
                 title = currentFilters.categories.join(' & ');
             }
@@ -652,8 +1015,8 @@
         headerContainer.className = 'sticky top-0 z-10 bg-white pb-4';
         
         const filterButton = document.createElement('button');
-        filterButton.className = 'w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-md font-semibold bg-teal-600 text-white hover:bg-teal-700 transition-colors';
-        filterButton.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg><span>Filter & Sort</span>`;
+        filterButton.className = 'w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-md font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors';
+        filterButton.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg><span>Filter & Sort</span>`;
         filterButton.onclick = () => toggleMobileFilterSidebar(true);
         
         headerContainer.appendChild(filterButton);
@@ -663,243 +1026,126 @@
     function toggleMobileFilterSidebar(show) {
         if (show) {
             mobileFilterSidebar.classList.remove('hidden');
-            setTimeout(() => mobileFilterPanel.classList.remove('-translate-x-full'), 10);
+            setTimeout(() => {
+                mobileFilterPanel.classList.remove('-translate-x-full')
+                mobileFilterSidebar.addEventListener('click', closeOnOutsideClick, { once: true });
+            }, 10);
         } else {
             mobileFilterPanel.classList.add('-translate-x-full');
             setTimeout(() => mobileFilterSidebar.classList.add('hidden'), 300);
         }
     }
+
+    function closeOnOutsideClick(e) {
+        if (e.target === mobileFilterSidebar) {
+            toggleMobileFilterSidebar(false);
+        }
+    }
         
     function applyFilters() {
         const sourcePrefix = isMobileView() ? 'mobile' : 'desktop';
-        const panel = document.getElementById(`${sourcePrefix}-filter-panel`);
+        const panel = document.getElementById(`${sourcePrefix}-filter-panel`) || document.getElementById('mobile-filter-panel');
         currentFilters = {};
-        currentFilters.brands = [...panel.querySelectorAll(`#${sourcePrefix}-brand-filter-list input:checked`)].map(cb => cb.value);
         currentFilters.categories = [...panel.querySelectorAll(`#${sourcePrefix}-category-filter-list input:checked`)].map(cb => cb.value);
-        currentFilters.sizes = [...panel.querySelectorAll('.size-btn.bg-black')].map(btn => btn.dataset.size);
-        const minPrice = parseFloat(panel.querySelector(`#${sourcePrefix}-min-price`).value);
-        if (!isNaN(minPrice)) currentFilters.minPrice = minPrice; else delete currentFilters.minPrice;
-        const maxPrice = parseFloat(panel.querySelector(`#${sourcePrefix}-max-price`).value);
-        if (!isNaN(maxPrice)) currentFilters.maxPrice = maxPrice; else delete currentFilters.maxPrice;
-        if (isMobileView()) toggleMobileFilterSidebar(false);
+        
+        if (isMobileView()) {
+            const sortSelect = panel.querySelector('#mobile-sort-select');
+            const [field, direction] = sortSelect.value.split('-');
+            currentSort = { field, direction };
+        }
+        
         loadProducts();
-    }
-
-    function clearFilters() {
-        currentFilters = {};
-        loadProducts();
-    }
-    
-    function updateFilterUIs() {
-        ['mobile', 'desktop'].forEach(view => {
-            const panel = document.getElementById(`${view}-filter-panel`);
-            if (!panel) return;
-            panel.querySelector(`#${view}-min-price`).value = currentFilters.minPrice || '';
-            panel.querySelector(`#${view}-max-price`).value = currentFilters.maxPrice || '';
-            panel.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; });
-            if (currentFilters.brands) currentFilters.brands.forEach(b => {
-                const el = panel.querySelector(`input[value="${b}"]`); if(el) el.checked = true;
-            });
-            if (currentFilters.categories) currentFilters.categories.forEach(c => {
-                 const el = panel.querySelector(`input[value="${c}"]`); if(el) el.checked = true;
-            });
-            panel.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('bg-black', 'text-white'));
-            if (currentFilters.sizes) currentFilters.sizes.forEach(s => {
-                const el = panel.querySelector(`button[data-size="${s}"]`); if(el) el.classList.add('bg-black', 'text-white');
-            });
-        });
     }
 
     async function loadAndGroupAllProductsDesktop() {
         mainContentArea.innerHTML = `<p class="text-center text-gray-500">Loading...</p>`;
         try {
-            const productsQuery = query(collection(db, "products"), orderBy("createdAt", "desc"));
-            const categoriesQuery = query(collection(db, "categories"), orderBy("name"));
-            
-            const [productsSnapshot, categoriesSnapshot] = await Promise.all([
-                getDocs(productsQuery),
-                getDocs(categoriesQuery)
-            ]);
-
+            const querySnapshot = await getDocs(query(collection(db, "products"), orderBy("createdAt", "desc")));
             mainContentArea.innerHTML = '';
-            if (productsSnapshot.empty) {
-                mainContentArea.innerHTML = '<p class="text-center text-gray-500">No products found.</p>'; 
-                return;
+            mainContentArea.appendChild(renderDesktopHeaderAndFilters(false));
+            if (querySnapshot.empty) {
+                mainContentArea.innerHTML += '<p class="text-center text-gray-500">No products found.</p>'; return;
             }
-
-            const categoryImageMap = new Map();
-            categoriesSnapshot.forEach(doc => {
-                const categoryData = doc.data();
-                categoryImageMap.set(categoryData.name, categoryData.imageUrl);
-            });
-
             const productsByCategory = {};
-            productsSnapshot.forEach(doc => {
+            querySnapshot.forEach(doc => {
                 const product = { id: doc.id, ...doc.data() };
-                const category = product.category || 'Other Products';
-                if (!productsByCategory[category]) {
-                    productsByCategory[category] = [];
-                }
+                const category = product.category || 'All Products';
+                if (!productsByCategory[category]) productsByCategory[category] = [];
                 productsByCategory[category].push(product);
             });
             
-            const sortedCategories = Object.keys(productsByCategory).sort();
+            const sortedCategories = Object.keys(productsByCategory).sort((a, b) => {
+                if (a === 'All Products') return -1;
+                if (b === 'All Products') return 1;
+                return a.localeCompare(b);
+            });
 
             for (const category of sortedCategories) {
-                const imageUrl = categoryImageMap.get(category);
-
-                if (imageUrl) {
-                    const categoryImage = document.createElement('img');
-                    categoryImage.src = imageUrl;
-                    categoryImage.alt = `${category} Banner`;
-                    categoryImage.className = 'w-full h-auto object-cover rounded-lg shadow-md mb-8 mt-8'; 
-                    mainContentArea.appendChild(categoryImage);
-                } else {
-                    const header = document.createElement('h2');
-                    header.className = 'text-2xl font-bold text-gray-800 mb-6 mt-8 border-b pb-2';
-                    header.textContent = category;
-                    mainContentArea.appendChild(header);
-                }
-
+                const header = document.createElement('h2');
+                header.className = 'text-xl font-bold text-gray-800 mb-6 mt-8 border-b pb-2';
+                header.textContent = category;
+                mainContentArea.appendChild(header);
                 const grid = document.createElement('div');
                 grid.className = 'grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10';
                 productsByCategory[category].forEach(p => grid.appendChild(createProductCardElement(p.id, p)));
                 mainContentArea.appendChild(grid);
             }
-
-        } catch (error) { 
-            console.error("Error loading grouped products and categories:", error); 
-            mainContentArea.innerHTML = '<p class="text-center text-red-500">Failed to load content.</p>'; 
-        }
+        } catch (error) { console.error("Error loading grouped products:", error); mainContentArea.innerHTML = '<p class="text-center text-red-500">Failed to load products.</p>'; }
     }
-
-    async function loadAndGroupAllProductsMobile() {
-        mainContentArea.innerHTML = `<p class="text-center text-gray-500">Loading...</p>`;
-        try {
-            mainContentArea.innerHTML = ''; 
-            mainContentArea.appendChild(renderMobileHeader());
-
-            const productsQuery = query(collection(db, "products"), orderBy("createdAt", "desc"));
-            const categoriesQuery = query(collection(db, "categories"), orderBy("name"));
-            
-            const [productsSnapshot, categoriesSnapshot] = await Promise.all([
-                getDocs(productsQuery),
-                getDocs(categoriesQuery)
-            ]);
-
-            if (productsSnapshot.empty) {
-                mainContentArea.innerHTML += '<p class="text-center text-gray-500 mt-4">No products found.</p>'; 
-                return;
-            }
-
-            const categoryImageMap = new Map();
-            categoriesSnapshot.forEach(doc => {
-                const categoryData = doc.data();
-                categoryImageMap.set(categoryData.name, categoryData.imageUrl);
-            });
-
-            const productsByCategory = {};
-            productsSnapshot.forEach(doc => {
-                const product = { id: doc.id, ...doc.data() };
-                const category = product.category || 'Other Products';
-                if (!productsByCategory[category]) {
-                    productsByCategory[category] = [];
-                }
-                productsByCategory[category].push(product);
-            });
-            
-            const sortedCategories = Object.keys(productsByCategory).sort();
-
-            for (const category of sortedCategories) {
-                const imageUrl = categoryImageMap.get(category);
-
-                if (imageUrl) {
-                    const categoryImage = document.createElement('img');
-                    categoryImage.src = imageUrl;
-                    categoryImage.alt = `${category} Banner`;
-                    categoryImage.className = 'w-full h-auto object-cover rounded-lg shadow-md my-6'; 
-                    mainContentArea.appendChild(categoryImage);
-                } else {
-                    const header = document.createElement('h2');
-                    header.className = 'text-xl font-bold text-gray-800 my-6 border-b pb-2';
-                    header.textContent = category;
-                    mainContentArea.appendChild(header);
-                }
-                
-                const grid = document.createElement('div');
-                grid.className = 'grid grid-cols-2 gap-x-4 gap-y-8 mb-8';
-                productsByCategory[category].forEach(p => grid.appendChild(createProductCardElement(p.id, p)));
-                mainContentArea.appendChild(grid);
-            }
-
-        } catch (error) { 
-            console.error("Error loading grouped products for mobile:", error); 
-            mainContentArea.innerHTML = '<p class="text-center text-red-500">Failed to load content.</p>'; 
-        }
-    }
-
+    
     async function loadProducts() {
+        // Prevent loading products if the currency is not yet selected
+        if (!sessionStorage.getItem('currencyPreferenceSet')) {
+            mainContentArea.innerHTML = ''; // Keep it empty until choice is made
+            return;
+        }
+
         const hasFilters = Object.values(currentFilters).some(val => Array.isArray(val) ? val.length > 0 : val != null);
         mainContentArea.innerHTML = `<p class="text-center text-gray-500">Loading...</p>`;
 
-        if (isMobileView()) {
-            if (!hasFilters) {
-                await loadAndGroupAllProductsMobile();
-            } else {
+        try {
+            let constraints = [];
+            if (hasFilters) {
+                if (currentFilters.categories?.length) constraints.push(where("category", "in", currentFilters.categories));
+            }
+            constraints.push(orderBy(currentSort.field, currentSort.direction));
+
+            const finalQuery = query(collection(db, "products"), ...constraints);
+            const querySnapshot = await getDocs(finalQuery);
+
+            if (isMobileView()) {
                 mainContentArea.innerHTML = '';
                 mainContentArea.appendChild(renderMobileHeader());
                 const productGrid = document.createElement('div');
                 productGrid.className = 'grid grid-cols-2 gap-x-4 gap-y-8 pt-4';
                 mainContentArea.appendChild(productGrid);
-                
-                let constraints = [];
-                if (currentFilters.brands?.length) constraints.push(where("brand", "in", currentFilters.brands));
-                if (currentFilters.categories?.length) constraints.push(where("category", "in", currentFilters.categories));
-                if (currentFilters.sizes?.length) constraints.push(where("sizes", "array-contains-any", currentFilters.sizes));
-                if (currentFilters.minPrice != null) constraints.push(where("price", ">=", currentFilters.minPrice));
-                if (currentFilters.maxPrice != null) constraints.push(where("price", "<=", currentFilters.maxPrice));
-                
-                constraints.push(orderBy(currentSort.field, currentSort.direction));
-                const finalQuery = query(collection(db, "products"), ...constraints);
-                const querySnapshot = await getDocs(finalQuery);
-                
-                productGrid.innerHTML = '';
+                productGrid.innerHTML = ''; // Clear previous results
                 if (querySnapshot.empty) {
-                    productGrid.innerHTML = `<p class="col-span-full text-center text-gray-500">No products match.</p>`;
+                    productGrid.innerHTML = `<p class="col-span-full text-center text-gray-500">${hasFilters ? 'No products match.' : 'No products found.'}</p>`;
                 } else {
                     querySnapshot.forEach((doc) => productGrid.appendChild(createProductCardElement(doc.id, doc.data())));
                 }
-            }
-        } else {
-            if (!hasFilters) {
-                await loadAndGroupAllProductsDesktop();
-            } else {
-                mainContentArea.innerHTML = '';
-                mainContentArea.appendChild(renderDesktopHeaderAndFilters(true));
-                const productGrid = document.createElement('div');
-                productGrid.className = 'grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10';
-                mainContentArea.appendChild(productGrid);
-                
-                let constraints = [];
-                if (currentFilters.brands?.length) constraints.push(where("brand", "in", currentFilters.brands));
-                if (currentFilters.categories?.length) constraints.push(where("category", "in", currentFilters.categories));
-                if (currentFilters.sizes?.length) constraints.push(where("sizes", "array-contains-any", currentFilters.sizes));
-                if (currentFilters.minPrice != null) constraints.push(where("price", ">=", currentFilters.minPrice));
-                if (currentFilters.maxPrice != null) constraints.push(where("price", "<=", currentFilters.maxPrice));
-
-                constraints.push(orderBy(currentSort.field, currentSort.direction));
-                const finalQuery = query(collection(db, "products"), ...constraints);
-                const querySnapshot = await getDocs(finalQuery);
-                
-                productGrid.innerHTML = '';
-                if (querySnapshot.empty) {
-                    productGrid.innerHTML = '<p class="col-span-full text-center text-gray-500">No products match your criteria.</p>';
+            } else { // Desktop view
+                if (!hasFilters) {
+                    await loadAndGroupAllProductsDesktop();
                 } else {
-                    querySnapshot.forEach((doc) => productGrid.appendChild(createProductCardElement(doc.id, doc.data())));
+                    mainContentArea.innerHTML = '';
+                    mainContentArea.appendChild(renderDesktopHeaderAndFilters(true));
+                    const productGrid = document.createElement('div');
+                    productGrid.className = 'grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10';
+                    mainContentArea.appendChild(productGrid);
+                    productGrid.innerHTML = ''; // Clear previous results
+                    if (querySnapshot.empty) {
+                        productGrid.innerHTML = '<p class="col-span-full text-center text-gray-500">No products match your criteria.</p>';
+                    } else {
+                        querySnapshot.forEach((doc) => productGrid.appendChild(createProductCardElement(doc.id, doc.data())));
+                    }
                 }
             }
+        } catch (error) {
+            console.error("Error loading products:", error);
+            mainContentArea.innerHTML = '<p class="col-span-full text-center text-red-500">Could not load products. Please check console.</p>';
         }
-        updateFilterUIs();
     }
     
     function generateStars(rating = 0) {
@@ -917,51 +1163,35 @@
     function createProductCardElement(productId, product) {
         const cardWrapper = document.createElement('div');
         const isWishlisted = wishlistedProductIds.has(productId);
-
-        const imageUrls = product.imageUrls || [];
-        const primaryImage = imageUrls[0] || product.imageUrl || 'https://placehold.co/400x500/f0f0f0/666?text=No+Image';
-        const hoverImage = imageUrls[1] || primaryImage; 
+        const displayImage = product.imageUrl || 'https://placehold.co/400x500/f0f0f0/666?text=No+Image';
 
         const rating = product.rating || (Math.random() * 2 + 3).toFixed(1);
         const reviewCount = product.reviewCount || Math.floor(Math.random() * 50) + 1;
         const oldPrice = product.oldPrice || product.price * 1.25;
+        
+        const displayPrice = formatPrice(product.price);
+        const displayOldPrice = formatPrice(oldPrice);
 
         cardWrapper.innerHTML = `
             <div class="group relative overflow-hidden rounded-lg bg-white border border-gray-200 hover:shadow-xl transition-shadow duration-300">
                 <a href="product-detail.html?id=${productId}">
-                    <img src="${primaryImage}" alt="${product.name}" class="product-card-image w-full h-auto aspect-[3/4] object-cover object-center transition-all duration-300">
+                    <img src="${displayImage}" alt="${product.name}" class="w-full h-auto aspect-[3/4] object-cover object-center group-hover:scale-105 transition-transform duration-300">
                 </a>
                 <button class="wishlist-btn absolute top-2 right-2 p-2 rounded-full bg-white/80 backdrop-blur-sm text-gray-700 hover:text-red-500 transition-colors" data-product-id="${productId}">
                     ${isWishlisted ? heartIconFilled : heartIconEmpty}
                 </button>
             </div>
             <div class="mt-3 px-1">
-                 <a href="product-detail.html?id=${productId}" class="text-sm text-blue-700 hover:text-blue-900 transition-colors">${product.name}</a>
-                 <div class="flex items-center mt-1">
-                     ${generateStars(rating)}
-                     <span class="text-xs text-gray-500 ml-2">(${reviewCount})</span>
-                 </div>
-                 <div class="mt-2 flex items-center gap-2">
-                      <p class="text-md font-bold text-gray-900">Rs. ${product.price.toLocaleString()}</p>
-                      <p class="text-sm text-gray-500 line-through">Rs. ${oldPrice.toLocaleString()}</p>
-                 </div>
+                <a href="product-detail.html?id=${productId}" class="text-sm font-semibold text-gray-800 hover:text-green-700 transition-colors">${product.name}</a>
+                <div class="flex items-center mt-1">
+                    ${generateStars(rating)}
+                    <span class="text-xs text-gray-500 ml-2">(${reviewCount})</span>
+                </div>
+                <div class="mt-2 flex items-baseline gap-2">
+                    <p class="text-lg font-bold text-gray-900">${displayPrice}</p>
+                    <p class="text-sm text-gray-500 line-through">${displayOldPrice}</p>
+                </div>
             </div>`;
-        
-        const imageContainer = cardWrapper.querySelector('.group');
-        const imageElement = cardWrapper.querySelector('.product-card-image');
-
-        if (primaryImage !== hoverImage) {
-            imageContainer.addEventListener('mouseenter', () => {
-                imageElement.src = hoverImage;
-                imageElement.classList.add('scale-105');
-            });
-
-            imageContainer.addEventListener('mouseleave', () => {
-                imageElement.src = primaryImage;
-                imageElement.classList.remove('scale-105');
-            });
-        }
-        
         return cardWrapper;
     }
 
@@ -999,7 +1229,9 @@
             if (cartListener) cartListener();
             wishlistedProductIds.clear();
             updateAllWishlistIcons();
-            document.getElementById('cart-count').classList.add('hidden');
+            const cartCountEl = document.getElementById('cart-count');
+            cartCountEl.textContent = '0';
+            cartCountEl.classList.add('hidden');
             userText.textContent = "Log in / Register";
         }
     });
@@ -1082,48 +1314,12 @@
         });
     }
 
-    function setupStickyScroll() {
-        if (isMobileView()) return; 
-
-        const productContainer = document.querySelector('#product-grid-container');
-        const mainContent = document.querySelector('main');
-
-        if (!productContainer || !mainContent) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    document.body.classList.remove('no-scroll');
-                } else if (entry.boundingClientRect.top < 0) {
-                    document.body.classList.add('no-scroll');
-                }
-            },
-            { threshold: [0] }
-        );
-
-        observer.observe(productContainer);
-
-        mainContent.addEventListener('scroll', () => {
-            const isAtTop = mainContent.scrollTop === 0;
-            const isAtBottom = mainContent.scrollHeight - mainContent.scrollTop <= mainContent.clientHeight + 1;
-
-            if (document.body.classList.contains('no-scroll')) {
-                if (isAtTop || isAtBottom) {
-                    document.body.classList.remove('no-scroll');
-                }
-            }
-        });
-    }
-
     document.addEventListener('DOMContentLoaded', async () => {
         setupAuthModal();
+        setupCurrencyModal();
+        
         await populateFilterOptions();
         
-        if(!isMobileView()) {
-            setupStickyScroll();
-        }
-        
-        loadProducts();
         setupHeroSlider();
         setupCategoryAutoSlide();
         
@@ -1139,55 +1335,134 @@
         document.getElementById('desktop-search-form').addEventListener('submit', searchHandler);
         document.getElementById('mobile-search-form').addEventListener('submit', searchHandler);
 
-        ['desktop', 'mobile'].forEach(view => {
-            const panel = document.getElementById(`${view}-filter-panel`);
-            if (!panel) return;
-            const sizeTabs = panel.querySelectorAll('.size-tab');
-            const sizePanels = panel.querySelectorAll('.tab-panel');
-            sizeTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    sizeTabs.forEach(t => t.classList.remove('border-teal-500', 'text-teal-600'));
-                    tab.classList.add('border-teal-500', 'text-teal-600');
-                    sizePanels.forEach(p => p.classList.remove('active'));
-                    panel.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
-                });
-            });
-            panel.querySelectorAll('.size-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    btn.classList.toggle('bg-black');
-                    btn.classList.toggle('text-white');
-                });
-            });
-            panel.querySelector(`#${view}-apply-filters-btn`).addEventListener('click', applyFilters);
-            panel.querySelector(`#${view}-clear-filters-btn`).addEventListener('click', clearFilters);
+        document.getElementById('desktop-filter-panel').addEventListener('change', applyFilters);
+        mobileFilterPanel.addEventListener('change', (e) => {
+            if (e.target.matches('input[type="checkbox"]') || e.target.matches('select')) {
+                applyFilters();
+            }
         });
 
         closeFilterBtn.addEventListener('click', () => toggleMobileFilterSidebar(false));
-        mobileFilterSidebar.addEventListener('click', (e) => { if (e.target === mobileFilterSidebar) toggleMobileFilterSidebar(false); });
         mainContentArea.addEventListener('click', e => {
             const wishlistBtn = e.target.closest('.wishlist-btn');
             if (wishlistBtn) toggleWishlistItem(wishlistBtn.dataset.productId);
         });
 
-          // --- Hero Banner Swiper Initialization ---
-new Swiper('.heroSwiper', {
-    loop: true,
-    effect: 'fade', // A nice fade effect for hero banners
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: '.heroSwiper .swiper-pagination',
-        clickable: true,
-    },
-    navigation: {
-        nextEl: '.heroSwiper .swiper-button-next',
-        prevEl: '.heroSwiper .swiper-button-prev',
-    },
-});
+        // --- WhatsApp Contact Form ---
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
 
+            if (name && email && message) {
+                const whatsappNumber = "94719063442"; // Your WhatsApp number with country code, without '+'
+                const fullMessage = `Hello, I'm ${name} (${email}).\n\nMessage:\n${message}`;
+                const encodedMessage = encodeURIComponent(fullMessage);
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
+            } else {
+                alert('Please fill out all fields before sending a message.');
+            }
+        });
+
+        
+        // --- Achievements/Goals Swiper with YouTube Player ---
+        let youtubePlayer;
+        let goalsSwiperInstance;
+
+        window.onYouTubeIframeAPIReady = function() {
+            youtubePlayer = new YT.Player('youtube-player', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange 
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.mute(); 
+            if (goalsSwiperInstance && goalsSwiperInstance.slides[goalsSwiperInstance.activeIndex].classList.contains('youtube-slide')) {
+                event.target.playVideo();
+                goalsSwiperInstance.autoplay.stop();
+            }
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                if(goalsSwiperInstance) {
+                    goalsSwiperInstance.slideNext();
+                }
+            }
+        }
+
+        goalsSwiperInstance = new Swiper('.goals-swiper', {
+            loop: true,
+            effect: 'fade',
+            autoHeight: true,
+            fadeEffect: {
+                crossFade: true
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.goals-swiper .swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.goals-swiper .swiper-button-next',
+                prevEl: '.goals-swiper .swiper-button-prev',
+            },
+            on: {
+                init: function() {
+                    const descriptionEl = document.getElementById('dynamic-achievement-description');
+                    const initialSlide = this.slides[this.activeIndex];
+                    const description = initialSlide.getAttribute('data-description');
+                    if (description && descriptionEl) {
+                        descriptionEl.innerText = description;
+                    }
+                },
+                slideChange: function() {
+                    const descriptionEl = document.getElementById('dynamic-achievement-description');
+                    const activeSlide = this.slides[this.activeIndex];
+                    const description = activeSlide.getAttribute('data-description');
+                    if (description && descriptionEl) {
+                        descriptionEl.innerText = description;
+                    }
+
+                    if (youtubePlayer && typeof youtubePlayer.pauseVideo === 'function') {
+                         if (activeSlide.classList.contains('youtube-slide')) {
+                             this.autoplay.stop();
+                             youtubePlayer.seekTo(0);
+                             youtubePlayer.playVideo();
+                         } else {
+                             this.autoplay.start();
+                             youtubePlayer.pauseVideo();
+                         }
+                    }
+                }
+            }
+        });
     });
 </script>
+
+<div id="currency-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-sm p-6 text-center">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">Welcome!</h2>
+        <p class="text-gray-600 mb-6">Please select your location to continue.</p>
+        <div class="space-y-3">
+            <button id="select-lkr-btn" class="w-full bg-green-700 text-white font-bold py-3 rounded-md hover:bg-green-800 transition">
+                Sri Lanka (LKR)
+            </button>
+            <button id="select-usd-btn" class="w-full bg-gray-700 text-white font-bold py-3 rounded-md hover:bg-gray-800 transition">
+                Other Country (USD)
+            </button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
